@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Franchise Inquiry</title>
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <!-- <style>
+    :root {
+      --first-color: hsl(353, 93%, 50%);
+    --first-color-alt: hsl(353, 93%, 46%);
+    --first-color-dark: hsl(353, 50%, 15%);
+    --title-color: hsl(353, 48%, 12%);
+    --text-color: hsl(353, 16%, 32%);
+    --text-color-light: hsl(353, 16%, 48%);
+    --white-color: hsl(24, 86%, 90%);
+    --body-color: hsl(24, 86%, 88%);
+    --container-color: hsl(24, 86%, 92%);
+      --body-font: "Montserrat", sans-serif;
+      --h2-font-size: 1.25rem;
+      --normal-font-size: 1rem;
+    }
+
+    body {
+      font-family: var(--body-font);
+      background-color: var(--body-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      padding: 2rem 1rem;
+      background: var(--container-color);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    
+  </style> -->
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+      <!-- Load Navbar start -->
+    <div id="navbar-placeholder"></div>
+    <script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
+        .catch(error => console.error("Error loading navbar:", error));
+    </script>
+        <!-- Load Navbar end-->
+        <section class="franchise-banner">
+        <img src="https://nationalfranchiseassociation.com/blog/wp-content/uploads/2024/06/top-pizza-franchises.webp" alt="Own a Franchise" />
+        </section>
+<main class="main">
+    <section>
+    <div class="container pt-5 px-3">
+        
+        <div class="franchiseform">
+            <h1 class="section__title">Franchise Inquiry Form</h1>
+        <h2>Be a Franpreneur</h2>
+        <p>What exactly are you waiting for? Provide us your inquiry and we will offer you a profitable franchise opportunity!</p>
+
+        <form id="franchiseForm">
+            <div class="form-row">
+            <div class="form-group form-col">
+                <label>Investor's Name *</label>
+                <input type="text" id="investorName" />
+                <span class="error" id="errInvestorName">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Age *</label>
+                <input type="text" id="age" />
+                <span class="error" id="errAge">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Mobile Number *</label>
+                <input type="text" id="mobile" />
+                <span class="error" id="errMobile">Enter valid number</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Email *</label>
+                <input type="text" id="email" />
+                <span class="error" id="errEmail">Enter valid email</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Address *</label>
+                <input type="text" id="address" />
+                <span class="error" id="errAddress">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>City *</label>
+                <input type="text" id="city" />
+                <span class="error" id="errCity">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>State *</label>
+                <input type="text" id="state" />
+                <span class="error" id="errState">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Location for Franchise *</label>
+                <input type="text" id="franchiseLocation" />
+                <span class="error" id="errFranchiseLocation">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>What do you do now? *</label>
+                <div class="radio-group">
+                <input type="radio" name="currentJob" value="Employee" /> Employee
+                <input type="radio" name="currentJob" value="BusinessOwner" /> Business Owner
+                </div>
+                <span class="error" id="errCurrentJob">Select an option</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Experience in Hospitality/F&B *</label>
+                <input type="text" id="experience" />
+                <span class="error" id="errExperience">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Owned a Franchise Before? *</label>
+                <div class="radio-group">
+                <input type="radio" name="ownedBusiness" value="Yes" /> Yes
+                <input type="radio" name="ownedBusiness" value="No" /> No
+                </div>
+                <span class="error" id="errOwnedBusiness">Select an option</span>
+            </div>
+            <div class="form-group form-col">
+                <label>If Yes, Details *</label>
+                <input type="text" id="relevantDetails" />
+                <span class="error" id="errRelevantDetails">Required</span>
+            </div>
+            <div class="form-group form-col">
+                <label>When to Start? *</label>
+                <div class="radio-group">
+                <input type="radio" name="startTime" value="1 Month" /> 1 Month
+                <input type="radio" name="startTime" value="3 Months" /> 3 Months
+                <input type="radio" name="startTime" value="Not Decided" /> Not Decided
+                </div>
+                <span class="error" id="errStartTime">Select an option</span>
+            </div>
+            <div class="form-group form-col">
+                <label>Budget to Start? *</label>
+                <div class="radio-group">
+                <input type="radio" name="budget" value="16-22 Lakhs" /> 16-22 Lakhs
+                <input type="radio" name="budget" value="50+ Lakhs" /> 50+ Lakhs
+                </div>
+                <span class="error" id="errBudget">Select an option</span>
+            </div>
+            <div class="form-group form-col" style="flex: 1 1 100%;">
+                <label>Why would you make a good partner? *</label>
+                <input type="text" id="reason" />
+                <span class="error" id="errReason">Required</span>
+            </div>
+            </div>
+            <button type="submit" class="submit-btn">Submit via WhatsApp</button>
+        </form>
+        </div>
+    </div>
+    </section>
+</main>
+<!--==================== FOOTER ====================-->
+     <!-- Load footer start -->
+    <div id="footer-placeholder"></div>
+    <script>
+    fetch("../lib/footer.html")
+        .then(response => response.text())
+        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
+        .catch(error => console.error("Error loading footer:", error));
+    </script>
+        <!-- Load footer end-->
+          <!--========== SCROLL UP ==========-->
+      <a href="#" class="scrollup" id="scroll-up">
+         <i class="ri-arrow-up-line"></i>
+      </a>
+
+
+<script>
+  document.getElementById("franchiseForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const getVal = id => document.getElementById(id).value.trim();
+    const showError = (id, condition) => {
+      document.getElementById(id).style.display = condition ? "inline" : "none";
+    };
+
+    let isValid = true;
+
+    const requiredFields = [
+      ["investorName", "errInvestorName"],
+      ["age", "errAge"],
+      ["mobile", "errMobile"],
+      ["email", "errEmail"],
+      ["address", "errAddress"],
+      ["city", "errCity"],
+      ["state", "errState"],
+      ["franchiseLocation", "errFranchiseLocation"],
+      ["experience", "errExperience"],
+      ["relevantDetails", "errRelevantDetails"],
+      ["reason", "errReason"]
+    ];
+
+    requiredFields.forEach(([field, err]) => {
+      const value = getVal(field);
+      const isEmpty = value === "";
+      if (isEmpty) isValid = false;
+      showError(err, isEmpty);
+    });
+
+    // Validate email
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!emailPattern.test(getVal("email"))) {
+      isValid = false;
+      showError("errEmail", true);
+    }
+
+    // Validate mobile
+    const mobilePattern = /^\d{10,15}$/;
+    if (!mobilePattern.test(getVal("mobile"))) {
+      isValid = false;
+      showError("errMobile", true);
+    }
+
+    const radioGroups = [
+      ["currentJob", "errCurrentJob"],
+      ["ownedBusiness", "errOwnedBusiness"],
+      ["startTime", "errStartTime"],
+      ["budget", "errBudget"]
+    ];
+
+    radioGroups.forEach(([name, err]) => {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      if (!selected) {
+        isValid = false;
+        showError(err, true);
+      } else {
+        showError(err, false);
+      }
+    });
+
+    if (!isValid) {
+      alert("Please fill all required fields correctly.");
+      return;
+    }
+
+    // WhatsApp message
+    const whatsappNumber = "+1XXXXXXXXXX"; // REPLACE with your number
+    let message = "*Franchise Inquiry Form*\n";
+    requiredFields.forEach(([field]) => {
+      message += `*${field.replace(/([A-Z])/g, ' $1')}:* ${getVal(field)}\n`;
+    });
+
+    radioGroups.forEach(([name]) => {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      if (selected) message += `*${name}:* ${selected.value}\n`;
+    });
+
+    const encoded = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encoded}`;
+    window.open(whatsappURL, '_blank');
+  });
+</script>
+
+</body>
+</html>

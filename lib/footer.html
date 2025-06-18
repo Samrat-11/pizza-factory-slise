@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+<style>
+  .footer {
+    padding: 4rem 0 2rem;
+  }
+
+  .footer__content {
+    display: grid;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .footer__title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__text {
+    font-size: 0.813rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer__social-link {
+    font-size: 1.5rem;
+    color: #ff1744;
+    transition: transform 0.4s;
+  }
+
+  .footer__social-link:hover {
+    transform: translateY(-0.25rem);
+  }
+
+  .footer__map {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: #ff1744;
+    font-weight: 600;
+  }
+
+  .footer__copy {
+    display: block;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.813rem;
+  }
+  
+  @media (min-width: 768px) {
+    .footer__content {
+      grid-template-columns: repeat(2, 1fr);
+      text-align: left;
+    }
+
+    .footer__content > div:nth-child(3) {
+      grid-column: 1 / 3;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1150px) {
+    .footer {
+      padding-bottom: 3rem;
+    }
+
+    .footer__content {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer__content > div:nth-child(2) {
+      order: 1;
+      justify-self: end;
+    }
+
+    .footer__content > div:nth-child(1) {
+      justify-self: start;
+    }
+
+    .footer__content > div:nth-child(3) {
+      grid-column: auto;
+    }
+  }
+</style>
+
+<footer class="footer" id="footer">
+  <div class="footer__container container grid">
+    <div class="footer__content grid">
+      <div>
+        <h3 class="footer__title">Social</h3>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/" target="_blank" class="footer__social-link"><i class="ri-facebook-circle-fill"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" class="footer__social-link"><i class="ri-instagram-fill"></i></a>
+          <a href="https://twitter.com/" target="_blank" class="footer__social-link"><i class="ri-twitter-x-fill"></i></a>
+          <a href="https://api.whatsapp.com/send?phone=9182714776&text=Hello, more information!" target="_blank" class="footer__social-link"><i class="ri-whatsapp-fill"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Let's Connect</h3>
+        <p class="footer__text">
+          We are always ready to help you,<br>
+          please contact us.<br>
+          +91-9640521971 &nbsp; +91-9182714776
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Location</h3>
+        <p class="footer__text">
+          Madhapur, Hyderabad<br>
+          Ayyappa society, Pin code 500081,<br>
+          Main branch.
+        </p>
+        <a href="https://maps.app.goo.gl/MAmMDxUBFXBSUzLH7" target="_blank" class="footer__map">
+          <i class="ri-map-pin-fill"></i>
+          <span>View On Map</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <span class="footer__copy">&#169; All Rights Reserved By Pizza-factory</span>
+</footer>

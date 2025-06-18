@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Big Burger Co</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+    <style>
+       
+
+        /* Main Section */
+        .main-section {
+            background: var(--body-color);
+            position: relative;
+            min-height: calc(100vh - 120px);
+            padding: 20px;
+        }
+        .main {
+            padding-top: 5rem; /* or use 80px */
+        }
+        .main-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: url('https://via.placeholder.com/1200x400?text=Burger+Image') no-repeat center/cover;
+            opacity: 0.5;
+        }
+
+        .contact-heading {
+            text-align: center;
+            font-size: 48px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .contact-info {
+            max-width: 50%;
+            padding: 20px;
+        }
+
+        .telephone-img {
+            position: absolute;
+            width: 150px;
+            top: -50px;
+            left: 50px;
+            transform: rotate(-100deg);
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .telephone-img::after {
+            content: '★';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 20px;
+            color: #ffcc00;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .contact-details p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details p img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            max-width: 40%;
+            background-color: #b300b3;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .contact-form h3 {
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #999;
+        }
+
+        .contact-form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Footer Styles */
+        /* .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .social-icons img {
+            width: 25px;
+            margin-left: 10px;
+        } */
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                gap: 10px;
+            }
+
+            .navbar .nav-links a {
+                font-size: 14px;
+            }
+
+            .main-section::before {
+                height: 30%;
+            }
+
+            .contact-heading {
+                font-size: 36px;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-info {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .telephone-img {
+                width: 100px;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%) rotate(-20deg);
+            }
+
+            .telephone-img::after {
+                font-size: 16px;
+                top: -8px;
+                left: 5px;
+            }
+
+            .contact-form {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <!--==================== HEADER ====================-->
+      <!-- Load Navbar start -->
+    <div id="navbar-placeholder"></div>
+    <script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
+        .catch(error => console.error("Error loading navbar:", error));
+    </script>
+        <!-- Load Navbar end-->
+
+    <!-- Main Section -->
+<main class="main">
+    <section class="main-section py-5">
+        <h1 class="contact-heading">CONTACT US</h1>
+        <div class="content-wrapper">
+            <div class="contact-info">
+                <div class="telephone-img-wrapper">
+                    <img src="/pizza-factory-slise/assets/img/telephone.png" alt="Telephone" class="telephone-img">
+                </div>
+                <h2>LET'S CONNECT</h2>
+                <p>What you feel about us matters a lot! Please share your experience of Big Burger Co. with us. Your feedback or suggestions for improvement are highly appreciated.</p>
+                <div class="contact-details">
+                    <p><i class="ri-phone-fill"></i><span>+91-9182714776</span></p>
+                    <p><i class="ri-mail-fill"></i><span>pizzafactoryslise@gmail.com</span>
+                    <p><i class="ri-map-pin-fill"></i><span>Madhapur, Hyderabad<br>Ayyappa society, Pin code 500081, Main branch.</span></p>    
+                    <!-- <a href="" class=""><i class="ri-phone-fill"></i><span>+91-9182714776</span></a></br>
+                    <a href="" class=""><i class="ri-mail-fill"></i></i><span>pizza-factory-slise</span></a></br>
+                    <a href="" class=""><i class="ri-phone-fill"></i><span>Madhapur, Hyderabad<br>Ayyappa society, Pin code 500081, Main branch.</a> -->
+                    <!-- <a href="" class=""><i class="ri-phone-fill"></i><span>+91-9182714776</span></a> -->
+                    
+                </div>
+                <h3>GET SOCIAL WITH US</h3>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link"><i class="ri-facebook-circle-fill"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link"><i class="ri-instagram-fill"></i></a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link"><i class="ri-twitter-x-fill"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=9182714776&text=Hello, more information!" target="_blank" class="footer__social-link"><i class="ri-whatsapp-fill"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>FOR GENERAL AND BUSINESS INQUIRIES</h3>
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Email">
+                <input type="tel" placeholder="Phone">
+                <textarea placeholder="Type your message"></textarea>
+                <button>Send Message</button>
+            </div>
+        </div>
+    </section>
+</main>
+    <!--==================== FOOTER ====================-->
+     <!-- Load footer start -->
+    <div id="footer-placeholder"></div>
+    <script>
+    fetch("../lib/footer.html")
+        .then(response => response.text())
+        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
+        .catch(error => console.error("Error loading footer:", error));
+    </script>
+        <!-- Load footer end-->
+     <!--========== SCROLL UP ==========-->
+      <a href="#" class="scrollup" id="scroll-up">
+         <i class="ri-arrow-up-line"></i>
+      </a>
+    <!--=============== MAIN JS ===============-->
+      <script src="assets/js/main.js"></script>
+    <!--=============== SCROLLREVEAL ===============-->
+      <script src="assets/js/scrollreveal.min.js"></script>    
+</body>
+</html>
