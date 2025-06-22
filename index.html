@@ -9,6 +9,7 @@
 
       <!--=============== REMIXICONS ===============-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 
       <!--=============== SWIPER CSS ===============-->
       <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -22,114 +23,85 @@
       <!--==================== HEADER ====================-->
      
 <!-- Load Navbar start -->
-    <div id="navbar-placeholder"></div>
-    <script>
-    fetch("lib/navbar.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading navbar:", error));
-    </script>
+   <div id="navbar-container"></div>
+  <script>
+    fetch('lib/navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        const container = document.getElementById('navbar-container');
+        container.innerHTML = html;
+
+        // Manually execute any <script> found in the injected HTML
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {newScript.src = script.src;}
+          else {newScript.textContent = script.textContent;}
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
         <!-- Load Navbar end-->
       <!--==================== MAIN ====================-->
       <main class="main">
          <!--==================== HOME ====================-->
          <section class="home section" id="home">
-            <div class="home__container container grid">
-               <div class="home__data">
-                  <!-- <h1 class="home__title">Crispy And <br> Delicious Pizzas</h1> -->
-                  <!-- <h1 class="home__title">Love <br> Every Burger</h1> -->
+  <div class="home__container container grid">
+    <div class="home__data">
+      <h1>Crispy And <br> Delicious Pizzas</h1>
+      <h1>Love <br> Every Burger</h1>
 
-                  <h1>Crispy And <br> Delicious Pizzas</h1>
-                  <h1>Love <br> Every Burger</h1>
+      <p>
+        Order the best pizzas to end your hunger 
+        and make your family moments more 
+        memorable, place your order now.
+      </p>
+      <p>
+        We serve best burgers on the planet, 
+        paying the way for cooking and preparing hot,
+        delicious and crispy burgers.
+      </p>
 
-                  <!-- <p class="home__description"> -->
-                  <p>
-                     Order the best pizzas to end your hunger 
-                     and make your family moments more 
-                     memorable, place your order now.
-                  </p>
-                  <!-- <p class="home__description"> -->
-                  <p>
-                     We serve best burgers on the planet, 
-                     paying the way for cooking and preparing hot,
-                     delicious and crispy burgers.
-                  </p>
+      <a href="#products" class="button">Order Now</a>
 
-                  <a href="#products" class="button">Order Now</a>
+      <img src="assets/img/sticker-pizza.svg" alt="image" class="home__sticker-1">
+      <img src="assets/img/sticker-leaf.svg" alt="image" class="home__sticker-2">
+      <img src="assets/img/sticker-burger.svg" alt="image" class="home__sticker-1">
+      <img src="assets/img/sticker-potatoes.svg" alt="image" class="home__sticker-2">
+    </div>
 
-                  <img src="assets/img/sticker-pizza.svg" alt="image" class="home__sticker-1">
-                  <img src="assets/img/sticker-leaf.svg" alt="image" class="home__sticker-2">
+    <div class="home__images">
+      <img src="assets/img/home-pizza.png" alt="image" class="home__pizza">
+      <img src="assets/img/home-board.png" alt="image" class="home_pizza_board">
+      <img src="assets/img/home-leaf-1.png" alt="image" class="home__ingredient home__leaf-1">
+      <img src="assets/img/home-leaf-2.png" alt="image" class="home__ingredient home__leaf-2">
+      <img src="assets/img/home-pepperoni.png" alt="image" class="home__ingredient home__pepperoni">
+      <img src="assets/img/home-mushroom.png" alt="image" class="home__ingredient home__mushroom">
+      <img src="assets/img/home-olive.png" alt="image" class="home__ingredient home__olive">
+      <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__tomato">
+    </div>
 
-                  <img src="assets/img/sticker-burger.svg" alt="image" class="home__sticker-1">
-                  <img src="assets/img/sticker-potatoes.svg" alt="image" class="home__sticker-2">
-               </div>
-
-               <div class="home__images">
-                  <img src="assets/img/home-pizza.png" alt="image" class="home__pizza">
-                  <img src="assets/img/home-board.png" alt="image" class="home__board">
-
-                  <img src="assets/img/home-leaf-1.png" alt="image" class="home__ingredient home__leaf-1">
-                  <img src="assets/img/home-leaf-2.png" alt="image" class="home__ingredient home__leaf-2">
-                  <img src="assets/img/home-pepperoni.png" alt="image" class="home__ingredient home__pepperoni">
-                  <img src="assets/img/home-mushroom.png" alt="image" class="home__ingredient home__mushroom">
-                  <img src="assets/img/home-olive.png" alt="image" class="home__ingredient home__olive">
-                  <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__tomato">
-               </div>
-               <div class="home__images">
-                  <img src="assets/img/home-burger.png" alt="image" class="home__burger">
-                  <img src="assets/img/home-dish.png" alt="image" class="home_burger_board">
-
-                  <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home_burger_leaf-1">
-                  <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient home_burger_leaf-2">
-                  <img src="assets/img/home-pepperoni.png" alt="image" class="home__ingredient home_burger_pepperoni">
-                  <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient home_burger_mushroom">
-                  <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient  home_burger_tomato">
-                  <img src="assets/img/home-potato.png" alt="image" class="home__ingredient home_burger_olive">
-               </div>
-            </div>
-         </section>
-         <!-- <section class="home section">
-            <div class="home__container container grid">
-               <div class="home__data">
-                  <h1 class="home__title">Love <br> Every Burger</h1>
-
-                  <p class="home__description">
-                     We serve best burgers on the planet, 
-                     paying the way for cooking and preparing hot,
-                     delicious and crispy burgers.
-                  </p>
-
-                  <a href="#products" class="button">Bite Now</a>
-
-                  <img src="assets/img/sticker-burger.svg" alt="image" class="home__sticker-1">
-                  <img src="assets/img/sticker-potatoes.svg" alt="image" class="home__sticker-2">
-               </div>
-
-               <div class="home__images">
-                  
-                  <img src="assets/img/home-burger.png" alt="image" class="home__burger">
-                  <img src="assets/img/home-dish.png" alt="image" class="home__board">
-
-                  <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__leaf-1">
-                  <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient home__leaf-2">
-                  <img src="assets/img/home-pepperoni.png" alt="image" class="home__ingredient home__pepperoni">
-                  <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient home__mushroom">
-                  <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__olive">
-                  <img src="assets/img/home-potato.png" alt="image" class="home__ingredient home__tomato">
-               </div>
-            </div>
-         </section> -->
+    <div class="home__images">
+      <img src="assets/img/home-burger.png" alt="image" class="home__burger">
+      <img src="assets/img/home-dish.png" alt="image" class="home_burger_board">
+      <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__leaf-1">
+      <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient home__leaf-2">
+      <img src="assets/img/home-pepperoni.png" alt="image" class="home__ingredient home__pepperoni">
+      <img src="assets/img/home-tomato.png" alt="image" class="home__ingredient home__mushroom">
+      <img src="assets/img/home-lettuce.png" alt="image" class="home__ingredient  home__tomato">
+      <img src="assets/img/home-potato.png" alt="image" class="home__ingredient home__olive">
+    </div>
+  </div>
+</section>
 
          <!--==================== ABOUT ====================-->
          <section class="about section" id="about">
             <div class="about__container container grid">
                <div class="about__data">
-                  <h2 class="section__title">Learn More About <br> Our History</h2>
+                  <h2 class="section__title">About Us</h2>
 
                   <p class="about__description">
-                     The secret to success is the best ingredients 
-                     to make a better pizza. 
-                     when we first opened the pizza factory slise in Hyderabad.
+                     Pizza Factory Slise, based in Hyderabad, is known for its fresh, handcrafted pizzas and inviting atmosphere. With a strong local fan base, we're now expanding by offering franchise opportunities to aspiring entrepreneurs. Join us and bring the Slise experience to more neighborhoods — one delicious slice at a time.
                   </p>
 
                   <a href="#popular" class="button">The Best Pizzas</a>
@@ -228,7 +200,7 @@
       </div>
     </div>
 <!-- Burger slide -->
-    <!-- <div class="recipe-content" style="display: flex; flex-direction: row-reverse;">
+    <div class="recipe-content" style="display: flex; flex-direction: row-reverse;">
       <div class="recipe-list">
         <div class="recipe-item">
           <img src="assets/img/recipe-bread.png" alt="Bread"/>
@@ -274,7 +246,7 @@
       <div class="recipe-image">
         <img src="assets/img/recipe-burger.png" alt="Pizza"/>
       </div>
-    </div> -->
+    </div>
   </section>
   <!-- ================================ Recipe End ================================ -->
          <!--==================== RECIPE ====================-->
@@ -467,7 +439,7 @@
                   </form>
 
 
-                  <div class="contact__info grid">
+                  <!-- <div class="contact__info grid"> -->
                      <!-- <div>
                         <h3 class="contact__title">Write Us</h3>
 
@@ -506,7 +478,7 @@
                            <span>View On Map</span>
                         </a>
                      </div> -->
-                  </div>
+                  <!-- </div> -->
                </div>
 
                <div class="contact__image">
@@ -523,14 +495,27 @@
 
       <!--==================== FOOTER ====================-->
      <!-- Load footer start -->
-    <div id="footer-placeholder"></div>
-    <script>
-    fetch("lib/footer.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading footer:", error));
-    </script>
-        <!-- Load footer end-->
+<!-- Load Footer start -->
+<div id="footer-container"></div>
+<script>
+  fetch('lib/footer.html')
+    .then(res => res.text())
+    .then(html => {
+      const container = document.getElementById('footer-container');
+      container.innerHTML = html;
+
+      // Manually execute any <script> found in the injected HTML
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(script => {
+        const newScript = document.createElement('script');
+        if (script.src) {newScript.src = script.src;}
+        else {newScript.textContent = script.textContent;}
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+<!-- Load Footer end -->
+
       <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
          <i class="ri-arrow-up-line"></i>
@@ -546,9 +531,6 @@
       <script src="assets/js/main.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-      <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
    </body>
 </html>

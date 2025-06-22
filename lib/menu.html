@@ -22,9 +22,6 @@
       background-color: var(--bg-color);
       color: var(--text-dark);
     }
-    main {
-  padding-top: 5rem; /* or use 80px */
-}
 
     /* header {
       background-color: var(--primary-color);
@@ -198,14 +195,25 @@
 </head>
 <body>
     <!--==================== HEADER ====================-->
-      <!-- Load Navbar start -->
-    <div id="navbar-placeholder"></div>
-    <script>
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading navbar:", error));
-    </script>
+     <!-- Load Navbar start -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        const container = document.getElementById('navbar-container');
+        container.innerHTML = html;
+
+        // Manually execute any <script> found in the injected HTML
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {newScript.src = script.src;}
+          else {newScript.textContent = script.textContent;}
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
         <!-- Load Navbar end-->
 <!-- <header>
   <img src="assets/img/logo1.png" alt="Pizza Factory Slise Logo" style="max-width: 200px; margin-bottom: 5px;">
@@ -243,15 +251,26 @@
   </div>
 </div>
 </main>
-<!-- Load footer start -->
-    <div id="footer-placeholder"></div>
-    <script>
-    fetch("../lib/footer.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading footer:", error));
-    </script>
-        <!-- Load footer end-->
+<!-- Load Footer start -->
+<div id="footer-container"></div>
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      const container = document.getElementById('footer-container');
+      container.innerHTML = html;
+
+      // Manually execute any <script> found in the injected HTML
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(script => {
+        const newScript = document.createElement('script');
+        if (script.src) {newScript.src = script.src;}
+        else {newScript.textContent = script.textContent;}
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+<!-- Load Footer end -->
           <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
          <i class="ri-arrow-up-line"></i>
@@ -288,35 +307,39 @@
     { category: 'icecreams', title: 'Strawberry Ice Cream', desc: 'Strawberry flavor ice cream', price: '₹80', img: 'assets/img/strawberry-icecream.jpg', type: 'veg' },
 
     // Veg Pizzas
-    { category: 'pizzas', title: 'Margarita Pizza', desc: 'Mozzarella cheese', price: '₹169', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Mozzarella cheese, onion, green capsicum, red paprika, paneer tikka', price: '₹179 - ₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Mozzarella cheese, onion, tomato, corn, green capsicum', price: '₹179 - ₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Tandoori Veggie Feast', desc: 'Mozzarella cheese, onion, tomato, green capsicum, tandoori paneer', price: '₹189 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Veggie Supreme Delight', desc: 'Mozzarella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', price: '₹189 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Delight', desc: 'Mozzarella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', price: '₹189 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Explosion Pizza', desc: 'Mozzarella cheese, onion, pineapple, corn, red paprika', price: '₹179 - ₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'BBQ Veggie Bonanza', desc: 'Mozzarella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', price: '₹199 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Baby Corn Fiesta', desc: 'Mozzarella cheese, baby corn, tomato, green capsicum, mushroom', price: '₹189 - ₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Peri Peri Paneer', desc: 'Mozzarella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', price: '₹189 - ₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Perfection', desc: 'Mozzarella cheese, onion, paneer, corn, green capsicum', price: '₹199 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Mix Veggie Medley', desc: 'Mozzarella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', price: '₹199 - ₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Makhani Marvel', desc: 'Mozzarella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', price: '₹189 - ₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Tandoori Twist', desc: 'Mozzarella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', price: '₹189 - ₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Pizza Factory Slise Special (Veg)', desc: 'Mozzarella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', price: '₹189 - ₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Margarita Pizza', desc: 'Moziarella cheese', price: 'S-₹169/ M-₹289/ L-₹449', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Moziarella cheese, onion, green capsicum, red paprika, paneer tikka', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Moziarella cheese, onion, tomato, corn, green capsicum', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Tandoori Veggie Feast Pizza', desc: 'Moziarella cheese, onion, tomato, green capsicum, tandoori paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Veggie Supreme Delight Pizza', desc: 'Moziarella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Paneer Delight Explosion Pizza', desc: 'Moziarella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Pineapple Passion Blast Pizza', desc: 'Moziarella cheese, onion, pineapple, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Moziarella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'BBQ Veggie Bonanza Pizza', desc: 'Moziarella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Baby Corn Fiesta Pizza', desc: 'Moziarella cheese, baby corn, tomato, green capsicum, mushroom', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Peri Peri Paneer Paradise Pizza', desc: 'Moziarella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Paneer Perfection Pizza', desc: 'Moziarella cheese, onion, paneer, corn, green capsicum', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Mix Veggie Medley Pizza', desc: 'Moziarella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Paneer Makhani Marvel Pizza', desc: 'Moziarella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Tandoori Twist Pizza', desc: 'Moziarella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Fiery Fusion Surprise Pizza', desc: 'Moziarella cheese, onion, red paprika, jalapeno, green chilli, yellow capsicum, toping on jalapeno sause', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Capsicum Corn Sensation Pizza', desc: 'Moziarella cheese, onion, corn, red capsicum, toping on mint sause, golden corn', price: 'S-₹189/ M-₹339/ L-₹549', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Chhese Gold Corn Pizza', desc: 'Mozerella cheese, goldenn corn', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+    { category: 'pizzas', title: 'Olive Paradise Pizza', desc: 'Moziarella cheese, olive, green capsicum, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
 
     // Non-Veg Pizzas
-    { category: 'pizzas', title: 'Chicken Tikka Masala Madness', desc: 'Mozzarella cheese, chicken tikka, onion, capsicum', price: '₹199 - ₹559', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'BBQ Chicken Blast', desc: 'Mozzarella cheese, BBQ chicken, onion, jalapeno', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise', desc: 'Mozzarella cheese, chicken sausage, red paprika', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Salami Sensation', desc: 'Mozzarella cheese, chicken salami, jalapeno', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Pepperoni Perfection', desc: 'Mozzarella cheese, chicken pepperoni', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Tandoori Temptation', desc: 'Mozzarella cheese, onion, capsicum, tomato, tandoori chicken', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Peri Peri Chicken Explosion', desc: 'Mozzarella cheese, onion, green capsicum, red paprika, peri peri chicken', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion', desc: 'Mozzarella cheese, onion, chicken tikka, paneer', price: '₹249 - ₹639', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Mozzarella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', price: '₹249 - ₹639', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Mozzarella cheese, corn, onion, chicken', price: '₹219 - ₹589', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Pizza Factory Slise Special (Non-Veg)', desc: 'Mozzarella cheese, onion, chicken, jalapeno, corn, special spicy sauce', price: '₹209 - ₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Sweet Chili Chicken Sensation', desc: 'Mozzarella cheese, onion, mushroom, capsicum, sweet chili chicken', price: '₹249 - ₹639', img: '', type: 'nonveg' }
+    { category: 'pizzas', title: 'Chicken Tikka Masala Madness', desc: 'Moziarella cheese, chicken tikka, onion, capsicum', price: '₹199 - ₹559', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'BBQ Chicken Blast', desc: 'Moziarella cheese, BBQ chicken, onion, jalapeno', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise', desc: 'Moziarella cheese, chicken sausage, red paprika', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Chicken Salami Sensation', desc: 'Moziarella cheese, chicken salami, jalapeno', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Chicken Pepperoni Perfection', desc: 'Moziarella cheese, chicken pepperoni', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Chicken Tandoori Temptation', desc: 'Moziarella cheese, onion, capsicum, tomato, tandoori chicken', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Peri Peri Chicken Explosion', desc: 'Moziarella cheese, onion, green capsicum, red paprika, peri peri chicken', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion', desc: 'Moziarella cheese, onion, chicken tikka, paneer', price: '₹249 - ₹639', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Moziarella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', price: '₹249 - ₹639', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Moziarella cheese, corn, onion, chicken', price: '₹219 - ₹589', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Pizza Factory Slise Special (Non-Veg)', desc: 'Moziarella cheese, onion, chicken, jalapeno, corn, special spicy sauce', price: '₹209 - ₹579', img: '', type: 'nonveg' },
+    { category: 'pizzas', title: 'Sweet Chili Chicken Sensation', desc: 'Moziarella cheese, onion, mushroom, capsicum, sweet chili chicken', price: '₹249 - ₹639', img: '', type: 'nonveg' }
 ,
 
     // More Combos

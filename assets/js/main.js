@@ -1,49 +1,3 @@
-/*=============== SHOW MENU ===============*/
-const navMenu = document.getElementById('nav-menu'),
-      navToggle = document.getElementById('nav-toggle'),
-      navClose = document.getElementById('nav-close')
-
-/* Menu show */
-if(navToggle){
-   navToggle.addEventListener('click', () =>{
-      navMenu.classList.add('show-menu')
-   })
-}
-
-/* Menu hidden */
-if(navClose){
-   navClose.addEventListener('click', () =>{
-      navMenu.classList.remove('show-menu')
-   })
-}
-
-/*=============== REMOVE MENU MOBILE ===============*/
-const navLink = document.querySelectorAll('.nav__link')
-
-const linkAction = () =>{
-   const navMenu = document.getElementById('nav-menu')
-   // When we click on each nav__link, we remove the show-menu class
-   navMenu.classList.remove('show-menu')
-}
-navLink.forEach(n => n.addEventListener('click', linkAction))
-
-/*=============== ADD SHADOW HEADER ===============*/
-const shadowHeader = () =>{
-   const header = document.getElementById('header')
-   // Add a class if the bottom offset is greater than 50 of the viewport
-   this.scrollY >= 50 ? header.classList.add('shadow-header') 
-                      : header.classList.remove('shadow-header')
-}
-window.addEventListener('scroll', shadowHeader)
-
-/*=============== SWIPER POPULAR ===============*/
-const swiperPopular = new Swiper('.popular__swiper', {
-   loop: true,
-   grabCursor: true,
-   slidesPerView: 'auto',
-   centeredSlides: 'auto',
-})
-
 /*=============== SHOW SCROLL UP ===============*/ 
 const scrollUp = () =>{
 	const scrollUp = document.getElementById('scroll-up')
@@ -53,26 +7,6 @@ const scrollUp = () =>{
 }
 window.addEventListener('scroll', scrollUp)
 
-/*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
-const sections = document.querySelectorAll('section[id]')
-    
-const scrollActive = () =>{
-  	const scrollDown = window.scrollY
-
-	sections.forEach(current =>{
-		const sectionHeight = current.offsetHeight,
-			  sectionTop = current.offsetTop - 58,
-			  sectionId = current.getAttribute('id'),
-			  sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
-
-		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
-			sectionsClass.classList.add('active-link')
-		}else{
-			sectionsClass.classList.remove('active-link')
-		}                                                    
-	})
-}
-window.addEventListener('scroll', scrollActive)
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const sr = ScrollReveal({
@@ -80,35 +14,20 @@ const sr = ScrollReveal({
    distance: '60px',
    duration: 2500,
    delay: 300,
-   // reset: true, // Animations repeat
+   reset: true, // Animations repeat
 })
-// ==== Slide Show Utility Function Start ==== //
-function startSlideshow(selector, displayStyle, interval) {
-  const items = document.querySelectorAll(selector);
-  let index = 0;
-  setInterval(() => {
-    items.forEach((el, i) => el.style.display = i === index ? displayStyle : 'none');
-    index = (index + 1) % items.length;
-  }, interval);
-  // Show first item immediately
-  items.forEach((el, i) => el.style.display = i === 0 ? displayStyle : 'none');
-}
-// ==== Recipe Slide Show  ==== //
-startSlideshow('.recipe-content', 'flex', 5000);
-
-startSlideshow('.home', 'flex', 5000);
-
-startSlideshow('.contact__image img', 'block', 4000);
-
-sr.reveal(`.home__data, .popular__container, .footer`)
-sr.reveal(`.home__board`, {delay: 700, distance: '100px', origin: 'right'})
-sr.reveal(`.home__pizza`, {delay: 1400, distance: '100px', origin: 'bottom', rotate:{z: -90}})
-sr.reveal(`.home__ingredient`, {delay: 2000, interval: 100})
+sr.reveal(`.home__container, .popular__container, .footer`)
+// sr.reveal(`.home_pizza_board`, {delay: 700, distance: '100px', origin: 'right'})
+// sr.reveal(`.home__pizza`, {delay: 1400, distance: '100px', origin: 'bottom', rotate:{z: -90}})
 sr.reveal(`.about__data, .recipe__list, .contact__data`, {origin: 'right'})
 sr.reveal(`.about__img, .recipe__img, .contact__image`, {origin: 'left'})
 sr.reveal(`.products__card`, {interval: 100})
 
 
+
+// form submission to WhatsApp start
+// This script handles form submission to WhatsApp
+// Ensure you have a form with id "whatsappForm" and inputs with classes "input
   document.getElementById("whatsappForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -135,10 +54,7 @@ sr.reveal(`.products__card`, {interval: 100})
     // Open WhatsApp link
     window.open(whatsappURL, "_blank");
   });
-
-
-
-
+// form submission to WhatsApp end
 
 // ==== Slide Show Utility Function Start ==== //
 function startSlideshow(selector, displayStyle, interval) {
@@ -153,9 +69,9 @@ function startSlideshow(selector, displayStyle, interval) {
 }
 
 // ==== Contact Slide Show ==== //
-// startSlideshow('.contact-left-section img', 'block', 3000);
+startSlideshow('.contact__image img', 'block', 4000);
 // ==== Recipe Slide Show  ==== //
-// startSlideshow('.recipe-content', 'flex', 5000);
+startSlideshow('.recipe-content', 'flex', 5000);
 // ==== Home Slide Show ==== //
 startSlideshow('.home__data p', 'flex', 3000);
 startSlideshow('.home__data h1', 'flex', 3000);
@@ -167,7 +83,9 @@ startSlideshow('.home__images', 'flex', 3000);
 
 // ==== Slide Show Utility Function End ==== //
 
-
+// /*=============== SWIPER POPULAR START ===============*/
+// Initialize Swiper for the popular section
+/*=============== SWIPER POPULAR ===============*/
     const swiper = new Swiper('.popular__swiper', {
       loop: true,
       autoplay: {
@@ -189,39 +107,4 @@ startSlideshow('.home__images', 'flex', 3000);
         clickable: true,
       },
     });
-
-
-/*=============== Navbar Start ===============*/
-// Navigation Menu Toggle and Active Link
-
-    // const navMenu = document.getElementById('nav-menu'),
-    //       navToggle = document.getElementById('nav-toggle'),
-    //       navClose = document.getElementById('nav-close');
-
-    // navToggle?.addEventListener('click', () => navMenu.classList.add('show-menu'));
-    // navClose?.addEventListener('click', () => navMenu.classList.remove('show-menu'));
-
-    // document.querySelectorAll('.nav__link').forEach(link =>
-    //   link.addEventListener('click', () => navMenu.classList.remove('show-menu'))
-    // );
-
-    // window.addEventListener('scroll', () => {
-    //   const header = document.getElementById('header');
-    //   header.classList.toggle('shadow-header', scrollY >= 50);
-
-    //   const sections = document.querySelectorAll('section[id]');
-    //   sections.forEach(section => {
-    //     const sectionTop = section.offsetTop - 60;
-    //     const sectionHeight = section.offsetHeight;
-    //     const sectionId = section.getAttribute('id');
-    //     const link = document.querySelector(`.nav__menu a[href="#${sectionId}"]`);
-        
-    //     if (link) {
-    //       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-    //         document.querySelectorAll('.nav__link').forEach(l => l.classList.remove('active-link'));
-    //         link.classList.add('active-link');
-    //       }
-    //     }
-    //   });
-    // });
-/*=============== Navbar End ===============*/
+// /*=============== SWIPER POPULAR END ===============*/

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Big Burger Co</title>
+    <title>Contact Us - pizza Factory Slise</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -17,9 +17,6 @@
             position: relative;
             min-height: calc(100vh - 120px);
             padding: 20px;
-        }
-        .main {
-            padding-top: 5rem; /* or use 80px */
         }
         .main-section::before {
             content: '';
@@ -35,8 +32,8 @@
         .contact-heading {
             text-align: center;
             font-size: 48px;
-            color: #ffcc00;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: red;
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
             margin-bottom: 20px;
             position: relative;
         }
@@ -216,14 +213,26 @@
 </head>
 <body>
         <!--==================== HEADER ====================-->
-      <!-- Load Navbar start -->
-    <div id="navbar-placeholder"></div>
-    <script>
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading navbar:", error));
-    </script>
+      
+   <!-- Load Navbar start -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        const container = document.getElementById('navbar-container');
+        container.innerHTML = html;
+
+        // Manually execute any <script> found in the injected HTML
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {newScript.src = script.src;}
+          else {newScript.textContent = script.textContent;}
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
         <!-- Load Navbar end-->
 
     <!-- Main Section -->
@@ -232,19 +241,15 @@
         <h1 class="contact-heading">CONTACT US</h1>
         <div class="content-wrapper">
             <div class="contact-info">
-                <div class="telephone-img-wrapper">
+                <!-- <div class="telephone-img-wrapper">
                     <img src="/pizza-factory-slise/assets/img/telephone.png" alt="Telephone" class="telephone-img">
-                </div>
+                </div> -->
                 <h2>LET'S CONNECT</h2>
                 <p>What you feel about us matters a lot! Please share your experience of Big Burger Co. with us. Your feedback or suggestions for improvement are highly appreciated.</p>
                 <div class="contact-details">
                     <p><i class="ri-phone-fill"></i><span>+91-9182714776</span></p>
                     <p><i class="ri-mail-fill"></i><span>pizzafactoryslise@gmail.com</span>
                     <p><i class="ri-map-pin-fill"></i><span>Madhapur, Hyderabad<br>Ayyappa society, Pin code 500081, Main branch.</span></p>    
-                    <!-- <a href="" class=""><i class="ri-phone-fill"></i><span>+91-9182714776</span></a></br>
-                    <a href="" class=""><i class="ri-mail-fill"></i></i><span>pizza-factory-slise</span></a></br>
-                    <a href="" class=""><i class="ri-phone-fill"></i><span>Madhapur, Hyderabad<br>Ayyappa society, Pin code 500081, Main branch.</a> -->
-                    <!-- <a href="" class=""><i class="ri-phone-fill"></i><span>+91-9182714776</span></a> -->
                     
                 </div>
                 <h3>GET SOCIAL WITH US</h3>
@@ -267,15 +272,26 @@
     </section>
 </main>
     <!--==================== FOOTER ====================-->
-     <!-- Load footer start -->
-    <div id="footer-placeholder"></div>
-    <script>
-    fetch("../lib/footer.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading footer:", error));
-    </script>
-        <!-- Load footer end-->
+     <!-- Load Footer start -->
+<div id="footer-container"></div>
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      const container = document.getElementById('footer-container');
+      container.innerHTML = html;
+
+      // Manually execute any <script> found in the injected HTML
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(script => {
+        const newScript = document.createElement('script');
+        if (script.src) {newScript.src = script.src;}
+        else {newScript.textContent = script.textContent;}
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+<!-- Load Footer end -->
      <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
          <i class="ri-arrow-up-line"></i>
@@ -284,5 +300,37 @@
       <script src="assets/js/main.js"></script>
     <!--=============== SCROLLREVEAL ===============-->
       <script src="assets/js/scrollreveal.min.js"></script>    
+     <script>
+    document.querySelector(".contact-form button").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const name = document.querySelector('.contact-form input[type="text"]').value.trim();
+        const email = document.querySelector('.contact-form input[type="email"]').value.trim();
+        const phone = document.querySelector('.contact-form input[type="tel"]').value.trim();
+        const message = document.querySelector('.contact-form textarea').value.trim();
+
+        if (!name || !email || !phone || !message) {
+            alert("Please fill in all fields before sending.");
+            return;
+        }
+
+        // Construct WhatsApp message (Note: line breaks will be rendered correctly in WhatsApp)
+        const rawMessage = `
+Hello Pizza Factory Slise Team,
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Message: ${message}
+        `.trim();
+
+        const phoneNumber = "919182714776"; // WhatsApp-compatible number format
+        const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(rawMessage)}`;
+
+        window.open(whatsappURL, "_blank");
+    });
+</script>
+
+
 </body>
 </html>

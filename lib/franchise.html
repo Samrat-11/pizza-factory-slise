@@ -6,264 +6,328 @@
   <title>Franchise Inquiry</title>
 
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- <style>
+  <style>
     :root {
-      --first-color: hsl(353, 93%, 50%);
-    --first-color-alt: hsl(353, 93%, 46%);
-    --first-color-dark: hsl(353, 50%, 15%);
-    --title-color: hsl(353, 48%, 12%);
-    --text-color: hsl(353, 16%, 32%);
-    --text-color-light: hsl(353, 16%, 48%);
-    --white-color: hsl(24, 86%, 90%);
-    --body-color: hsl(24, 86%, 88%);
-    --container-color: hsl(24, 86%, 92%);
-      --body-font: "Montserrat", sans-serif;
-      --h2-font-size: 1.25rem;
-      --normal-font-size: 1rem;
+      --primary-color: #e63946;
+      --accent-color: #f1faee;
+      --bg-color: #fff0e1;
+      --text-color: #1d3557;
+      --form-bg: #ffffff;
+      --button-color: #e76f51;
     }
 
     body {
-      font-family: var(--body-font);
-      background-color: var(--body-color);
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-color) url('https://www.transparenttextures.com/patterns/slice.png');
+      background-size: 200px;
       margin: 0;
-      padding: 0;
     }
 
-    section {
-      padding: 2rem 1rem;
-      background: var(--container-color);
+    .franchise-container {
+      padding: 80px;  
     }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
+    .franchise-banner img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 5px solid var(--primary-color);
     }
 
-    
-  </style> -->
+    .franchiseform {
+      background: var(--form-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-top: -50px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .franchiseform h1 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .franchiseform h2 {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-group {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+
+    .form-group input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      display: none;
+      margin-top: 5px;
+    }
+
+    .submit-btn {
+      background: var(--button-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      position: relative;
+    }
+
+    .submit-btn.loading::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      transform: translateY(-50%);
+    }
+
+    @keyframes spin {
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+
+    .confirmation {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      border-radius: 5px;
+      font-weight: 500;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .form-group {
+        flex: 1 1 100%;
+      }
+
+      .franchise-banner img {
+        height: 180px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!--==================== HEADER ====================-->
-      <!-- Load Navbar start -->
-    <div id="navbar-placeholder"></div>
-    <script>
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("navbar-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading navbar:", error));
-    </script>
+  <!-- Load Navbar start -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        const container = document.getElementById('navbar-container');
+        container.innerHTML = html;
+
+        // Manually execute any <script> found in the injected HTML
+        const scripts = container.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {newScript.src = script.src;}
+          else {newScript.textContent = script.textContent;}
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
         <!-- Load Navbar end-->
-        <section class="franchise-banner">
-        <img src="https://nationalfranchiseassociation.com/blog/wp-content/uploads/2024/06/top-pizza-franchises.webp" alt="Own a Franchise" />
-        </section>
-<main class="main">
+
+  <section class="franchise-banner">
+    <img src="https://nationalfranchiseassociation.com/blog/wp-content/uploads/2024/06/top-pizza-franchises.webp" alt="Own a Franchise" />
+  </section>
+
+  <main class="main">
     <section>
-    <div class="container pt-5 px-3">
-        
+      <div class="franchise-container pt-5 px-3">
         <div class="franchiseform">
-            <h1 class="section__title">Franchise Inquiry Form</h1>
-        <h2>Be a Franpreneur</h2>
-        <p>What exactly are you waiting for? Provide us your inquiry and we will offer you a profitable franchise opportunity!</p>
+          <h1 class="section__title">Franchise Inquiry Form</h1>
+          <h2>Be a Franpreneur</h2>
+          <p>What exactly are you waiting for? Provide us your inquiry and we will offer you a profitable franchise opportunity!</p>
 
-        <form id="franchiseForm">
+          <form id="franchiseForm">
             <div class="form-row">
-            <div class="form-group form-col">
-                <label>Investor's Name *</label>
-                <input type="text" id="investorName" />
-                <span class="error" id="errInvestorName">Required</span>
+              <div class="form-group"><label>Investor's Name *</label><input type="text" id="investorName"><span class="error" id="errInvestorName">Required</span></div>
+<div class="form-group"><label>Age *</label><input type="text" id="age"><span class="error" id="errAge">Required</span></div>
+<div class="form-group"><label>Mobile Number *</label><input type="text" id="mobile"><span class="error" id="errMobile">Enter valid number</span></div>
+<div class="form-group"><label>Email *</label><input type="text" id="email"><span class="error" id="errEmail">Enter valid email</span></div>
+<div class="form-group"><label>Address *</label><input type="text" id="address"><span class="error" id="errAddress">Required</span></div>
+<div class="form-group"><label>City *</label><input type="text" id="city"><span class="error" id="errCity">Required</span></div>
+<div class="form-group"><label>State *</label><input type="text" id="state"><span class="error" id="errState">Required</span></div>
+<div class="form-group"><label>Location for Franchise *</label><input type="text" id="franchiseLocation"><span class="error" id="errFranchiseLocation">Required</span></div>
+<div class="form-group"><label>What do you do now? *</label><div class="radio-group"><input type="radio" name="currentJob" value="Employee"> Employee <input type="radio" name="currentJob" value="BusinessOwner"> Business Owner</div><span class="error" id="errCurrentJob">Select an option</span></div>
+<div class="form-group"><label>Experience in Hospitality/F&B *</label><input type="text" id="experience"><span class="error" id="errExperience">Required</span></div>
+<div class="form-group"><label>Owned a Franchise Before? *</label><div class="radio-group"><input type="radio" name="ownedBusiness" value="Yes"> Yes <input type="radio" name="ownedBusiness" value="No"> No</div><span class="error" id="errOwnedBusiness">Select an option</span></div>
+<div class="form-group"><label>If Yes, Details *</label><input type="text" id="relevantDetails"><span class="error" id="errRelevantDetails">Required</span></div>
+<div class="form-group"><label>When to Start? *</label><div class="radio-group"><input type="radio" name="startTime" value="1 Month"> 1 Month <input type="radio" name="startTime" value="3 Months"> 3 Months <input type="radio" name="startTime" value="Not Decided"> Not Decided</div><span class="error" id="errStartTime">Select an option</span></div>
+<!-- <div class="form-group"><label>Budget to Start? *</label><div class="radio-group"><input type="radio" name="budget" value="16-22 Lakhs"> 16-22 Lakhs <input type="radio" name="budget" value="50+ Lakhs"> 50+ Lakhs</div><span class="error" id="errBudget">Select an option</span></div> -->
+<div class="form-group" style="flex: 1 1 100%;"><label>Why would you make a good partner? *</label><input type="text" id="reason"><span class="error" id="errReason">Required</span></div>
             </div>
-            <div class="form-group form-col">
-                <label>Age *</label>
-                <input type="text" id="age" />
-                <span class="error" id="errAge">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Mobile Number *</label>
-                <input type="text" id="mobile" />
-                <span class="error" id="errMobile">Enter valid number</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Email *</label>
-                <input type="text" id="email" />
-                <span class="error" id="errEmail">Enter valid email</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Address *</label>
-                <input type="text" id="address" />
-                <span class="error" id="errAddress">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>City *</label>
-                <input type="text" id="city" />
-                <span class="error" id="errCity">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>State *</label>
-                <input type="text" id="state" />
-                <span class="error" id="errState">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Location for Franchise *</label>
-                <input type="text" id="franchiseLocation" />
-                <span class="error" id="errFranchiseLocation">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>What do you do now? *</label>
-                <div class="radio-group">
-                <input type="radio" name="currentJob" value="Employee" /> Employee
-                <input type="radio" name="currentJob" value="BusinessOwner" /> Business Owner
-                </div>
-                <span class="error" id="errCurrentJob">Select an option</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Experience in Hospitality/F&B *</label>
-                <input type="text" id="experience" />
-                <span class="error" id="errExperience">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Owned a Franchise Before? *</label>
-                <div class="radio-group">
-                <input type="radio" name="ownedBusiness" value="Yes" /> Yes
-                <input type="radio" name="ownedBusiness" value="No" /> No
-                </div>
-                <span class="error" id="errOwnedBusiness">Select an option</span>
-            </div>
-            <div class="form-group form-col">
-                <label>If Yes, Details *</label>
-                <input type="text" id="relevantDetails" />
-                <span class="error" id="errRelevantDetails">Required</span>
-            </div>
-            <div class="form-group form-col">
-                <label>When to Start? *</label>
-                <div class="radio-group">
-                <input type="radio" name="startTime" value="1 Month" /> 1 Month
-                <input type="radio" name="startTime" value="3 Months" /> 3 Months
-                <input type="radio" name="startTime" value="Not Decided" /> Not Decided
-                </div>
-                <span class="error" id="errStartTime">Select an option</span>
-            </div>
-            <div class="form-group form-col">
-                <label>Budget to Start? *</label>
-                <div class="radio-group">
-                <input type="radio" name="budget" value="16-22 Lakhs" /> 16-22 Lakhs
-                <input type="radio" name="budget" value="50+ Lakhs" /> 50+ Lakhs
-                </div>
-                <span class="error" id="errBudget">Select an option</span>
-            </div>
-            <div class="form-group form-col" style="flex: 1 1 100%;">
-                <label>Why would you make a good partner? *</label>
-                <input type="text" id="reason" />
-                <span class="error" id="errReason">Required</span>
-            </div>
-            </div>
-            <button type="submit" class="submit-btn">Submit via WhatsApp</button>
-        </form>
+            <div style="text-align: right; margin-top: 20px;">
+  <button type="submit" class="submit-btn" id="submitBtn" style="width: auto; padding: 10px 20px;">Submit</button>
+</div>
+          </form>
+          <div class="confirmation" id="confirmationMessage">
+            Thank you! Your details are ready to be sent via WhatsApp.
+          </div>
         </div>
-    </div>
+      </div>
     </section>
-</main>
-<!--==================== FOOTER ====================-->
-     <!-- Load footer start -->
-    <div id="footer-placeholder"></div>
-    <script>
-    fetch("../lib/footer.html")
-        .then(response => response.text())
-        .then(data => {document.getElementById("footer-placeholder").innerHTML = data;})
-        .catch(error => console.error("Error loading footer:", error));
-    </script>
-        <!-- Load footer end-->
-          <!--========== SCROLL UP ==========-->
-      <a href="#" class="scrollup" id="scroll-up">
-         <i class="ri-arrow-up-line"></i>
-      </a>
+  </main>
 
-
+  <!-- Load Footer start -->
+<div id="footer-container"></div>
 <script>
-  document.getElementById("franchiseForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      const container = document.getElementById('footer-container');
+      container.innerHTML = html;
 
-    const getVal = id => document.getElementById(id).value.trim();
-    const showError = (id, condition) => {
-      document.getElementById(id).style.display = condition ? "inline" : "none";
-    };
-
-    let isValid = true;
-
-    const requiredFields = [
-      ["investorName", "errInvestorName"],
-      ["age", "errAge"],
-      ["mobile", "errMobile"],
-      ["email", "errEmail"],
-      ["address", "errAddress"],
-      ["city", "errCity"],
-      ["state", "errState"],
-      ["franchiseLocation", "errFranchiseLocation"],
-      ["experience", "errExperience"],
-      ["relevantDetails", "errRelevantDetails"],
-      ["reason", "errReason"]
-    ];
-
-    requiredFields.forEach(([field, err]) => {
-      const value = getVal(field);
-      const isEmpty = value === "";
-      if (isEmpty) isValid = false;
-      showError(err, isEmpty);
+      // Manually execute any <script> found in the injected HTML
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(script => {
+        const newScript = document.createElement('script');
+        if (script.src) {newScript.src = script.src;}
+        else {newScript.textContent = script.textContent;}
+        document.body.appendChild(newScript);
+      });
     });
-
-    // Validate email
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!emailPattern.test(getVal("email"))) {
-      isValid = false;
-      showError("errEmail", true);
-    }
-
-    // Validate mobile
-    const mobilePattern = /^\d{10,15}$/;
-    if (!mobilePattern.test(getVal("mobile"))) {
-      isValid = false;
-      showError("errMobile", true);
-    }
-
-    const radioGroups = [
-      ["currentJob", "errCurrentJob"],
-      ["ownedBusiness", "errOwnedBusiness"],
-      ["startTime", "errStartTime"],
-      ["budget", "errBudget"]
-    ];
-
-    radioGroups.forEach(([name, err]) => {
-      const selected = document.querySelector(`input[name="${name}"]:checked`);
-      if (!selected) {
-        isValid = false;
-        showError(err, true);
-      } else {
-        showError(err, false);
-      }
-    });
-
-    if (!isValid) {
-      alert("Please fill all required fields correctly.");
-      return;
-    }
-
-    // WhatsApp message
-    const whatsappNumber = "+1XXXXXXXXXX"; // REPLACE with your number
-    let message = "*Franchise Inquiry Form*\n";
-    requiredFields.forEach(([field]) => {
-      message += `*${field.replace(/([A-Z])/g, ' $1')}:* ${getVal(field)}\n`;
-    });
-
-    radioGroups.forEach(([name]) => {
-      const selected = document.querySelector(`input[name="${name}"]:checked`);
-      if (selected) message += `*${name}:* ${selected.value}\n`;
-    });
-
-    const encoded = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encoded}`;
-    window.open(whatsappURL, '_blank');
-  });
 </script>
+<!-- Load Footer end -->
 
+  <script>
+    document.getElementById("franchiseForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const getVal = id => document.getElementById(id).value.trim();
+      const showError = (id, condition) => {
+        document.getElementById(id).style.display = condition ? "inline" : "none";
+      };
+
+      const submitBtn = document.getElementById("submitBtn");
+      
+
+      let isValid = true;
+      const requiredFields = [
+        ["investorName", "errInvestorName"], ["age", "errAge"], ["mobile", "errMobile"],
+        ["email", "errEmail"], ["address", "errAddress"], ["city", "errCity"],
+        ["state", "errState"], ["franchiseLocation", "errFranchiseLocation"],
+        ["experience", "errExperience"], ["relevantDetails", "errRelevantDetails"],
+        ["reason", "errReason"]
+      ];
+
+      requiredFields.forEach(([field, err]) => {
+        const value = getVal(field);
+        const isEmpty = value === "";
+        if (isEmpty) isValid = false;
+        showError(err, isEmpty);
+      });
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!emailPattern.test(getVal("email"))) {
+        isValid = false;
+        showError("errEmail", true);
+      }
+
+      const mobilePattern = /^\d{10,15}$/;
+      if (!mobilePattern.test(getVal("mobile"))) {
+        isValid = false;
+        showError("errMobile", true);
+      }
+
+      const radioGroups = [
+        ["currentJob", "errCurrentJob"], ["ownedBusiness", "errOwnedBusiness"],
+        ["startTime", "errStartTime"], ["budget", "errBudget"]
+      ];
+
+      radioGroups.forEach(([name, err]) => {
+        const selected = document.querySelector(`input[name="${name}"]:checked`);
+        if (!selected) {
+          isValid = false;
+          showError(err, true);
+        } else {
+          showError(err, false);
+        }
+      });
+
+      if (!isValid) {
+        alert("Please fill all required fields correctly.");
+        submitBtn.classList.remove("loading");
+        return;
+      }
+
+      const whatsappNumber = "+919182714776";
+      let message = "🍕 *Franchise Inquiry Form* 🍕\n\n";
+
+      requiredFields.forEach(([field]) => {
+        const label = field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        message += `*${label}:* ${getVal(field)}\n`;
+      });
+
+      radioGroups.forEach(([name]) => {
+        const selected = document.querySelector(`input[name="${name}"]:checked`);
+        if (selected) {
+          const label = name.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+          message += `*${label}:* ${selected.value}\n`;
+        }
+      });
+
+      const encoded = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encoded}`;
+
+      document.getElementById("confirmationMessage").style.display = "block";
+
+      document.getElementById("franchiseForm").reset();
+window.open(whatsappURL, '_blank');
+    });
+  </script>
 </body>
 </html>

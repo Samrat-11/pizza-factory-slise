@@ -1,20 +1,231 @@
+  <style>
+    body {
+      margin: 0;
+      font-family: "Carter One", system-ui;
+      background-color: #fdddc7;
+      padding-top: 80px;
+    }
 
-  <header class="header" id="header">
-    <nav class="nav container">
-      <a href="#" class="nav__logo">
-        <img src="/pizza-factory-slise/assets/img/logo-pizza.svg" alt="Logo" style="width: 2.5rem; height: 2.5rem;">
-        Pizza Factory Slise
-      </a>
-      <div class="nav__menu" id="nav-menu">
-        <ul class="nav__list">
-          <li><a href="/pizza-factory-slise/index.html#home" class="nav__link active-link">Home</a></li>
-          <li><a href="/pizza-factory-slise/index.html#about" class="nav__link">About Us</a></li>
-          <li><a href="/pizza-factory-slise/lib/franchise.html" class="nav__link">Franchise</a></li>
-          <li><a href="/pizza-factory-slise/lib/menu.html" class="nav__link">Menu</a></li>
-          <li><a href="/pizza-factory-slise/lib/contact.html" class="nav__link">ContactUs</a></li>
-        </ul>
-        <div class="nav__close" id="nav-close"><i class="ri-close-large-line"></i></div>
-      </div>
-      <div class="nav__toggle" id="nav-toggle"><i class="ri-apps-2-fill"></i></div>
-    </nav>
-  </header>
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #fdddc7;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      font-size: 1.75rem;
+    }
+
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #210903;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background-color: #c51919;
+      bottom: -6px;
+      left: 0;
+      border-radius: 10px;
+    }
+
+    .open-toggle,
+    .close-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .open-toggle .dot,
+    .close-toggle .dot {
+      width: 10px;
+      height: 10px;
+      background: #210903;
+      border-radius: 50%;
+    }
+
+    .close-toggle .dot:nth-child(1) {
+      transform: rotate(45deg) translate(2px, 2px);
+    }
+    .close-toggle .dot:nth-child(2) {
+      opacity: 0;
+    }
+    .close-toggle .dot:nth-child(3) {
+      transform: rotate(-45deg) translate(2px, -2px);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        right: 30px;
+        background: #fdddc7;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        transform: translateX(200%);
+        transition: transform 0.4s ease;
+        z-index: 1000;
+      }
+
+      .nav-links.show {
+        transform: translateX(0);
+      }
+
+      .open-toggle,
+      .close-toggle {
+        display: flex;
+      }
+    }
+  </style>
+
+
+<header class="navbar">
+  <div class="logo">
+    <img src="/pizza-factory-slise/assets/img/logo-pizza.svg" alt="Pizza Logo" class="logo-img" />
+    <span>Pizza Factory Slise</span>
+  </div>
+
+
+  <nav id="nav-links" class="nav-links">
+    <a href="/pizza-factory-slise/index.html#home" class="active">Home</a>
+    <!-- <a href="/pizza-factory-slise/no-need.html">No-Need</a> -->
+    <a href="/pizza-factory-slise/index.html#about">About Us</a>
+    <a href="/pizza-factory-slise/lib/franchise.html">Franchise</a>
+    <a href="/pizza-factory-slise/lib/menu.html">Menu</a>
+    <a href="/pizza-factory-slise/lib/contact.html">Contact</a>
+  </nav>
+
+  <div class="open-toggle" id="open-btn">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <div class="close-toggle" id="close-btn">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</header>
+
+
+<script>
+  const toggleBtn = document.getElementById('open-btn');
+  const navLinks = document.getElementById('nav-links');
+  const closeBtn = document.getElementById('close-btn');
+
+  function openMenu() {
+    navLinks.classList.add('show');
+    closeBtn.style.display = 'flex';
+    toggleBtn.style.display = 'none';
+  }
+
+  function closeMenu() {
+    navLinks.classList.remove('show');
+    closeBtn.style.display = 'none';
+    toggleBtn.style.display = 'flex';
+  }
+
+  toggleBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      navLinks.classList.remove('show');
+      toggleBtn.style.display = 'none';
+      closeBtn.style.display = 'none';
+    } else {
+      toggleBtn.style.display = 'flex';
+      closeBtn.style.display = 'none';
+    }
+  });
+
+  if (window.innerWidth <= 768) {
+    toggleBtn.style.display = 'flex';
+    closeBtn.style.display = 'none';
+  } else {
+    toggleBtn.style.display = 'none';
+    closeBtn.style.display = 'none';
+  }
+
+ function highlightOnScroll() {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('section[id]').forEach(section => {
+    const top = section.offsetTop - 120;
+    const bottom = top + section.offsetHeight;
+    const id = section.id;
+
+    if (scrollY >= top && scrollY < bottom) {
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href').includes(`#${id}`));
+      });
+    }
+  });
+}
+
+function highlightActiveLink() {
+  const path = window.location.pathname.replace(/\/$/, '');
+  const hash = window.location.hash;
+
+  document.querySelectorAll('#navbar-container a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    const a = document.createElement('a');
+    a.href = href;
+    const linkPath = a.pathname.replace(/\/$/, '');
+    const linkHash = a.hash;
+
+    const match =
+      (path === linkPath && !linkHash) ||
+      (path === linkPath && hash === linkHash) ||
+      (path.endsWith('index.html') && hash && linkHash === hash);
+
+    link.classList.toggle('active', match);
+  });
+}
+
+// Initial highlighting
+highlightActiveLink();
+highlightOnScroll();
+
+// Update on scroll (for index.html)
+window.addEventListener('scroll', highlightOnScroll);
+
+</script>

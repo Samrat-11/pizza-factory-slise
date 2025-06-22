@@ -61,9 +61,7 @@
   margin: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 input,
 button,
@@ -77,8 +75,7 @@ body {
   color: var(--text-color);
 }
 
-input,
-button {
+input, button {
   outline: none;
   border: none;
 }
@@ -90,13 +87,8 @@ h1, h2, h3, h4 {
   line-height: 120%;
 }
 
-ul {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-}
+ul { list-style: none; }
+a { text-decoration: none; }
 
 img {
   display: block;
@@ -107,7 +99,9 @@ img {
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
   max-width: 1120px;
-  margin-inline: 1.5rem;
+  /* margin-inline: 1.5rem; */
+  margin-inline: auto;
+
 }
 
 .grid {
@@ -124,157 +118,29 @@ img {
   margin-bottom: 2rem;
 }
 
-.main {
-  overflow: hidden;
-}
+.main { overflow: hidden; }
 
 @keyframes slideMove {
-  0% { transform: translate(0, 0) rotate(var(--initial-rotate)); }
+  0%, 100% { transform: translate(0, 0) rotate(var(--initial-rotate)); }
   50% { transform: translate(5px, -5px) rotate(var(--initial-rotate)); }
-  100% { transform: translate(0, 0) rotate(var(--initial-rotate)); }
 }
-/*=============== Navbar Start ===============*/
-    .header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      background-color: hsl(24, 86%, 88%);
-      z-index: 100;
-      transition: box-shadow 0.4s;
-      height: 5rem;
-      
-    }
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: nowrap;
-      height: 3rem;
-    }
-
-    .nav__logo {
-      display: flex;
-      align-items: center;
-      font-family: "Carter One", system-ui;
-      color: hsl(174, 12%, 15%);
-      font-weight: 500;
-      font-size: 1.25rem;
-      white-space: nowrap;
-      gap: 0.5rem;
-      overflow: visible;
-      flex-shrink: 0;
-    }
-
-    .nav__toggle, .nav__close {
-      display: flex;
-      font-size: 1.5rem;
-      color: hsl(353, 48%, 12%);
-      cursor: pointer;
-    }
-
-    .nav__menu {
-      position: fixed;
-      top: -120%;
-      left: 0;
-      width: 100%;
-      background: hsl(24, 86%, 88%);
-      box-shadow: 0 4px 16px hsla(353, 100%, 8%, .1);
-    }
-
-    .nav__list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .nav__link {
-      position: relative;
-      font-family: "Carter One", system-ui;
-      color: hsl(353, 48%, 12%);
-    }
-
-    .nav__link::after,
-    .nav__link.active-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -0.5rem;
-      width: 0;
-      height: 3px;
-      background: red;
-      transition: width 0.4s;
-    }
-
-    .nav__link:hover::after,
-    .nav__link.active-link::after {
-      width: 60%;
-    }
-
-    .nav__close {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-    }
-
-    .show-menu {
-      top: 0;
-    }
-
-    .shadow-header {
-      box-shadow: 0 4px 16px hsla(353, 100%, 8%, .1);
-    }
-
-    @media (min-width: 1150px) {
-      .nav {
-        height: calc(3.5rem + 2rem);
-      }
-
-      .nav__toggle, .nav__close {
-        display: none;
-      }
-
-      .nav__menu {
-        position: static;
-        display: flex;
-        justify-content: flex-end;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .nav__list {
-        flex-direction: row;
-        gap: 4rem;
-      }
-
-      body {
-        font-size: 1rem;
-      }
-    }
-
-    section {
-      padding: 100px 20px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    section:nth-child(even) {
-      background-color: #fcebd5;
-    }
-/*=============== Navbar End ===============*/
-
-
-/*=============== HOME ===============*/
-
+/*=============== HOME Start ===============*/
 
 .home__container {
-  padding-block: 2rem 3rem;
-  row-gap: 7rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+  align-items: start;
+  /* padding-block: 10rem 4rem; */
+  width: 100%;
+  margin-inline: auto;
 }
 
 .home__data {
   position: relative;
-  text-align: center;
+  text-align: initial;
+  /* margin-top: 2rem; */
 }
 
 .home__data h1 {
@@ -282,96 +148,65 @@ img {
 }
 
 .home__data p {
-  margin-block: 1rem 2rem;
+  margin-bottom: 3.5rem;
+  padding-right: 6rem;
 }
 
-.home__sticker-1, 
-.home__sticker-2 {
-  width: 40px;
+.home__sticker-1, .home__sticker-2 {
+  width: 50px;
   position: absolute;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .home__sticker-1 {
-  right: .75rem;
-  bottom: 2rem;
-  rotate: 30deg;
+  right: 3rem;
+  top: 1rem;
 }
 
 .home__sticker-2 {
-  left: 2.5rem;
-  bottom: -4.5rem;
+  left: 16rem;
+  bottom: 3rem;
 }
 
 .home__images {
   position: relative;
   display: grid;
   justify-items: center;
-  justify-self: center;
 }
 
 .home__ingredient {
-  width: 60px;
-  filter: var(--shadow-small-img);
+  width: 100px;
   position: absolute;
   z-index: 2;
   border-radius: 50%;
+  filter: var(--shadow-small-img);
   animation: slideMove 4s ease-in-out infinite alternate;
 }
 
-.home__board, 
-.home__pizza {
-  filter: var(--shadow-big-img);
-}
+.home__pizza, .home__burger { z-index: 2;}
 
-.home__pizza {
-  width: 300px;
-  z-index: 2;
-}
-
-.home__board {
-  width: 300px;
+.home_pizza_board {
   position: absolute;
-  bottom: -1rem;
-  left: 2rem;
+  bottom: -1.75rem;
+  left: 1.75rem;
   transform: rotate(30deg);
 }
 
-.home__leaf-1 {
-  top: -1rem;
-  --initial-rotate: 10deg;
+.home_burger_board {
+  width: 25rem;
+  position: absolute;
+  bottom: -2.5rem;
+  left: 3rem;
 }
 
-.home__pepperoni {
-  right: -.5rem;
-  top: 2rem;
-  --initial-rotate: -20deg;
-}
+.home__leaf-1 { top: -2rem; --initial-rotate: 10deg; }
+.home__pepperoni { right: -1rem; top: 3.5rem; --initial-rotate: -20deg; }
+.home__mushroom { right: -1rem; bottom: 3.5rem; --initial-rotate: 15deg; }
+.home__olive { bottom: -2rem; --initial-rotate: 30deg; }
+.home__leaf-2 { left: -1rem; bottom: 3.5rem; --initial-rotate: -10deg; }
+.home__tomato { left: -1rem; top: 3.5rem; --initial-rotate: 25deg; }
 
-.home__mushroom {
-  right: -.5rem;
-  bottom: 2rem;
-  --initial-rotate: 15deg;
-}
-
-.home__olive {
-  bottom: -1rem;
-  --initial-rotate: 30deg;
-}
-
-.home__leaf-2 {
-  left: -.5rem;
-  bottom: 2rem;
-  --initial-rotate: -10deg;
-}
-
-.home__tomato {
-  left: -.5rem;
-  top: 2rem;
-  --initial-rotate: 25deg;
-}
-
-/*=============== BUTTON ===============*/
+/* Button */
 .button {
   display: inline-flex;
   justify-content: center;
@@ -388,10 +223,33 @@ img {
   background-color: var(--first-color-alt);
 }
 
-/*=============== ABOUT ===============*/
-.about {
-  background-color: var(--container-color);
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .home__container {
+    grid-template-columns: 1fr;
+    row-gap: 4rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .home__data {
+    padding-inline: 1rem;
+  }
+
+  .home__data p {
+    padding-right: 0;
+  }
+
+  .home__images {
+    width: 100%;
+    max-width: 450px;
+  }
 }
+
+/*=============== ABOUT ===============*/
+/* .about {
+  background-color: var(--container-color);
+} */
 
 .about__container {
   row-gap: 2rem;
@@ -565,7 +423,7 @@ img {
     }
 /* ============= Recipe End ============= */
 /*=============== RECIPE ===============*/
-.recipe {
+/* .recipe {
   background-color: var(--container-color);
 }
 
@@ -598,7 +456,7 @@ img {
   width: 320px;
   justify-self: center;
   filter: var(--shadow-big-img);
-}
+} */
 
 /*=============== PRODUCTS ===============*/
 .products__container {
@@ -823,98 +681,7 @@ img {
 }
     
 /*=============== FOOTER ===============*/
-.footer {
-  padding-block: 4rem 2rem;
-}
 
-.footer__container, 
-.footer__content {
-  row-gap: 3rem;
-}
-
-.footer__logo {
-  justify-self: center;
-  font-size: var(--h1-font-size);
-  font-family: var(--second-font);
-  color: var(--first-color);
-}
-
-.footer__title {
-  font-size: var(--h3-font-size);
-  margin-bottom: 1rem;
-}
-.footer__text {
-  font-size: var(--small-font-size);
-  color: var(--text-color);
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.footer__social, 
-.footer__pay, 
-.footer__form {
-  display: flex;
-  column-gap: 1rem;
-}
-
-.footer__social-link {
-  font-size: 1.5rem;
-  color: var(--first-color);
-  transition: transform .4s;
-}
-
-.footer__social-link:hover {
-  transform: translateY(-.25rem);
-}
-
-.footer__pay-card {
-  width: 30px;
-  filter: var(--shadow-small-img);
-}
-
-/* .footer__form {
-  padding: .5rem;
-  background-color: var(--container-color);
-  box-shadow: 0 4px 16px hsla(353, 100%, 8%, .1);
-  border-radius: 4rem;
-  width: 300px;
-  height: 500px;
-} */
-
-.footer__input {
-  width: 100%;
-  background: transparent;
-  padding-left: .75rem;
-  color: var(--title-color);
-  font-weight: var(--font-semi-bold);
-}
-
-.footer__input::placeholder {
-  color: var(--text-color);
-}
-
-.footer__button {
-  padding-block: .75rem;
-  cursor: pointer;
-}
-
-.footer__policy {
-  display: flex;
-  column-gap: 2rem;
-  justify-content: center;
-  margin-top: 5rem;
-}
-
-.footer__link {
-  font-size: var(--small-font-size);
-  color: var(--text-color);
-}
-
-.footer__copy {
-  display: block;
-  margin-top: 2rem;
-  text-align: center;
-  font-size: var(--small-font-size);
-}
 
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {
@@ -966,26 +733,11 @@ img {
     grid-template-columns: 150px;
     justify-content: center;
   }
-
-  .footer__form {
-    background-color: transparent;
-    box-shadow: none;
-    flex-direction: column;
-    row-gap: 1rem;
-    padding: 0;
-  }
-
-  .footer__input {
-    background-color: var(--container-color);
-    box-shadow: 0 4px 16px hsla(353, 100%, 8%, .1);
-    padding: .75rem 1rem;
-    border-radius: 4rem;
-  }
 }
 
 /* For medium devices */
 @media screen and (min-width: 576px) {
-  .home__container,
+  /* .home__container, */
   .about__container,
   .popular__container,
   .recipe__container {
@@ -1003,9 +755,6 @@ img {
     margin-inline: auto;
   }
 
-  .footer__form {
-    width: 360px;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -1018,106 +767,19 @@ img {
   .products__container {
     grid-template-columns: repeat(3, 160px);
   }
-
-  .footer__content {
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-  }
-  .footer__content div:nth-child(3) {
-    grid-column: 1/3;
-  }
-  .footer__title {
-    text-align: center;
-  }
-  .footer__social, 
-  .footer__pay {
-    column-gap: 1.5rem;
-  }
 }
 
 /* For large devices */
 @media screen and (min-width: 1150px) {
-  .container {
+  /* .container {
     margin-inline: auto;
-  }
+  } */
 
   .section {
     padding-block: 7rem 2rem;
   }
   .section__title {
     margin-bottom: 4rem;
-  }
-
-  .nav {
-    height: calc(var(--header-height) + 2rem);
-  }
-  .nav__toggle, 
-  .nav__close {
-    display: none;
-  }
-  .nav__list {
-    flex-direction: row;
-    column-gap: 4rem;
-  }
-
-  .home__container {
-    grid-template-columns: 515px 555px;
-    column-gap: 3rem;
-    align-items: start;
-    padding-block: 10rem 4rem;
-  }
-  .home__data {
-    text-align: initial;
-    margin-top: 2rem;
-  }
-  .home__data p {
-    margin-bottom: 3.5rem;
-    padding-right: 6rem;
-  }
-  .home__sticker-1, 
-  .home__sticker-2 {
-    width: 50px;
-  }
-  .home__sticker-1 {
-    right: 3rem;
-    top: 1rem;
-    bottom: 0;
-  }
-  .home__sticker-2 {
-    left: 16rem;
-    bottom: 3rem;
-  }
-  .home__board, 
-  .home__pizza {
-    width: 520px;
-  }
-  .home__board {
-    bottom: -1rem;
-  }
-  .home__ingredient {
-    width: 100px;
-  }
-  .home__leaf-1 {
-    top: -2rem;
-  }
-  .home__pepperoni {
-    right: -1rem;
-    top: 3.5rem;
-  }
-  .home__mushroom {
-    right: -1rem;
-    bottom: 3.5rem;
-  }
-  .home__olive {
-    bottom: -2rem;
-  }
-  .home__leaf-2 {
-    left: -1rem;
-    bottom: 3.5rem;
-  }
-  .home__tomato {
-    left: -1rem;
-    top: 3.5rem;
   }
 
   .about__container {
@@ -1257,23 +919,6 @@ img {
   .contact__sticker-3 {
     left: 10rem;
     bottom: 4rem;
-  }
-
-  .footer {
-    padding-bottom: 3rem;
-  }
-  .footer__content {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .footer__content div:nth-child(3) {
-    grid-column: initial;
-  }
-  .footer__content div:nth-child(2) {
-    order: 1;
-    justify-self: end;
-  }
-  .footer__content div:nth-child(1) {
-    justify-self: start;
   }
 
   .scrollup {
