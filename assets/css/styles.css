@@ -132,7 +132,7 @@ img {
   grid-template-columns: 1fr 1fr;
   column-gap: 3rem;
   align-items: start;
-  /* padding-block: 10rem 4rem; */
+  padding-top: 1rem;
   width: 100%;
   margin-inline: auto;
 }
@@ -144,12 +144,14 @@ img {
 }
 
 .home__data h1 {
-  font-size: var(--biggest-font-size);
+  /* font-size: var(--biggest-font-size); */
+  font-size: 2rem;
 }
 
 .home__data p {
   margin-bottom: 3.5rem;
   padding-right: 6rem;
+  font-size: 0.75rem;
 }
 
 .home__sticker-1, .home__sticker-2 {
@@ -159,13 +161,13 @@ img {
 }
 
 .home__sticker-1 {
-  right: 3rem;
-  top: 1rem;
+  right: 5rem;
+  top: 0rem;
 }
 
 .home__sticker-2 {
-  left: 16rem;
-  bottom: 3rem;
+  left: 10rem;
+  bottom: 4rem;
 }
 
 .home__images {
@@ -183,28 +185,29 @@ img {
   animation: slideMove 4s ease-in-out infinite alternate;
 }
 
-.home__pizza, .home__burger { z-index: 2;}
-
+.home__burger { z-index: 2; width : 20rem;}
+.home__pizza { z-index: 2; width : 18.4rem; } 
 .home_pizza_board {
+  width: 18.4rem;
   position: absolute;
-  bottom: -1.75rem;
-  left: 1.75rem;
+  bottom: -1rem;
+  left: 1rem;
   transform: rotate(30deg);
 }
 
 .home_burger_board {
-  width: 25rem;
+  width: 20rem;
   position: absolute;
   bottom: -2.5rem;
-  left: 3rem;
+  left: 1rem;
 }
 
-.home__leaf-1 { top: -2rem; --initial-rotate: 10deg; }
-.home__pepperoni { right: -1rem; top: 3.5rem; --initial-rotate: -20deg; }
-.home__mushroom { right: -1rem; bottom: 3.5rem; --initial-rotate: 15deg; }
-.home__olive { bottom: -2rem; --initial-rotate: 30deg; }
-.home__leaf-2 { left: -1rem; bottom: 3.5rem; --initial-rotate: -10deg; }
-.home__tomato { left: -1rem; top: 3.5rem; --initial-rotate: 25deg; }
+.home__leaf-1 { left: 5rem; top: -4rem; --initial-rotate: 10deg; }
+.home__pepperoni { right: 4rem; top: 3.5rem; --initial-rotate: -20deg; }
+.home__mushroom { right: 4rem; bottom: 2rem; --initial-rotate: 15deg; }
+.home__olive { left: 5rem; bottom: -1.5rem; --initial-rotate: 30deg; }
+.home__leaf-2 { left: -3rem; bottom: 3.5rem; --initial-rotate: -10deg; }
+.home__tomato { left: -3rem; top: 2rem; --initial-rotate: 25deg; }
 
 /* Button */
 .button {
@@ -231,6 +234,14 @@ img {
     justify-items: center;
     text-align: center;
   }
+
+.home__leaf-1 { left: 5rem; top: -4rem; --initial-rotate: 10deg; }
+.home__pepperoni { right: .5rem; top: 3.5rem; --initial-rotate: -20deg; }
+.home__mushroom { right: 1rem; bottom: 2rem; --initial-rotate: 15deg; }
+.home__olive { left: 5rem; bottom: -1.5rem; --initial-rotate: 30deg; }
+.home__leaf-2 { left: -3rem; bottom: 3.5rem; --initial-rotate: -10deg; }
+.home__tomato { left: -3rem; top: 2rem; --initial-rotate: 25deg; }
+
 
   .home__data {
     padding-inline: 1rem;
@@ -926,97 +937,4 @@ img {
   }
 }
 
-/*=============== FRANCHISE FORM ===============*/  
-.franchiseform {
-      /* background: var(--white-color); */
-      background-color: transparent;
-      backdrop-filter: blur(15px);
-      /* -webkit-backdrop-filter: blur(10px); */
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
 
-    .franchiseform h2 {
-      font-size: var(--h2-font-size);
-      color: var(--title-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .franchiseform p {
-      color: var(--text-color);
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
-    }
-
-    label {
-      margin-bottom: 0.3rem;
-      font-weight: 500;
-    }
-
-    input[type="text"],
-    input[type="email"] {
-      padding: 0.7rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      transition: border-color 0.3s ease;
-    }
-
-    input:focus {
-      border-color: var(--first-color);
-      outline: none;
-    }
-
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .form-col {
-      flex: 1 1 45%;
-    }
-
-    .error {
-      color: red;
-      font-size: 0.85rem;
-      display: none;
-    }
-
-    .radio-group {
-      margin-bottom: 1rem;
-    }
-
-    .submit-btn {
-      background: var(--first-color);
-      color: white;
-      border: none;
-      padding: 0.9rem 1.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: var(--normal-font-size);
-      transition: background 0.3s ease;
-    }
-
-  .franchise-banner img {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    object-fit: cover;
-    display: block;
-  }
-
-    .submit-btn:hover {
-      background: hsl(353, 93%, 45%);
-    }
-
-    @media screen and (max-width: 768px) {
-      .form-col {
-        flex: 1 1 100%;
-      }
-    }

@@ -70,6 +70,7 @@ function startSlideshow(selector, displayStyle, interval) {
 
 // ==== Contact Slide Show ==== //
 startSlideshow('.contact__image img', 'block', 4000);
+// startSlideshow('.contact-left-section img', 'block', 3000);
 // ==== Recipe Slide Show  ==== //
 startSlideshow('.recipe-content', 'flex', 5000);
 // ==== Home Slide Show ==== //
