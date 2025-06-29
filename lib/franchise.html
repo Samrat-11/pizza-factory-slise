@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
+    <!-- JS Variable Declaration -->
+  <script>
+      const BaseUrl = '/pizza-factory-slise'; // Replace with your actual base URL
+      const SplashUrl = 'lib/splash-screen.html'; // Replace with your actual splash URL
+      const NavUrl = '/pizza-factory-slise/lib/navbar.html'; // Replace with your actual navbar URL
+      const FooterUrl = '/pizza-factory-slise/lib/footer.html'; // Replace with your actual footer URL
+  </script>
+
   <style>
     :root {
       --primary-color: #e63946;
@@ -158,6 +166,7 @@
       }
     }
   </style>
+
 </head>
 <body>
   <!-- Load Navbar start -->
@@ -207,9 +216,12 @@
 
   <!-- Load Footer start -->
 <div id="footer-container"></div>
+ <!-- <div id="footer-container">
+  <?php include '../lib/footer.html'; ?>
+</div> -->
 
 <!-- Custom JS -->
-<script src="load.js"></script>
+ <script src="/pizza-factory-slise/lib/load.js"></script>
 
   <script>
     document.getElementById("franchiseForm").addEventListener("submit", function(e) {
