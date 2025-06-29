@@ -3,6 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Pizza Factory Slise</title>
 
       <!--=============== FAVICON ===============-->
       <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
@@ -17,33 +18,16 @@
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="assets/css/styles.css">
 
-      <title>Pizza Factory Slise</title>
    </head>
    <body>
-      <!--==================== HEADER ====================-->
-     
-<!-- Load Navbar start -->
-   <div id="navbar-container"></div>
-  <script>
-    fetch('lib/navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        const container = document.getElementById('navbar-container');
-        container.innerHTML = html;
+      <!--==================== SPLASH SCREEN ====================-->
+               <div id="splash-container"></div>
 
-        // Manually execute any <script> found in the injected HTML
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(script => {
-          const newScript = document.createElement('script');
-          if (script.src) {newScript.src = script.src;}
-          else {newScript.textContent = script.textContent;}
-          document.body.appendChild(newScript);
-        });
-      });
-  </script>
-        <!-- Load Navbar end-->
+      <!--==================== Navbar ====================-->
+               <div id="navbar-container" style="visibility: hidden;"></div>
+   
       <!--==================== MAIN ====================-->
-      <main class="main">
+      <main class="main" style="visibility: hidden;">
          <!--==================== HOME ====================-->
          <section class="home section" id="home">
   <div class="home__container container grid">
@@ -249,62 +233,7 @@
     </div> -->
   </section>
   <!-- ================================ Recipe End ================================ -->
-         <!--==================== RECIPE ====================-->
-         <!-- <section class="recipe section">
-            <h2 class="section__title">Fresh And <br> Natural Ingredients</h2>
-
-            <div class="recipe__container container grid">
-               <div class="recipe__list grid">
-                  <div class="recipe__ingredient">
-                     <img src="assets/img/recipe-flour.png" alt="image" class="recipe__image">
-                     
-                     <div>
-                        <h3 class="recipe__name">Flour</h3>
-                        <p class="recipe__description">The best wheat from the field for the best flour.</p>
-                     </div>
-                  </div>
-
-                  <div class="recipe__ingredient">
-                     <img src="assets/img/recipe-cheese.png" alt="image" class="recipe__image">
-
-                     <div>
-                        <h3 class="recipe__name">Cheese</h3>
-                        <p class="recipe__description">Indulge in cheese for a healthy future.</p>
-                     </div>
-                  </div>
-
-                  <div class="recipe__ingredient">
-                     <img src="assets/img/recipe-sauces.png" alt="image" class="recipe__image">
-
-                     <div>
-                        <h3 class="recipe__name">Sauces</h3>
-                        <p class="recipe__description">Add a touch of salsa to your life and it will taste better.</p>
-                     </div>
-                  </div>
-
-                  <div class="recipe__ingredient">
-                     <img src="assets/img/recipe-tomato.png" alt="image" class="recipe__image">
-
-                     <div>
-                        <h3 class="recipe__name">Vegetables</h3>
-                        <p class="recipe__description">Vegetables full of the essence of nature and organic.</p>
-                     </div>
-                  </div>
-
-                  <div class="recipe__ingredient">
-                     <img src="assets/img/recipe-meat.png" alt="image" class="recipe__image">
-                     
-                     <div>
-                        <h3 class="recipe__name">Meats</h3>
-                        <p class="recipe__description">The best fresh meats for your health.</p>
-                     </div>
-                  </div>
-               </div>
-
-               <img src="assets/img/recipe-img.png" alt="img" class="recipe__img">
-            </div>
-         </section> -->
-
+        
          <!--==================== PRODUCTS ====================-->
          <section class="products section" id="products">
             <h2 class="section__title">The Most <br> Devoured Pizzas</h2>
@@ -456,27 +385,7 @@
       </main>
 
       <!--==================== FOOTER ====================-->
-     <!-- Load footer start -->
-<!-- Load Footer start -->
-<div id="footer-container"></div>
-<script>
-  fetch('lib/footer.html')
-    .then(res => res.text())
-    .then(html => {
-      const container = document.getElementById('footer-container');
-      container.innerHTML = html;
-
-      // Manually execute any <script> found in the injected HTML
-      const scripts = container.querySelectorAll('script');
-      scripts.forEach(script => {
-        const newScript = document.createElement('script');
-        if (script.src) {newScript.src = script.src;}
-        else {newScript.textContent = script.textContent;}
-        document.body.appendChild(newScript);
-      });
-    });
-</script>
-<!-- Load Footer end -->
+      <div id="footer-container" style="visibility: hidden;"></div>
 
       <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
@@ -489,10 +398,9 @@
       <!--=============== SWIPER JS ===============-->
       <script src="assets/js/swiper-bundle.min.js"></script>
 
-      <!--=============== MAIN JS ===============-->
+      <!--=============== Custom JS ===============-->
       <script src="assets/js/main.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="./lib/load.js"></script>
 
    </body>
 </html>

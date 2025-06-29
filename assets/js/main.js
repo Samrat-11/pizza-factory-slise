@@ -1,3 +1,11 @@
+/*=============== splash screen start ===============*/
+// setTimeout(() => {
+//   document.getElementById("splash").style.display = "none";
+//   document.getElementById("main").style.display = "block";
+// }, 3000);
+
+/*=============== splash screen End ===============*/
+
 /*=============== SHOW SCROLL UP ===============*/ 
 const scrollUp = () =>{
 	const scrollUp = document.getElementById('scroll-up')

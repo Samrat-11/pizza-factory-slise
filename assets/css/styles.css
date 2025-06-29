@@ -125,6 +125,39 @@ img {
   50% { transform: translate(5px, -5px) rotate(var(--initial-rotate)); }
 }
 
+/*=============== splash screen start ===============*/
+  #splash-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ff0000; /* fallback background */
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #splash-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* fills screen, cropping if needed */
+  }
+
+  /* Extra: Media Queries for advanced control if needed */
+  @media (max-width: 768px) {
+    #splash-screen img {
+      object-fit: contain; /* better for mobile view if logo text gets cropped */
+      padding: 10px;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    #splash-screen img {
+      object-fit: contain; /* prevents overblown image on very large screens */
+    }
+  }
+/*=============== splash screen End ===============*/
+
 /*=============== HOME Start ===============*/
 
 .home__container {

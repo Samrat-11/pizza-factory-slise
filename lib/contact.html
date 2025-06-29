@@ -216,24 +216,6 @@
       
    <!-- Load Navbar start -->
   <div id="navbar-container"></div>
-  <script>
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        const container = document.getElementById('navbar-container');
-        container.innerHTML = html;
-
-        // Manually execute any <script> found in the injected HTML
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(script => {
-          const newScript = document.createElement('script');
-          if (script.src) {newScript.src = script.src;}
-          else {newScript.textContent = script.textContent;}
-          document.body.appendChild(newScript);
-        });
-      });
-  </script>
-        <!-- Load Navbar end-->
 
     <!-- Main Section -->
 <main class="main">
@@ -274,30 +256,15 @@
     <!--==================== FOOTER ====================-->
      <!-- Load Footer start -->
 <div id="footer-container"></div>
-<script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(html => {
-      const container = document.getElementById('footer-container');
-      container.innerHTML = html;
 
-      // Manually execute any <script> found in the injected HTML
-      const scripts = container.querySelectorAll('script');
-      scripts.forEach(script => {
-        const newScript = document.createElement('script');
-        if (script.src) {newScript.src = script.src;}
-        else {newScript.textContent = script.textContent;}
-        document.body.appendChild(newScript);
-      });
-    });
-</script>
-<!-- Load Footer end -->
      <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
          <i class="ri-arrow-up-line"></i>
       </a>
     <!--=============== MAIN JS ===============-->
       <script src="assets/js/main.js"></script>
+      <script src="load.js"></script>
+      
     <!--=============== SCROLLREVEAL ===============-->
       <script src="assets/js/scrollreveal.min.js"></script>    
      <script>

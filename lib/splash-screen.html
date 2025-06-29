@@ -1,0 +1,62 @@
+<style>
+  #splash-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ff0000; /* fallback background */
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #splash-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* fills screen, cropping if needed */
+  }
+
+  /* Extra: Media Queries for advanced control if needed */
+  @media (max-width: 768px) {
+    #splash-screen img {
+      object-fit: contain; /* better for mobile view if logo text gets cropped */
+      padding: 10px;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    #splash-screen img {
+      object-fit: contain; /* prevents overblown image on very large screens */
+    }
+  }
+</style>
+
+<div id="splash-screen">
+  <img src="/pizza-factory-slise/assets/img/logo1.jpeg" alt="Pizza Factory Slise Logo" />
+</div>
+
+<script>
+    const splash = document.getElementById('splash-screen');
+    const main = document.querySelector('main');
+    const navbar = document.getElementById('navbar-container');
+    const footer = document.getElementById('footer-container');
+
+    document.body.style.overflow = 'hidden';
+    main.style.visibility = 'hidden';
+    navbar.style.visibility = 'hidden';
+    footer.style.visibility = 'hidden';
+
+    window.onload = () => {
+      setTimeout(() => {
+        splash.style.transition = 'opacity 0.5s ease';
+        splash.style.opacity = '0';
+        setTimeout(() => {
+          splash.remove();
+          document.body.style.overflow = '';
+          main.style.visibility = 'visible';
+          navbar.style.visibility = 'visible';
+          footer.style.visibility = 'visible';
+        }, 500);
+      }, 3000);
+    };
+</script>

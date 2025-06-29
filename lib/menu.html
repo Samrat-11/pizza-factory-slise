@@ -201,24 +201,8 @@
     <!--==================== HEADER ====================-->
      <!-- Load Navbar start -->
   <div id="navbar-container"></div>
-  <script>
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        const container = document.getElementById('navbar-container');
-        container.innerHTML = html;
 
-        // Manually execute any <script> found in the injected HTML
-        const scripts = container.querySelectorAll('script');
-        scripts.forEach(script => {
-          const newScript = document.createElement('script');
-          if (script.src) {newScript.src = script.src;}
-          else {newScript.textContent = script.textContent;}
-          document.body.appendChild(newScript);
-        });
-      });
-  </script>
-        <!-- Load Navbar end-->
+  
 <!-- <header>
   <img src="assets/img/logo1.png" alt="Pizza Factory Slise Logo" style="max-width: 200px; margin-bottom: 5px;">
   
@@ -257,28 +241,15 @@
 </main>
 <!-- Load Footer start -->
 <div id="footer-container"></div>
-<script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(html => {
-      const container = document.getElementById('footer-container');
-      container.innerHTML = html;
 
-      // Manually execute any <script> found in the injected HTML
-      const scripts = container.querySelectorAll('script');
-      scripts.forEach(script => {
-        const newScript = document.createElement('script');
-        if (script.src) {newScript.src = script.src;}
-        else {newScript.textContent = script.textContent;}
-        document.body.appendChild(newScript);
-      });
-    });
-</script>
-<!-- Load Footer end -->
           <!--========== SCROLL UP ==========-->
       <a href="#" class="scrollup" id="scroll-up">
          <i class="ri-arrow-up-line"></i>
       </a>
+
+      <!-- Custom JS -->
+<script src="load.js"></script>
+
 <script>
   const menuData = [
 
