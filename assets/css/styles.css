@@ -125,39 +125,6 @@ img {
   50% { transform: translate(5px, -5px) rotate(var(--initial-rotate)); }
 }
 
-/*=============== splash screen start ===============*/
-  #splash-screen {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #ff0000; /* fallback background */
-    z-index: 9999;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #splash-screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* fills screen, cropping if needed */
-  }
-
-  /* Extra: Media Queries for advanced control if needed */
-  @media (max-width: 768px) {
-    #splash-screen img {
-      object-fit: contain; /* better for mobile view if logo text gets cropped */
-      padding: 10px;
-    }
-  }
-
-  @media (min-width: 1600px) {
-    #splash-screen img {
-      object-fit: contain; /* prevents overblown image on very large screens */
-    }
-  }
-/*=============== splash screen End ===============*/
-
 /*=============== HOME Start ===============*/
 
 .home__container {
@@ -582,49 +549,6 @@ img {
   color: var(--white-color);
 }
 
-/* .contact__info {
-  text-align: center;
-  row-gap: 2rem;
-}
-
-.contact__title {
-  margin-bottom: 1rem;
-}
-
-.contact__social {
-  display: flex;
-  justify-content: center;
-  column-gap: 1rem;
-}
-
-.contact__social-link {
-  font-size: 1.5rem;
-  color: var(--first-color);
-  transition: transform .4s;
-}
-
-.contact__social-link:hover {
-  transform: translateY(-.25rem);
-}
-
-.contact__address {
-  font-style: normal;
-}
-
-.contact__map {
-  color: var(--first-color);
-  display: inline-flex;
-  align-items: center;
-  column-gap: .5rem;
-  margin-top: .5rem;
-  font-size: 1rem;
-}
-
-.contact__map span {
-  font-size: var(--small-font-size);
-  font-weight: var(--font-semi-bold);
-} */
-
 .contact__image {
   flex: 1;
   display: flex;
@@ -664,7 +588,6 @@ img {
   left: 2rem;
   bottom: 6rem;
 }
-
 
 .form {
   position: relative;
@@ -733,9 +656,6 @@ img {
   color: #fff;
   cursor: pointer;
 }
-    
-/*=============== FOOTER ===============*/
-
 
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {

@@ -1,120 +1,120 @@
-  <style>
-    body {
-      margin: 0;
-      font-family: "Carter One", system-ui;
-      background-color: #fdddc7;
-      /* padding-top: 80px; */
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Carter One", system-ui;
+    background-color: #fdddc7;
+    /* padding-top: 80px; */
+  }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 10px;
-      padding-right: 15px;
-      background-color: #fdddc7;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-    }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    padding-right: 15px;
+    background-color: #fdddc7;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
 
-    .logo {
-      font-size: 1.2rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+  .logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .logo span {
-      font-size: 1.25rem;
-      color: black;
-    }
+  .logo span {
+    font-size: 1.25rem;
+    color: black;
+  }
 
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-    }
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
 
+  .nav-links {
+    display: flex;
+    gap: 40px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    position: relative;
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #c51919;
+    bottom: -6px;
+    left: 0;
+    border-radius: 10px;
+  }
+
+  .open-toggle,
+  .close-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .open-toggle .dot,
+  .close-toggle .dot {
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+  }
+
+  .close-toggle .dot:nth-child(1) {
+    transform: rotate(45deg) translate(2px, 2px);
+  }
+  .close-toggle .dot:nth-child(2) {
+    opacity: 0;
+  }
+  .close-toggle .dot:nth-child(3) {
+    transform: rotate(-45deg) translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
     .nav-links {
-      display: flex;
-      gap: 40px;
+      position: fixed;
+      top: 60px;
+      right: 30px;
+      background: #fdddc7;
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      transform: translateX(200%);
+      transition: transform 0.4s ease;
+      z-index: 1000;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: black;
-      font-weight: 600;
-      position: relative;
-    }
-
-    .nav-links a.active::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      background-color: #c51919;
-      bottom: -6px;
-      left: 0;
-      border-radius: 10px;
+    .nav-links.show {
+      transform: translateX(0);
     }
 
     .open-toggle,
     .close-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
+      display: flex;
     }
-
-    .open-toggle .dot,
-    .close-toggle .dot {
-      width: 10px;
-      height: 10px;
-      background: black;
-      border-radius: 50%;
-    }
-
-    .close-toggle .dot:nth-child(1) {
-      transform: rotate(45deg) translate(2px, 2px);
-    }
-    .close-toggle .dot:nth-child(2) {
-      opacity: 0;
-    }
-    .close-toggle .dot:nth-child(3) {
-      transform: rotate(-45deg) translate(2px, -2px);
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        position: fixed;
-        top: 60px;
-        right: 30px;
-        background: #fdddc7;
-        padding: 20px 30px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-        transform: translateX(200%);
-        transition: transform 0.4s ease;
-        z-index: 1000;
-      }
-
-      .nav-links.show {
-        transform: translateX(0);
-      }
-
-      .open-toggle,
-      .close-toggle {
-        display: flex;
-      }
-    }
-  </style>
+  }
+</style>
 
 
 <header class="navbar">
