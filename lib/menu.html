@@ -10,10 +10,8 @@
 
     <!-- JS Variable Declaration -->
   <script>
-      const BaseUrl = '/pizza-factory-slise'; // Replace with your actual base URL
-      const SplashUrl = 'lib/splash-screen.html'; // Replace with your actual splash URL
-      const NavUrl = '/pizza-factory-slise/lib/navbar.html'; // Replace with your actual navbar URL
-      const FooterUrl = '/pizza-factory-slise/lib/footer.html'; // Replace with your actual footer URL
+      const NavUrl = 'navbar.html'; // Replace with your actual navbar URL
+      const FooterUrl = 'footer.html'; // Replace with your actual footer URL
   </script>
 
   <style>
@@ -32,14 +30,7 @@
       background-color: var(--bg-color);
       color: var(--text-dark);
     }
-
-    /* header {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 20px;
-      text-align: center;
-    } */
-
+    
     .filters-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -81,61 +72,66 @@
     }
 
     .menu-container {
-      display: none;
+      display: flex;
       flex-wrap: wrap;
-      gap: 20px;
       justify-content: center;
+      gap: 20px;
       padding: 20px;
     }
 
-    .menu-container.active {
-      display: flex;
-    }
-
     .menu-card {
-      width: 280px;
-      background-color: var(--card-bg);
+      background: white;
       border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 295px;
       overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .menu-card:hover {
-      transform: scale(1.03);
     }
 
     .menu-card img {
       width: 100%;
-      height: 180px;
+      height: 160px;
       object-fit: cover;
     }
 
     .menu-content {
       padding: 15px;
+      /* padding-bottom: 10px; */
     }
 
-    .menu-content h3 {
-      margin: 0 0 10px;
+    .menu-content p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin: 10px 0;
     }
-
     .price {
+      color: #ce221f !important;
       font-weight: bold;
-      color: var(--primary-color);
+    }
+
+    .order-button {
+      margin-top: 10px;
+      background-color: #ce221f;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .order-button:hover {
+      background-color: #b71c1c;
     }
 
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 999;
     }
 
     .modal-content {
@@ -143,40 +139,138 @@
       padding: 20px;
       border-radius: 10px;
       width: 90%;
-      max-width: 500px;
-      text-align: center;
+      max-width: 400px;
       position: relative;
+      text-align: center;
     }
 
-    .modal-content img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
 
     .modal-close {
       position: absolute;
-      top: 10px;
       right: 15px;
-      font-size: 18px;
+      top: 10px;
       cursor: pointer;
-    }
-  .order-button {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 20px;
-      text-decoration: none;
       font-weight: bold;
-      transition: background 0.3s;
     }
 
-    .order-button:hover {
-      background-color: #b71c1c;
+    input {
+      padding: 10px;
+      margin: 5px 0;
+      width: 90%;
     }
+
+    ul {
+      padding-left: 0;
+      list-style: none;
+      text-align: left;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+    }
+
+    #stickyCartBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      border-radius: 50px;
+      padding: 10px 20px;
+      background-color: #ce221f;
+      color: white;
+      border: none;
+    }
+
+    #cartModal .modal-content {
+  max-width: 420px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  text-align: left;
+  font-family: 'Arial', sans-serif;
+}
+
+#cartModal h3 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #b71c1c;
+}
+
+#cartItems li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+#cartItems li span.title {
+  flex: 1;
+  font-weight: 600;
+  color: #333;
+}
+
+.cart-controls button {
+  margin: 0 3px;
+  border: none;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #b71c1c;
+}
+
+#cartTotal {
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+}
+
+.order-button {
+  width: 100%;
+  margin-top: 15px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+#orderFormModal .modal-content {
+  max-width: 420px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+#orderFormModal h3 {
+  color: #b71c1c;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+#orderForm input {
+  padding: 12px;
+  width: 90%;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#orderForm .order-button {
+  width: 100%;
+  background-color: #b71c1c;
+  font-size: 16px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+
 
     /* Animate cards on scroll */
     @keyframes fadeInUp {
@@ -212,12 +306,6 @@
      <!-- Load Navbar start -->
   <div id="navbar-container"></div>
 
-
-<!-- <header>
-  <img src="assets/img/logo1.png" alt="Pizza Factory Slise Logo" style="max-width: 200px; margin-bottom: 5px;">
-  
-  <p>Bite into Bliss, Slice after Slice & More!</p>
-</header> -->
 <main class="main">
 <div class="filters-wrapper">
   <input type="text" id="searchBox" placeholder="Search menu..." onkeyup="searchMenu()" />
@@ -239,7 +327,41 @@
 
 <div id="menu" class="menu-container active"></div>
 
-<div class="modal" id="itemModal">
+<div class="menu-container" id="menu">
+  <!-- 🛒 Cart Modal -->
+  <div id="cartModal" class="modal" onclick="handleModalOutsideClick(event, 'cartModal')">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="modal-close" onclick="closeCartModal()">×</span>
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <p style="text-align:right; margin-top: 10px;">
+      <strong>Total:</strong> <span id="cartTotal">₹0</span>
+    </p>
+    <button class="order-button" onclick="openOrderForm()">Order Now</button>
+  </div>
+</div>
+
+
+  <!-- 📋 Order Form Modal -->
+  <div id="orderFormModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeOrderForm()">×</span>
+      <h3>Enter Your Details</h3>
+      <form id="orderForm" onsubmit="submitOrder(event)">
+  <input type="text" id="custName" placeholder="Your Name" required />
+  <input type="text" id="custAddress" placeholder="Your Address" required />
+  <input type="tel" id="custPhone" placeholder="Phone Number" required />
+  <button type="submit" class="order-button">✅ Send to WhatsApp</button>
+</form>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- 🔘 Sticky Floating Cart Button -->
+  <button id="stickyCartBtn" onclick="openCartModal()">🛒 Cart</button>
+
+<!-- <div class="modal" id="itemModal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">&times;</span>
     <img id="modalImage" src="" alt="Item Image">
@@ -247,18 +369,13 @@
     <p id="modalDescription"></p>
     <p class="price" id="modalPrice"></p>
   </div>
-</div>
+</div> -->
 </main>
 <!-- Load Footer start -->
 <div id="footer-container"></div>
 
-          <!--========== SCROLL UP ==========-->
-      <a href="#" class="scrollup" id="scroll-up">
-         <i class="ri-arrow-up-line"></i>
-      </a>
-
-        <!-- Custom JS -->
-<script src="/pizza-factory-slise/lib/load.js"></script>
+    <!-- Custom JS -->
+<script src="load.js"></script>
 
 <script>
   const menuData = [
@@ -395,68 +512,196 @@
     { category: 'combos', title: 'Oreo Coffee Combo', desc: 'Oreo Coffee Shake + Cold Coffee', price: '₹268', img: '', type: 'veg' }
 ];
 
-  let activeCategory = 'all';
-  let activeType = 'all';
 
-  function renderMenuItems() {
-    const menu = document.getElementById('menu');
-    menu.innerHTML = '';
-    const searchValue = document.getElementById('searchBox').value.toLowerCase();
+let activeCategory = 'all';
+let activeType = 'all';
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const filteredItems = menuData.filter(item => {
-      return (activeCategory === 'all' || item.category === activeCategory) &&
-             (activeType === 'all' || item.type === activeType) &&
-             (item.title.toLowerCase().includes(searchValue) || item.desc.toLowerCase().includes(searchValue));
-    });
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
 
-    filteredItems.forEach(item => {
-      const card = document.createElement('div');
-      card.className = `menu-card ${item.type}`;
-      card.innerHTML = `<div class=\"menu-card-inner\">
-          <img src=\"${item.img}\" alt=\"${item.title}\" />
-          <div class=\"menu-content\">
-            <h3>${item.title}</h3>
-            <p>${item.desc}</p>
-            <p class=\"price\">${item.price}</p>
-            <a class=\"order-button\" href=\"https://wa.me/919640521971?text=I want to order: ${encodeURIComponent(item.title)} - ${encodeURIComponent(item.price)}\" target=\"_blank\">Order Now</a>
-          </div>
-        </div>`;
-      card.onclick = () => openModal(item);
-      menu.appendChild(card);
-    });
+function renderMenuItems() {
+  const container = document.getElementById('menu');
+  container.innerHTML = '';
+  const searchValue = document.getElementById('searchBox')?.value.toLowerCase() || '';
+
+  const filteredItems = menuData.filter(item => {
+    return (activeCategory === 'all' || item.category === activeCategory) &&
+           (activeType === 'all' || item.type === activeType) &&
+           (item.title.toLowerCase().includes(searchValue) || item.desc.toLowerCase().includes(searchValue));
+  });
+
+  filteredItems.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `menu-card ${item.type}`;
+    card.innerHTML = `
+      <img src="${item.img}" alt="${item.title}">
+      <div class="menu-content">
+        <h4>${item.title}</h4>
+        <p>${item.desc}</p>
+        <p class="price">${item.price}</p>
+        <button 
+          class="order-button"
+          data-title="${item.title}"
+          data-desc="${item.desc}"
+          data-price="${item.price}"
+          data-img="${item.img}"
+          onclick="addToCartFromButton(this)"
+        >Add to Cart</button>
+      </div>`;
+    card.onclick = () => openModal(item);
+    container.appendChild(card);
+  });
+}
+
+function addToCartFromButton(button) {
+  const item = {
+    title: button.getAttribute('data-title'),
+    desc: button.getAttribute('data-desc'),
+    price: button.getAttribute('data-price'),
+    img: button.getAttribute('data-img')
+  };
+  addToCart(item);
+}
+
+function addToCart(item) {
+  const existing = cart.find(i => i.title === item.title);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    item.qty = 1;
+    cart.push(item);
   }
+  alert(`${item.title} added to cart`);
+  renderCart();
+  saveCart();
+}
 
-  function openTab(evt, category) {
-    document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
-    evt.target.classList.add('active');
-    activeCategory = category;
-    renderMenuItems();
+function renderCart() {
+  const list = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartTotal');
+  list.innerHTML = '';
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    const price = parseInt(item.price.match(/\d+/)[0]);
+    total += price * item.qty;
+    list.innerHTML += `
+  <li>
+    <span class="title">${item.title}</span>
+    <div class="cart-controls">
+      <button onclick="changeQty(${i}, -1)">−</button>
+      <span>${item.qty}</span>
+      <button onclick="changeQty(${i}, 1)">+</button>
+      <button onclick="removeItem(${i})">×</button>
+    </div>
+  </li>`;
+
+  });
+
+  totalEl.innerText = `₹${total}`;
+  saveCart();
+}
+
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
   }
+  renderCart();
+  saveCart();
+}
 
-  function filterByType(evt, type) {
-    document.querySelectorAll('.type-filter').forEach(btn => btn.classList.remove('active'));
-    evt.target.classList.add('active');
-    activeType = type;
-    renderMenuItems();
+function removeItem(index) {
+  cart.splice(index, 1);
+  renderCart();
+  saveCart();
+}
+
+function openCartModal() {
+  document.getElementById('cartModal').style.display = 'flex';
+}
+
+function closeCartModal() {
+  document.getElementById('cartModal').style.display = 'none';
+}
+
+function openOrderForm() {
+  document.getElementById('cartModal').style.display = 'none';
+  document.getElementById('orderFormModal').style.display = 'flex';
+}
+
+function closeOrderForm() {
+  document.getElementById('orderFormModal').style.display = 'none';
+}
+
+function submitOrder(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value;
+  const address = document.getElementById('custAddress').value;
+  const phone = document.getElementById('custPhone').value;
+
+  let message = `*Order from Pizza Factory Slise*%0A`;
+  cart.forEach(item => {
+    const price = item.price.match(/\d+/)[0];
+    message += `🍕 ${item.title} - ₹${price} x ${item.qty}%0A`;
+  });
+
+  const total = document.getElementById('cartTotal').innerText;
+  message += `%0A*Total*: ${total}%0A`;
+  message += `%0A*Customer Details*:%0A👤 ${name}%0A🏠 ${address}%0A📞 ${phone}`;
+
+  const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+
+  cart = [];
+  renderCart();
+  saveCart();
+  closeOrderForm();
+}
+
+function openTab(evt, category) {
+  document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
+  evt.target.classList.add('active');
+  activeCategory = category;
+  renderMenuItems();
+}
+
+function filterByType(evt, type) {
+  document.querySelectorAll('.type-filter').forEach(btn => btn.classList.remove('active'));
+  evt.target.classList.add('active');
+  activeType = type;
+  renderMenuItems();
+}
+
+function searchMenu() {
+  renderMenuItems();
+}
+
+function openModal(item) {
+  document.getElementById('modalImage').src = item.img;
+  document.getElementById('modalTitle').innerText = item.title;
+  document.getElementById('modalDescription').innerText = item.desc;
+  document.getElementById('modalPrice').innerText = item.price;
+  document.getElementById('itemModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('itemModal').style.display = 'none';
+}
+
+function handleModalOutsideClick(event, modalId) {
+  const modal = document.getElementById(modalId);
+  if (event.target === modal) {
+    modal.style.display = 'none';
   }
+}
 
-  function searchMenu() {
-    renderMenuItems();
-  }
-
-  function openModal(item) {
-    document.getElementById('modalImage').src = item.img;
-    document.getElementById('modalTitle').innerText = item.title;
-    document.getElementById('modalDescription').innerText = item.desc;
-    document.getElementById('modalPrice').innerText = item.price;
-    document.getElementById('itemModal').style.display = 'flex';
-  }
-
-  function closeModal() {
-    document.getElementById('itemModal').style.display = 'none';
-  }
-
-  window.onload = renderMenuItems;
+window.onload = () => {
+  renderMenuItems();
+  renderCart();
+};
 </script>
 
 </body>
