@@ -181,7 +181,5 @@
 
 <script>
   /*=============== SHOW SCROLL UP ===============*/ 
-  window.addEventListener('scroll', () => {
-    document.getElementById('scroll-up').classList.toggle('show-scroll', window.scrollY >= 350);
-  });
+ onscroll = () => document.getElementById('scroll-up').classList.toggle('show-scroll', scrollY >= 350);
 </script>
