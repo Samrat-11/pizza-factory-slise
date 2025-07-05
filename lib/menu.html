@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pizza Factory Slise Menu</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
-  <!--=============== FAVICON ===============-->
-      <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
 
-    <!-- JS Variable Declaration -->
+  <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
   <script>
       const NavUrl = 'navbar.html'; // Replace with your actual navbar URL
       const FooterUrl = 'footer.html'; // Replace with your actual footer URL
   </script>
-
   <style>
     :root {
       --primary-color: #ce221f;
@@ -25,12 +22,16 @@
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-dark);
+     background-color: var(--bg-color);
+     color: var(--text-dark);
+     margin: 0;
     }
-    
+
+    .menu-page-content {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* === Filter Section === */
     .filters-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -60,7 +61,7 @@
       background-color: white;
       border: none;
       padding: 10px 20px;
-      border-radius: 25px;
+      border-radius: 25px !important;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
@@ -71,63 +72,189 @@
       color: white;
     }
 
-    .menu-container {
+    /* === Floating Menu Button === */
+    .menu-toggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .menu-popup {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background-color: #0f1113;
+      color: white;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+      z-index: 999;
+      font-family: 'Arial', sans-serif;
+      max-width: 300px;
+      width: 90%;
+    }
+
+    .menu-popup h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-popup button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      margin: 8px 0;
+      padding: 6px 0;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .menu-popup.hidden {
+      display: none;
+    }
+
+    /* === Menu Cards Layout === */
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       padding: 20px;
+      justify-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .menu-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .menu-card {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 295px;
-      overflow: hidden;
-    }
-
-    .menu-card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
-
-    .menu-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: #fff;
+      border-bottom: 1px solid #eee;
       padding: 15px;
-      /* padding-bottom: 10px; */
+      border-radius: 8px;
+      gap: 10px;
+      width: 100%;
+      max-width: 720px;
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
     }
 
-    .menu-content p {
-      font-size: 14px;
-      color: var(--text-light);
-      margin: 10px 0;
+    .menu-info { flex: 1; }
+
+    .menu-info h4 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      font-weight: 600;
     }
-    .price {
-      color: #ce221f !important;
+
+    .menu-info p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .original-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .discounted-price {
+      color: #0f8f04;
       font-weight: bold;
+      font-size: 16px;
+    }
+
+    .rating {
+      font-size: 14px;
+      color: #333;
+      margin-top: 5px;
+    }
+
+    .menu-img-block {
+      width: 130px;
+      position: relative;
+      text-align: center;
+    }
+
+    .menu-img-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
     }
 
     .order-button {
-      margin-top: 10px;
-      background-color: #ce221f;
+      margin-top: 8px;
+      background-color: #0f8f04;
       color: white;
-      padding: 8px 16px;
+      padding: 6px 12px;
       border: none;
-      border-radius: 20px;
-      font-weight: bold;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
     }
 
     .order-button:hover {
-      background-color: #b71c1c;
+      background-color: #087b01;
     }
 
+    .veg-icon, .nonveg-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .veg-icon {
+      border: 1px solid green;
+      background: green;
+    }
+
+    .nonveg-icon {
+      border: 1px solid red;
+      background: red;
+    }
+
+    /* === Generic Modal === */
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
@@ -143,7 +270,6 @@
       position: relative;
       text-align: center;
     }
-
 
     .modal-close {
       position: absolute;
@@ -169,413 +295,452 @@
       margin-bottom: 6px;
     }
 
+    /* === Cart Modal Styling === */
     #stickyCartBtn {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 25px;
+      left: 25px;
       z-index: 9999;
       border-radius: 50px;
       padding: 10px 20px;
-      background-color: #ce221f;
+      background-color: #1bbf49;
       color: white;
       border: none;
     }
 
     #cartModal .modal-content {
-  max-width: 420px;
-  background: #fff;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  text-align: left;
-  font-family: 'Arial', sans-serif;
-}
+      max-width: 420px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      text-align: left;
+      font-family: 'Arial', sans-serif;
+    }
 
-#cartModal h3 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 15px;
-  color: #b71c1c;
-}
+    #cartModal h3 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #b71c1c;
+    }
 
-#cartItems li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 8px 0;
-  border-bottom: 1px dashed #ccc;
-}
+    #cartItems li {
+      display: flex;
+      justify-content: space-between; /* Distributes items along the line */
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed #ccc;
+    }
 
-#cartItems li span.title {
-  flex: 1;
-  font-weight: 600;
-  color: #333;
-}
+    #cartItems li span.title {
+      flex: 1; /* Allows title to take available space */
+      font-weight: 600;
+      color: #333;
+      text-align: left; /* Ensure title is left-aligned */
+    }
 
-.cart-controls button {
-  margin: 0 3px;
-  border: none;
-  background-color: #f0f0f0;
-  font-weight: bold;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #b71c1c;
-}
+    /* Styles for quantity controls in cart modal */
+    .cart-quantity-controls { /* New class */
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-#cartTotal {
-  font-weight: bold;
-  color: #333;
-  font-size: 18px;
-}
+    .cart-quantity-controls button {
+      border: none;
+      background-color: #f0f0f0;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #b71c1c;
+    }
 
-.order-button {
-  width: 100%;
-  margin-top: 15px;
-  font-size: 16px;
-  border-radius: 12px;
-}
+    /* Style for the price */
+    .cart-item-price {
+        font-weight: bold;
+        color: #b71c1c;
+        margin-left: 20px; /* Space between quantity controls and price */
+        min-width: 60px; /* Ensure space for price */
+        text-align: right; /* Align price to the right within its space */
+    }
 
-#orderFormModal .modal-content {
-  max-width: 420px;
-  background: #fff;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  text-align: center;
-}
+    #cartTotal {
+      font-weight: bold;
+      color: #333;
+      font-size: 18px;
+    }
+    
+    #cartCountBadge {
+      background-color: #1bbf49;
+      color: white;
+      padding: 0px 0px;
+      font-size: 18px;
+      border-radius: 10px;
+      margin-left: 6px;
+    }
 
-#orderFormModal h3 {
-  color: #b71c1c;
-  font-size: 22px;
-  margin-bottom: 15px;
-}
+    .order-button {
+      width: 100%;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
 
-#orderForm input {
-  padding: 12px;
-  width: 90%;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
+    /* === Order Form Modal Styling === */
+    #orderFormModal .modal-content {
+      max-width: 420px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      text-align: center;
+    }
 
-#orderForm .order-button {
-  width: 100%;
-  background-color: #b71c1c;
-  font-size: 16px;
-  border-radius: 12px;
-  margin-top: 10px;
-}
+    #orderFormModal h3 {
+      color: #b71c1c;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
 
+    #orderForm input {
+      padding: 12px;
+      width: 90%;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
 
+    #orderForm .order-button {
+      width: 100%;
+      background-color: #b71c1c;
+      font-size: 16px;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
 
-    /* Animate cards on scroll */
+    /* === Animation Styles === */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .menu-card {
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-
-    .menu-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      justify-items: center;
-    }
-    
-
     .filters .tablink::before {
       content: attr(data-icon);
       margin-right: 8px;
     }
-    
-    
 
-</style>
+    /* Styles for quantity control on menu cards */
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Reduced gap for a tighter look */
+      margin-top: 8px;
+      justify-content: center;
+      width: 100%; /* Ensure it takes full width of the block */
+    }
+
+    .qty-btn {
+      background-color: var(--primary-color); /* Changed to primary color for consistency */
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      flex-grow: 1; /* Allow buttons to grow */
+    }
+
+    .qty-btn.delete {
+        background-color: #dc3545; /* Red color for delete */
+    }
+
+    .qty-count {
+      font-weight: bold;
+      font-size: 16px;
+      padding: 6px 10px; /* Added padding for better appearance */
+      border: 1px solid #ccc; /* Add a border to the count */
+      border-radius: 6px;
+      min-width: 30px; /* Ensure a minimum width */
+      text-align: center;
+    }
+    
+  </style>
 </head>
 <body>
-    <!--==================== HEADER ====================-->
-     <!-- Load Navbar start -->
   <div id="navbar-container"></div>
 
-<main class="main">
-<div class="filters-wrapper">
-  <input type="text" id="searchBox" placeholder="Search menu..." onkeyup="searchMenu()" />
-  <div class="filters">
-    <button class="tablink active" onclick="openTab(event, 'all')" data-icon="🍽️">All</button>
-    <button class="tablink" onclick="openTab(event, 'pizzas')" data-icon="🍕">Pizzas</button>
-    <button class="tablink" onclick="openTab(event, 'burgers')" data-icon="🍔">Burgers</button>
-    <button class="tablink" onclick="openTab(event, 'sides')" data-icon="🍟">Sides</button>
-    <button class="tablink" onclick="openTab(event, 'beverages')" data-icon="🥤">Beverages</button>
-    <button class="tablink" onclick="openTab(event, 'icecreams')" data-icon="🍨">Ice Creams</button>
-    <button class="tablink" onclick="openTab(event, 'combos')" data-icon="🍱">Combos</button>
-  </div>
-  <div class="filters">
-    <button class="type-filter" onclick="filterByType(event, 'all')">All</button>
-    <button class="type-filter" onclick="filterByType(event, 'veg')">Veg</button>
-    <button class="type-filter" onclick="filterByType(event, 'nonveg')">Non-Veg</button>
-  </div>
-</div>
+  <div class="menu-page-content">
 
-<div id="menu" class="menu-container active"></div>
+  <div class="filters-wrapper">
+    <input type="text" id="searchBox" placeholder="Search menu..." onkeyup="searchMenu()" />
+    <div class="filters">
+      <button class="type-filter " onclick="filterByType(event, 'all')">All</button>
+      <button class="type-filter" onclick="filterByType(event, 'veg')">Veg</button>
+      <button class="type-filter" onclick="filterByType(event, 'nonveg')">Non-Veg</button>
+    </div>
+  </div>
 
-<div class="menu-container" id="menu">
-  <!-- 🛒 Cart Modal -->
+  <button id="menuToggleBtn" class="menu-toggle" onclick="toggleMenuPopup()">MENU</button>
+
+  <div id="menuPopup" class="menu-popup hidden">
+    <!-- <h3>Recommended <span>20</span></h3> -->
+    <button class="tablink" onclick="openTab(event, 'all')">All</button>
+    <button class="tablink" onclick="openTab(event, 'pizzamania')">Pizza Mania</button>
+    <button class="tablink" onclick="openTab(event, 'pizzas')">Pizzas</button>
+    <button class="tablink" onclick="openTab(event, 'burgers')">Burgers</button>
+    <button class="tablink" onclick="openTab(event, 'sides')">Sides</button>
+    <button class="tablink" onclick="openTab(event, 'beverages')">Beverages</button>
+    <button class="tablink" onclick="openTab(event, 'icecreams')">Ice Creams</button>
+    <button class="tablink" onclick="openTab(event, 'combos')">Combos</button>
+  </div>
+
+  <div id="menu" class="menu-container active"></div>
+
   <div id="cartModal" class="modal" onclick="handleModalOutsideClick(event, 'cartModal')">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="modal-close" onclick="closeCartModal()">×</span>
-    <h3>Your Cart</h3>
-    <ul id="cartItems"></ul>
-    <p style="text-align:right; margin-top: 10px;">
-      <strong>Total:</strong> <span id="cartTotal">₹0</span>
-    </p>
-    <button class="order-button" onclick="openOrderForm()">Order Now</button>
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="modal-close" onclick="closeCartModal()">×</span>
+      <h3>Your Cart</h3>
+      <ul id="cartItems"></ul>
+      <p style="text-align:right; margin-top: 10px;">
+        <strong>Total:</strong> <span id="cartTotal">₹0</span>
+      </p>
+      <button class="order-button" onclick="openOrderForm()">Order Now</button>
+    </div>
   </div>
-</div>
 
+  <button id="stickyCartBtn" style="font-weight: bold;" onclick="openCartModal()">🛒 View Cart<span id="cartCountBadge">[0]</span></button>
 
-  <!-- 📋 Order Form Modal -->
   <div id="orderFormModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeOrderForm()">×</span>
       <h3>Enter Your Details</h3>
       <form id="orderForm" onsubmit="submitOrder(event)">
-  <input type="text" id="custName" placeholder="Your Name" required />
-  <input type="text" id="custAddress" placeholder="Your Address" required />
-  <input type="tel" id="custPhone" placeholder="Phone Number" required />
-  <button type="submit" class="order-button">✅ Send to WhatsApp</button>
-</form>
-
+        <input type="text" id="custName" placeholder="Your Name" required />
+        <input type="text" id="custAddress" placeholder="Your Address" required />
+        <input type="tel" id="custPhone" placeholder="Phone Number" required />
+        <!-- <button type="submit" class="order-button">✅ Send to WhatsApp</button> -->
+        <button type="button" class="order-button" onclick="makePayment()">💳 Make Payment</button>
       </form>
     </div>
   </div>
-
-  <!-- 🔘 Sticky Floating Cart Button -->
-  <button id="stickyCartBtn" onclick="openCartModal()">🛒 Cart</button>
-
-<!-- <div class="modal" id="itemModal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">&times;</span>
-    <img id="modalImage" src="" alt="Item Image">
-    <h3 id="modalTitle"></h3>
-    <p id="modalDescription"></p>
-    <p class="price" id="modalPrice"></p>
   </div>
-</div> -->
-</main>
-<!-- Load Footer start -->
-<div id="footer-container"></div>
+ <div id="footer-container"></div>
 
-    <!-- Custom JS -->
-<script src="load.js"></script>
+  <script src="load.js"></script>
 
-<script>
-  const menuData = [
+  <script>
+/* === MENU DATA === */
+const menuData = [
 
-    // Veg Burgers
-    { category: 'burgers', title: 'Veggie Victory Burger', desc: 'Delicious veg patty with lettuce and creamy mayo', price: '₹119', img: 'assets/img/veg-burger-1.jpg', type: 'veg' },
-    { category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Veg patty with lettuce, mayo, and spicy sauce', price: '₹129', img: 'assets/img/veg-burger-2.jpg', type: 'veg' },
-    { category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'Veg patty with lettuce, onion, tomato and mayo', price: '₹139', img: 'assets/img/veg-burger-3.jpg', type: 'veg' },
-    { category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'Delicious Veg patty and crunchy lettuce and onion and tomato with mayo', price: '₹139', img: 'assets/img/veg-burger-3.jpg', type: 'veg' },
-    { category: 'burgers', title: 'Nacho Vixen Burger', desc: ' Delicious veg patty, crunchy lettuce and crispy nachos and flavored  mayo', price: '₹149', img: 'assets/img/veg-burger-4.jpg', type: 'veg' },
-   
-    // Non-Veg Burgers
-    { category: 'burgers', title: 'Nonveg Victory Burger', desc: 'Delicious veg patty with lettuce and creamy mayo', price: '₹129', img: 'assets/img/veg-burger-1.jpg', type: 'nonveg' },
-    { category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Veg patty with lettuce, mayo, and spicy sauce', price: '₹139', img: 'assets/img/veg-burger-2.jpg', type: 'nonveg' },
-    { category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'Veg patty with lettuce, onion, tomato and mayo', price: '₹149', img: 'assets/img/veg-burger-3.jpg', type: 'nonveg' },
-    { category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'Delicious Veg patty and crunchy lettuce and onion and tomato with mayo', price: '₹159', img: 'assets/img/veg-burger-3.jpg', type: 'nonveg' },
-    { category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: ' Delicious veg patty, crunchy lettuce and crispy nachos and flavored  mayo', price: '₹179', img: 'assets/img/veg-burger-4.jpg', type: 'nonveg' },
-   
-    // Veg Sides
-    { category: 'sides', title: 'Veg Nuggets', desc: 'Crispy Veg Nuggets', price: '₹89', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Veg Nachos', desc: 'Crispy Veg Nachos', price: '₹179', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Potato Wedges', desc: 'Crispy potato wedges', price: '₹99', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Freid Veg Momos', desc: 'Golden fried veg momos', price: '₹80', img: 'assets/img/veg-nuggets.jpg', type: 'veg' },
-    { category: 'sides', title: 'Salted French Fries', desc: 'Crispy Salted French Fries', price: '₹85', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'Crispy Cheese Nachos', price: '₹199', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Crispy potato pops', price: '₹89', img: 'assets/img/wedges.jpg', type: 'veg' },
-    { category: 'sides', title: 'Peri Peri French Fries', desc: 'French fries with peri peri spice', price: '₹99', img: 'assets/img/peri-fries.jpg', type: 'veg' },
+  //Pizza Mania
+  { category: 'pizzamania', title: 'Onion Pizza', desc: 'Mozerella cheese, onion', price: '₹79', img: '../assets/img/product-1.png', type: 'veg' },
+  { category: 'pizzamania', title: 'Capsicum Onion Pizza', desc: 'Mozerella cheese, Capsicum, onion', price: '₹89', img: '../assets/img/product-2.png', type: 'veg' },
+  { category: 'pizzamania', title: 'Mushroom Red Paprika Pizza', desc: 'Mozerella cheese, Mushroom, red paprika', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'Corn Pizza Mania Pizza', desc: 'Mozerella cheese, Corn', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'Jalapeno And Corn Mania Pizza', desc: 'Mozerella cheese, Corn, Jalapeno', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'Olive And Onion Mania Pizza', desc: 'Mozerella cheese, Olive, onionn', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'Mushroom Pizza', desc: 'Mozerella cheese, Mushroom', price: '₹79', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
 
-    // Non-Veg Sides
-    { category: 'sides', title: 'Chicken Nuggets', desc: 'Juicy chicken nuggets', price: '₹119', img: 'assets/img/chicken-nuggets.jpg', type: 'nonveg' },
-    { category: 'sides', title: 'Chicken Wings', desc: 'Spicy chicken wings', price: '₹99', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
-    { category: 'sides', title: 'Fried Chicken Momos', desc: 'Spicy chicken wings', price: '₹99', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
-    { category: 'sides', title: 'Shedard Chicken Nachos', desc: 'Spicy chicken wings', price: '₹219', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
-    { category: 'sides', title: 'Classic Shedard Chicken Cheese Nachos', desc: 'Spicy chicken wings', price: '₹249', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
-    
-    //Pizza Mania
-    { category: 'pizzamania', title: 'Onion Pizza', desc: 'Mozerella cheese, onion', price: '₹79', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Capsicum Onion Pizza', desc: 'Mozerella cheese, Capsicum, onion', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Mushroom Red Paprika Pizza', desc: 'Mozerella cheese, Mushroom, red paprika', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Corn Pizza Mania Pizza', desc: 'Mozerella cheese, Corn', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Jalapeno And Corn Mania Pizza', desc: 'Mozerella cheese, Corn, Jalapeno', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Olive And Onion Mania Pizza', desc: 'Mozerella cheese, Olive, onionn', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
-    { category: 'pizzamania', title: 'Mushroom Pizza', desc: 'Mozerella cheese, Mushroom', price: '₹79', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
+  // Veg Pizzas
+  { category: 'pizzas', title: 'Margarita Pizza', desc: 'Mozerella cheese', price: 'S-₹169/ M-₹289/ L-₹449', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Mozerella cheese, onion, green capsicum, red paprika, paneer tikka', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Mozerella cheese, onion, tomato, corn, green capsicum', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Tandoori Veggie Feast Pizza', desc: 'Mozerella cheese, onion, tomato, green capsicum, tandoori paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Veggie Supreme Delight Pizza', desc: 'Mozerella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Delight Explosion Pizza', desc: 'Mozerella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Pineapple Passion Blast Pizza', desc: 'Mozerella cheese, onion, pineapple, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'BBQ Veggie Bonanza Pizza', desc: 'Mozerella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Baby Corn Fiesta Pizza', desc: 'Mozerella cheese, baby corn, tomato, green capsicum, mushroom', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Peri Peri Paneer Paradise Pizza', desc: 'Mozerella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Perfection Pizza', desc: 'Mozerella cheese, onion, paneer, corn, green capsicum', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Mix Veggie Medley Pizza', desc: 'Mozerella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Makhani Marvel Pizza', desc: 'Mozerella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Tandoori Twist Pizza', desc: 'Mozerella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Fiery Fusion Surprise Pizza', desc: 'Mozerella cheese, onion, red paprika, jalapeno, green chilli, yellow capsicum, toping on jalapeno sause', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Capsicum Corn Sensation Pizza', desc: 'Mozerella cheese, onion, corn, red capsicum, toping on mint sause, golden corn', price: 'S-₹189/ M-₹339/ L-₹549', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Chhese Gold Corn Pizza', desc: 'Mozerella cheese, goldenn corn', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Olive Paradise Pizza', desc: 'Mozerella cheese, olive, green capsicum, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
 
-    // Beverages
-    { category: 'beverages', title: 'Cold Coffee', desc: 'Classic chilled coffee', price: '₹129', img: 'assets/img/cold-coffee.jpg', type: 'veg' },
-    { category: 'beverages', title: 'Oreo Coffee Shake', desc: 'Coffee blended with Oreo cookies', price: '₹139/159', img: 'assets/img/oreo-shake.jpg', type: 'veg' },
-    { category: 'beverages', title: 'King of Mango Shake', desc: 'Mango flavored milkshake', price: '₹139/159', img: 'assets/img/mango-shake.jpg', type: 'veg' },
+  // Non-Veg Pizzas
+  { category: 'pizzas', title: 'Chicken Tikka Masala Madness Pizza', desc: 'Mozerella cheese, chicken tikka, onion, capsicum', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'BBQ Chicken Blast Pizza', desc: 'Mozerella cheese, BBQ chicken, onion, jalapeno', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise Pizza', desc: 'Mozerella cheese, chicken sausage, red paprika', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Sweet Chilli Chicken Sensation Pizza', desc: 'Mozerella cheese, onion, mushroom, capsicum, sweet chilli chicken', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Salami Sensation Pizza', desc: 'Mozerella cheese, chicken salami, jalapeno', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Pepperoni Perfection Pizza', desc: 'Mozerella cheese, chicken pepperoni', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Tandoori Temptation Pizza', desc: 'Mozerella cheese, onion, capsicum, tomato, tandoori chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Peri Peri Chicken Explosion Pizza', desc: 'Mozerella cheese, onion, green capsicum, red paprika, peri peri chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion Pizza', desc: 'Mozerella cheese, onion, chicken tikka, paneer', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Mozerella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', price: 'S-₹219/ M-₹379/ L-₹589', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Mozerella cheese, corn, onion, chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, chicken, jalapeno, corn, special spicy sauce', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
 
-    // Ice Creams & Desserts
-    { category: 'icecreams', title: 'Mango Icecream', desc: 'Mango Icecream', price: '₹80', img: 'assets/img/lava-cake.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Sitaphal Icecream', desc: 'Sweet Sitphal icecream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Tender Cocounut Icecream', desc: 'cocount icecream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Anjeer', desc: 'Anjeer icecream', price: '₹80', img: 'assets/img/lava-cake.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Litchi Ice Cream', desc: 'Litchi ice cream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Chikoo Ice Cream', desc: 'Chikoo ice cream', price: '₹80', img: 'assets/img/vanilla-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Strawberry Ice Cream', desc: 'Strawberry flavor ice cream', price: '₹80', img: 'assets/img/strawberry-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Roasted Almond Ice Cream', desc: 'Almond flavour ice cream', price: '₹80', img: 'assets/img/pista-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Malia Ice Cream', desc: 'Malia flavor ice cream', price: '₹80', img: 'assets/img/pista-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Chocolate Ice Cream', desc: 'Rich chocolate flavor ice cream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
-    { category: 'icecreams', title: 'Kesarapista Ice Cream', desc: 'lesarapista flavor ice cream', price: '₹80', img: 'assets/img/blueberry-icecream.jpg', type: 'veg' },
-    
-    
+// Veg Burgers
+  { category: 'burgers', title: 'Veggie Victory Burger', desc: 'Delicious veg patty with lettuce and creamy mayo', price: '₹119', img: 'assets/img/veg-burger-1.jpg', type: 'veg' },
+  { category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Veg patty with lettuce, mayo, and spicy sauce', price: '₹129', img: 'assets/img/veg-burger-2.jpg', type: 'veg' },
+  { category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'Veg patty with lettuce, onion, tomato and mayo', price: '₹139', img: 'assets/img/veg-burger-3.jpg', type: 'veg' },
+  { category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'Delicious Veg patty and crunchy lettuce and onion and tomato with mayo', price: '₹139', img: 'assets/img/veg-burger-3.jpg', type: 'veg' },
+  { category: 'burgers', title: 'Nacho Vixen Burger', desc: ' Delicious veg patty, crunchy lettuce and crispy nachos and flavored  mayo', price: '₹149', img: 'assets/img/veg-burger-4.jpg', type: 'veg' },
+  
+  // Non-Veg Burgers
+  { category: 'burgers', title: 'Nonveg Victory Burger', desc: 'Delicious veg patty with lettuce and creamy mayo', price: '₹129', img: 'assets/img/veg-burger-1.jpg', type: 'nonveg' },
+  { category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Veg patty with lettuce, mayo, and spicy sauce', price: '₹139', img: 'assets/img/veg-burger-2.jpg', type: 'nonveg' },
+  { category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'Veg patty with lettuce, onion, tomato and mayo', price: '₹149', img: 'assets/img/veg-burger-3.jpg', type: 'nonveg' },
+  { category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'Delicious Veg patty and crunchy lettuce and onion and tomato with mayo', price: '₹159', img: 'assets/img/veg-burger-3.jpg', type: 'nonveg' },
+  { category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: ' Delicious veg patty, crunchy lettuce and crispy nachos and flavored  mayo', price: '₹179', img: 'assets/img/veg-burger-4.jpg', type: 'nonveg' },
+  
+  // Veg Sides
+  { category: 'sides', title: 'Veg Nuggets', desc: 'Crispy Veg Nuggets', price: '₹89', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Veg Nachos', desc: 'Crispy Veg Nachos', price: '₹179', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Potato Wedges', desc: 'Crispy potato wedges', price: '₹99', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Freid Veg Momos', desc: 'Golden fried veg momos', price: '₹80', img: 'assets/img/veg-nuggets.jpg', type: 'veg' },
+  { category: 'sides', title: 'Salted French Fries', desc: 'Crispy Salted French Fries', price: '₹85', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'Crispy Cheese Nachos', price: '₹199', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Crispy potato pops', price: '₹89', img: 'assets/img/wedges.jpg', type: 'veg' },
+  { category: 'sides', title: 'Peri Peri French Fries', desc: 'French fries with peri peri spice', price: '₹99', img: 'assets/img/peri-fries.jpg', type: 'veg' },
 
-    // Veg Pizzas
-    { category: 'pizzas', title: 'Margarita Pizza', desc: 'Mozerella cheese', price: 'S-₹169/ M-₹289/ L-₹449', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Mozerella cheese, onion, green capsicum, red paprika, paneer tikka', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Mozerella cheese, onion, tomato, corn, green capsicum', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Tandoori Veggie Feast Pizza', desc: 'Mozerella cheese, onion, tomato, green capsicum, tandoori paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Veggie Supreme Delight Pizza', desc: 'Mozerella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Delight Explosion Pizza', desc: 'Mozerella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Pineapple Passion Blast Pizza', desc: 'Mozerella cheese, onion, pineapple, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'BBQ Veggie Bonanza Pizza', desc: 'Mozerella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Baby Corn Fiesta Pizza', desc: 'Mozerella cheese, baby corn, tomato, green capsicum, mushroom', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Peri Peri Paneer Paradise Pizza', desc: 'Mozerella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Perfection Pizza', desc: 'Mozerella cheese, onion, paneer, corn, green capsicum', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Mix Veggie Medley Pizza', desc: 'Mozerella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Paneer Makhani Marvel Pizza', desc: 'Mozerella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Tandoori Twist Pizza', desc: 'Mozerella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Fiery Fusion Surprise Pizza', desc: 'Mozerella cheese, onion, red paprika, jalapeno, green chilli, yellow capsicum, toping on jalapeno sause', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Capsicum Corn Sensation Pizza', desc: 'Mozerella cheese, onion, corn, red capsicum, toping on mint sause, golden corn', price: 'S-₹189/ M-₹339/ L-₹549', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Chhese Gold Corn Pizza', desc: 'Mozerella cheese, goldenn corn', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-    { category: 'pizzas', title: 'Olive Paradise Pizza', desc: 'Mozerella cheese, olive, green capsicum, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
+  // Non-Veg Sides
+  { category: 'sides', title: 'Chicken Nuggets', desc: 'Juicy chicken nuggets', price: '₹119', img: 'assets/img/chicken-nuggets.jpg', type: 'nonveg' },
+  { category: 'sides', title: 'Chicken Wings', desc: 'Spicy chicken wings', price: '₹99', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
+  { category: 'sides', title: 'Fried Chicken Momos', desc: 'Spicy chicken wings', price: '₹99', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
+  { category: 'sides', title: 'Shedard Chicken Nachos', desc: 'Spicy chicken wings', price: '₹219', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
+  { category: 'sides', title: 'Classic Shedard Chicken Cheese Nachos', desc: 'Spicy chicken wings', price: '₹249', img: 'assets/img/chicken-wings.jpg', type: 'nonveg' },
+  
+  // Beverages
+  { category: 'beverages', title: 'Cold Coffee', desc: 'Classic chilled coffee', price: '₹129', img: 'assets/img/cold-coffee.jpg', type: 'veg' },
+  { category: 'beverages', title: 'Oreo Coffee Shake', desc: 'Coffee blended with Oreo cookies', price: '₹139/159', img: 'assets/img/oreo-shake.jpg', type: 'veg' },
+  { category: 'beverages', title: 'King of Mango Shake', desc: 'Mango flavored milkshake', price: '₹139/159', img: 'assets/img/mango-shake.jpg', type: 'veg' },
 
-    // Non-Veg Pizzas
-    { category: 'pizzas', title: 'Chicken Tikka Masala Madness Pizza', desc: 'Mozerella cheese, chicken tikka, onion, capsicum', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'BBQ Chicken Blast Pizza', desc: 'Mozerella cheese, BBQ chicken, onion, jalapeno', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise Pizza', desc: 'Mozerella cheese, chicken sausage, red paprika', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Sweet Chilli Chicken Sensation Pizza', desc: 'Mozerella cheese, onion, mushroom, capsicum, sweet chilli chicken', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Salami Sensation Pizza', desc: 'Mozerella cheese, chicken salami, jalapeno', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Pepperoni Perfection Pizza', desc: 'Mozerella cheese, chicken pepperoni', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Tandoori Temptation Pizza', desc: 'Mozerella cheese, onion, capsicum, tomato, tandoori chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Peri Peri Chicken Explosion Pizza', desc: 'Mozerella cheese, onion, green capsicum, red paprika, peri peri chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion Pizza', desc: 'Mozerella cheese, onion, chicken tikka, paneer', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Mozerella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', price: 'S-₹219/ M-₹379/ L-₹589', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Mozerella cheese, corn, onion, chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-    { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, chicken, jalapeno, corn, special spicy sauce', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-,
-
-    // More Combos
-    { category: 'combos', title: 'Margarita Combo', desc: 'Margarita Pizza + Salted French Fries + Green Apple Mojito', price: '₹319', img: '', type: 'veg' },
-    { category: 'combos', title: 'Pineapple Passion Combo', desc: 'Pineapple Passion Blast Slice Pizza + Potato Wedges + Virgin Mojito', price: '₹327', img: '', type: 'veg' },
-    { category: 'combos', title: 'Paneer Delight Explosion Combo', desc: 'Paneer Delight Explosion Pizza + Veggie Victory Burger + Strawberry Season Mojito', price: '₹373', img: '', type: 'veg' },
-    { category: 'combos', title: 'Chicken Tikka Masala Combo', desc: 'Chicken Tikka Masala Madness Pizza + Peri Peri French Fries + Thums Up', price: '₹298', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'BBQ Chicken Blast Combo', desc: 'BBQ Chicken Blast Pizza + Potato Veg Nuggets + Virgin Mojito', price: '₹347', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Peri Peri Chicken Combo', desc: 'Peri Peri Chicken Explosion + Chicken Wings (3 Pieces) + Watermelon Mojito', price: '₹373', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Sweet Chili Chicken Combo', desc: 'Sweet Chili Chicken Sensation Slice Pizza + Chicken Nuggets + Green Apple Mojito', price: '₹434', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Mixed Slice Combo', desc: 'Farm Land Slice + Peri Peri Chicken Slice Pizza', price: '₹294', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Fiery Fusion Combo', desc: 'Fiery Fusion Surprise Slice Pizza + Salted French Fries + Thums Up', price: '₹230', img: '', type: 'veg' },
-    { category: 'combos', title: 'Golden Crunch & Spicy Hero Combo', desc: 'Golden Chicken Crunch Slice Pizza + Spicy Hero Veg Burger', price: '₹278', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'BBQ Veggie Slice & Dessert Combo', desc: 'BBQ Veggie Bonanza Slice Pizza + Choco Lava Cake + Blue Iced Mojito', price: '₹279', img: '', type: 'veg' },
-    { category: 'combos', title: 'Capsicum Corn Combo', desc: 'Capsicum Corn Sensation Slice Pizza + Garlic Bread + Strawberry Mojito', price: '₹290', img: '', type: 'veg' },
-    { category: 'combos', title: 'Sweet Chili Chicken Combo 2', desc: 'Sweet Chili Chicken Sensation Slice Pizza + Chicken Nuggets + Thums Up', price: '₹289', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Cheese Corn & Peri Fries Combo', desc: 'Cheese Gold Corn Slice + Peri Peri Fries + Thums Up', price: '₹244', img: '', type: 'veg' },
-    { category: 'combos', title: 'Chicken Pepperoni Combo', desc: 'Chicken Pepperoni Slice Perfection + Chilli Garlic Potato Pops + Thums Up', price: '₹313', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Fiery Fajita Veg Combo', desc: 'Fiery Fajita Veg Burger + Watermelon Mocktail', price: '₹208', img: '', type: 'veg' },
-    { category: 'combos', title: 'Nutty Professor Chicken Combo', desc: 'Nutty Professor Chicken Burger + Salted French Fries + Thums Up', price: '₹234', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Spicy Hero Chicken Combo', desc: 'Spicy Hero Chicken Burger + Virgin Mojito', price: '₹189', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Nacho Vixen Combo', desc: 'Nacho Vixen Burger + Chicken Nuggets + Thums Up', price: '₹299', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Fiery Fajita Chicken Combo', desc: 'Fiery Fajita Chicken Burger + Green Apple Mojito', price: '₹224', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Fries & Wings Combo', desc: 'Salted French Fries + Chicken Wings + Virgin Mojito', price: '₹249', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Nuggets & Momos Combo', desc: 'Chicken Nuggets + Fried Veg Momos + Thums Up', price: '₹199', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Peri Fries & Nuggets Combo', desc: 'Peri Peri Fries + Veg Nuggets + Blue Iced Mocktail', price: '₹257', img: '', type: 'veg' },
-    { category: 'combos', title: 'Wedges & Cake Combo', desc: 'Potato Wedges + Choco Lava Cake + Green Apple Mojito', price: '₹239', img: '', type: 'veg' },
-    { category: 'combos', title: 'Peri Fries & Nachos Combo', desc: 'Peri Peri Fries + Veg Nachos + Thums Up', price: '₹278', img: '', type: 'veg' },
-    { category: 'combos', title: 'Shedard Chicken Nachos Combo', desc: 'Shedard Chicken Cheese Nachos + Fried Chicken Momos + Green Apple Mojito', price: '₹409', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Classic Veg Nachos Combo', desc: 'Classic Veg Cheese Nachos + Fried Veg Momos + Virgin Mojito', price: '₹339', img: '', type: 'veg' },
-    { category: 'combos', title: 'Garlic Bread & Chicken Momos Combo', desc: 'Cheese Garlic Bread + Fried Chicken Momos + Thums Up', price: '₹219', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Garlic Bread & Chicken Nachos Combo', desc: 'Plain Garlic Bread + Shedard Chicken Nachos + Watermelon Mojito', price: '₹264', img: '', type: 'nonveg' },
-    { category: 'combos', title: 'Cold Coffee & Shake Combo', desc: 'Cold Coffee + Belgium Chocolate Shake', price: '₹269', img: '', type: 'veg' },
-    { category: 'combos', title: 'Mango & Oreo Combo', desc: 'King of Mango Milkshake + Oreo Choco Chips Shake', price: '₹258', img: '', type: 'veg' },
-    { category: 'combos', title: 'Strawberry & Chocolate Combo', desc: 'Strawberry Milkshake + Chocolate Cold Coffee', price: '₹258', img: '', type: 'veg' },
-    { category: 'combos', title: 'Oreo Coffee Combo', desc: 'Oreo Coffee Shake + Cold Coffee', price: '₹268', img: '', type: 'veg' }
+  // Ice Creams & Desserts
+  { category: 'icecreams', title: 'Mango Icecream', desc: 'Mango Icecream', price: '₹80', img: 'assets/img/lava-cake.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Sitaphal Icecream', desc: 'Sweet Sitphal icecream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Tender Cocounut Icecream', desc: 'cocount icecream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Anjeer', desc: 'Anjeer icecream', price: '₹80', img: 'assets/img/lava-cake.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Litchi Ice Cream', desc: 'Litchi ice cream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Chikoo Ice Cream', desc: 'Chikoo ice cream', price: '₹80', img: 'assets/img/vanilla-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Strawberry Ice Cream', desc: 'Strawberry flavor ice cream', price: '₹80', img: 'assets/img/strawberry-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Roasted Almond Ice Cream', desc: 'Almond flavour ice cream', price: '₹80', img: 'assets/img/pista-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Malia Ice Cream', desc: 'Malia flavor ice cream', price: '₹80', img: 'assets/img/pista-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Chocolate Ice Cream', desc: 'Rich chocolate flavor ice cream', price: '₹80', img: 'assets/img/choco-icecream.jpg', type: 'veg' },
+  { category: 'icecreams', title: 'Kesarapista Ice Cream', desc: 'lesarapista flavor ice cream', price: '₹80', img: 'assets/img/blueberry-icecream.jpg', type: 'veg' },
+  
+  // More Combos
+  { category: 'combos', title: 'Margarita Combo', desc: 'Margarita Pizza + Salted French Fries + Green Apple Mojito', price: '₹319', img: '', type: 'veg' },
+  { category: 'combos', title: 'Pineapple Passion Combo', desc: 'Pineapple Passion Blast Slice Pizza + Potato Wedges + Virgin Mojito', price: '₹327', img: '', type: 'veg' },
+  { category: 'combos', title: 'Paneer Delight Explosion Combo', desc: 'Paneer Delight Explosion Pizza + Veggie Victory Burger + Strawberry Season Mojito', price: '₹373', img: '', type: 'veg' },
+  { category: 'combos', title: 'Chicken Tikka Masala Combo', desc: 'Chicken Tikka Masala Madness Pizza + Peri Peri French Fries + Thums Up', price: '₹298', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'BBQ Chicken Blast Combo', desc: 'BBQ Chicken Blast Pizza + Potato Veg Nuggets + Virgin Mojito', price: '₹347', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Peri Peri Chicken Combo', desc: 'Peri Peri Chicken Explosion + Chicken Wings (3 Pieces) + Watermelon Mojito', price: '₹373', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Sweet Chilli Chicken Combo', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Green Apple Mojito', price: '₹434', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Chicken Salami Sensation Combo', desc: 'Chicken Salami Sensation Pizza + Jalapeno', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Mixed Slice Combo', desc: 'Farm Land Slice + Peri Peri Chicken Slice Pizza', price: '₹294', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Fiery Fusion Combo', desc: 'Fiery Fusion Surprise Slice Pizza + Salted French Fries + Thums Up', price: '₹230', img: '', type: 'veg' },
+  { category: 'combos', title: 'Golden Crunch & Spicy Hero Combo', desc: 'Golden Chicken Crunch Slice Pizza + Spicy Hero Veg Burger', price: '₹278', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'BBQ Veggie Slice & Dessert Combo', desc: 'BBQ Veggie Bonanza Slice Pizza + Choco Lava Cake + Blue Iced Mojito', price: '₹279', img: '', type: 'veg' },
+  { category: 'combos', title: 'Capsicum Corn Combo', desc: 'Capsicum Corn Sensation Slice Pizza + Garlic Bread + Strawberry Mojito', price: '₹290', img: '', type: 'veg' },
+  { category: 'combos', title: 'Sweet Chilli Chicken Combo 2', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Thums Up', price: '₹289', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Cheese Corn & Peri Fries Combo', desc: 'Cheese Gold Corn Slice + Peri Peri Fries + Thums Up', price: '₹244', img: '', type: 'veg' },
+  { category: 'combos', title: 'Chicken Pepperoni Combo', desc: 'Chicken Pepperoni Slice Perfection + Chilli Garlic Potato Pops + Thums Up', price: '₹313', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Fiery Fajita Veg Combo', desc: 'Fiery Fajita Veg Burger + Watermelon Mocktail', price: '₹208', img: '', type: 'veg' },
+  { category: 'combos', title: 'Nutty Professor Chicken Combo', desc: 'Nutty Professor Chicken Burger + Salted French Fries + Thums Up', price: '₹234', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Spicy Hero Chicken Combo', desc: 'Spicy Hero Chicken Burger + Virgin Mojito', price: '₹189', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Nacho Vixen Combo', desc: 'Nacho Vixen Burger + Chicken Nuggets + Thums Up', price: '₹299', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Fiery Fajita Chicken Combo', desc: 'Fiery Fajita Chicken Burger + Green Apple Mojito', price: '₹224', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Fries & Wings Combo', desc: 'Salted French Fries + Chicken Wings + Virgin Mojito', price: '₹249', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Nuggets & Momos Combo', desc: 'Chicken Nuggets + Fried Veg Momos + Thums Up', price: '₹199', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Peri Fries & Nuggets Combo', desc: 'Peri Peri Fries + Veg Nuggets + Blue Iced Mocktail', price: '₹257', img: '', type: 'veg' },
+  { category: 'combos', title: 'Wedges & Cake Combo', desc: 'Potato Wedges + Choco Lava Cake + Green Apple Mojito', price: '₹239', img: '', type: 'veg' },
+  { category: 'combos', title: 'Peri Fries & Nachos Combo', desc: 'Peri Peri Fries + Veg Nachos + Thums Up', price: '₹278', img: '', type: 'veg' },
+  { category: 'combos', title: 'Shedard Chicken Nachos Combo', desc: 'Shedard Chicken Cheese Nachos + Fried Chicken Momos + Green Apple Mojito', price: '₹409', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Classic Veg Nachos Combo', desc: 'Classic Veg Cheese Nachos + Fried Veg Momos + Virgin Mojito', price: '₹339', img: '', type: 'veg' },
+  { category: 'combos', title: 'Garlic Bread & Chicken Momos Combo', desc: 'Cheese Garlic Bread + Fried Chicken Momos + Thums Up', price: '₹219', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Garlic Bread & Chicken Nachos Combo', desc: 'Plain Garlic Bread + Shedard Chicken Nachos + Watermelon Mojito', price: '₹264', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Cold Coffee & Shake Combo', desc: 'Cold Coffee + Belgium Chocolate Shake', price: '₹269', img: '', type: 'veg' },
+  { category: 'combos', title: 'Mango & Oreo Combo', desc: 'King of Mango Milkshake + Oreo Choco Chips Shake', price: '₹258', img: '', type: 'veg' },
+  { category: 'combos', title: 'Strawberry & Chocolate Combo', desc: 'Strawberry Milkshake + Chocolate Cold Coffee', price: '₹258', img: '', type: 'veg' },
+  { category: 'combos', title: 'Oreo Coffee Combo', desc: 'Oreo Coffee Shake + Cold Coffee', price: '₹268', img: '', type: 'veg' }
 ];
 
-
+/* === GLOBAL STATE === */
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let activeCategory = 'all';
 let activeType = 'all';
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function renderMenuItems() {
-  const container = document.getElementById('menu');
-  container.innerHTML = '';
-  const searchValue = document.getElementById('searchBox')?.value.toLowerCase() || '';
+function updateCartCountBadge() {
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cartCountBadge').innerText = `(${count})`;
 
-  const filteredItems = menuData.filter(item => {
-    return (activeCategory === 'all' || item.category === activeCategory) &&
-           (activeType === 'all' || item.type === activeType) &&
-           (item.title.toLowerCase().includes(searchValue) || item.desc.toLowerCase().includes(searchValue));
-  });
-
-  filteredItems.forEach(item => {
-    const card = document.createElement('div');
-    card.className = `menu-card ${item.type}`;
-    card.innerHTML = `
-      <img src="${item.img}" alt="${item.title}">
-      <div class="menu-content">
-        <h4>${item.title}</h4>
-        <p>${item.desc}</p>
-        <p class="price">${item.price}</p>
-        <button 
-          class="order-button"
-          data-title="${item.title}"
-          data-desc="${item.desc}"
-          data-price="${item.price}"
-          data-img="${item.img}"
-          onclick="addToCartFromButton(this)"
-        >Add to Cart</button>
-      </div>`;
-    card.onclick = () => openModal(item);
-    container.appendChild(card);
-  });
+  // Control visibility of the sticky cart button
+  const stickyCartBtn = document.getElementById('stickyCartBtn');
+  if (count > 0) {
+    stickyCartBtn.style.display = 'block';
+  } else {
+    stickyCartBtn.style.display = 'none';
+  }
 }
 
-function addToCartFromButton(button) {
-  const item = {
-    title: button.getAttribute('data-title'),
-    desc: button.getAttribute('data-desc'),
-    price: button.getAttribute('data-price'),
-    img: button.getAttribute('data-img')
-  };
-  addToCart(item);
+function toggleMenuPopup() {
+  const popup = document.getElementById('menuPopup');
+  popup.classList.toggle('hidden');
 }
+// Close popup if clicked outside
+document.addEventListener('click', function (e) {
+  const popup = document.getElementById('menuPopup');
+  const toggleBtn = document.getElementById('menuToggleBtn');
 
+  // If popup is visible and click is outside both popup and button
+  if (!popup.classList.contains('hidden') &&
+      !popup.contains(e.target) &&
+      !toggleBtn.contains(e.target)) {
+    popup.classList.add('hidden');
+  }
+});
+
+/* === CART FUNCTIONS === */
 function addToCart(item) {
   const existing = cart.find(i => i.title === item.title);
   if (existing) {
-    existing.qty += 1;
+    existing.qty++;
   } else {
     item.qty = 1;
     cart.push(item);
   }
-  alert(`${item.title} added to cart`);
   renderCart();
   saveCart();
+  updateCardState(item.title, item.qty); // Update the specific card
+}
+
+function changeQty(index, delta) {
+  const item = cart[index];
+  item.qty += delta;
+  if (item.qty <= 0) {
+    cart.splice(index, 1);
+    updateCardState(item.title, 0); // Update card to show 'ADD'
+  } else {
+    updateCardState(item.title, item.qty); // Update card with new quantity
+  }
+  renderCart();
+  saveCart();
+}
+
+function removeItem(index) {
+  const item = cart[index];
+  cart.splice(index, 1);
+  renderCart();
+  saveCart();
+  updateCardState(item.title, 0); // Update card to show 'ADD'
 }
 
 function renderCart() {
@@ -585,40 +750,163 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, i) => {
-    const price = parseInt(item.price.match(/\d+/)[0]);
-    total += price * item.qty;
-    list.innerHTML += `
-  <li>
-    <span class="title">${item.title}</span>
-    <div class="cart-controls">
-      <button onclick="changeQty(${i}, -1)">−</button>
-      <span>${item.qty}</span>
-      <button onclick="changeQty(${i}, 1)">+</button>
-      <button onclick="removeItem(${i})">×</button>
-    </div>
-  </li>`;
+    // Safely extract numeric part of the price
+    // This regex will capture the first sequence of digits after '₹'
+    const priceMatch = item.price.match(/₹(\d+)/);
+    const itemPrice = priceMatch ? parseInt(priceMatch[1]) : 0; // Default to 0 if no match
+    
+    const itemTotal = itemPrice * item.qty;
+    total += itemTotal;
 
+    // Conditional rendering for decrement/remove button
+    let decrementButtonHtml;
+    if (item.qty === 1) {
+      decrementButtonHtml = `<button onclick="removeItem(${i})">×</button>`; // 'x' to remove
+    } else {
+      decrementButtonHtml = `<button onclick="changeQty(${i}, -1)">−</button>`; // '-' to decrement
+    }
+    
+    list.innerHTML += `
+      <li>
+        <span class="title">${item.title}</span>
+        <div class="cart-quantity-controls">
+          ${decrementButtonHtml}
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${i}, 1)">+</button>
+        </div>
+        <span class="cart-item-price">₹${itemTotal}</span>
+      </li>`;
   });
 
   totalEl.innerText = `₹${total}`;
-  saveCart();
+  updateCartCountBadge();
 }
 
-function changeQty(index, delta) {
-  cart[index].qty += delta;
-  if (cart[index].qty <= 0) {
-    cart.splice(index, 1);
+/* === MENU DISPLAY & FILTERING === */
+function renderMenuItems() {
+  const container = document.getElementById('menu');
+  container.innerHTML = ''; // Clear existing content for re-render on filter/search
+  const searchValue = document.getElementById('searchBox')?.value.toLowerCase() || '';
+
+  const filteredItems = menuData.filter(item =>
+    (activeCategory === 'all' || item.category === activeCategory) &&
+    (activeType === 'all' || item.type === activeType) &&
+    (item.title.toLowerCase().includes(searchValue) || item.desc.toLowerCase().includes(searchValue))
+  );
+
+  filteredItems.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `menu-card ${item.type}`;
+    card.dataset.title = item.title; // Add data-title for easy lookup
+    const iconClass = item.type === 'veg' ? 'veg-icon' : 'nonveg-icon';
+
+    // Get current quantity from cart
+    const itemInCart = cart.find(cartItem => cartItem.title === item.title);
+    const currentQty = itemInCart ? itemInCart.qty : 0;
+    
+    let actionHtml;
+
+    if (currentQty > 0) {
+      const decrementButtonClass = currentQty === 1 ? 'qty-btn delete' : 'qty-btn';
+      const decrementButtonText = currentQty === 1 ? 'x' : '−'; // Changed from '🗑️' to 'x'
+      actionHtml = `
+        <div class="quantity-control">
+          <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${item.title}', -1)">${decrementButtonText}</button>
+          <span class="qty-count">${currentQty}</span>
+          <button class="qty-btn" onclick="changeCardQty(this, '${item.title}', 1)">+</button>
+        </div>`;
+    } else {
+      actionHtml = `
+        <button class="order-button"
+          data-title="${item.title}"
+          data-desc="${item.desc}"
+          data-price="${item.price}"
+          data-img="${item.img}"
+          data-type="${item.type}"
+          onclick="addToCartFromButton(this)"
+        >ADD</button>`;
+    }
+
+    card.innerHTML = `
+      <div class="menu-info">
+        <div><span class="${iconClass}"></span><strong>${item.title}</strong></div>
+        <div class="price-line"><span class="discounted-price">${item.price}</span></div>
+        <p>${item.desc}</p>
+      </div>
+      <div class="menu-img-block">
+        <img src="${item.img}" alt="${item.title}">
+        ${actionHtml}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function updateCardState(itemTitle, newQty) {
+    const card = document.querySelector(`.menu-card[data-title="${itemTitle}"]`);
+    if (!card) return; // Card not found, might be filtered out
+
+    const imgBlock = card.querySelector('.menu-img-block');
+    let actionHtml;
+
+    if (newQty > 0) {
+        const decrementButtonClass = newQty === 1 ? 'qty-btn delete' : 'qty-btn';
+        const decrementButtonText = newQty === 1 ? 'x' : '−'; // Changed from '🗑️' to 'x'
+        actionHtml = `
+            <div class="quantity-control">
+              <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${itemTitle}', -1)">${decrementButtonText}</button>
+              <span class="qty-count">${newQty}</span>
+              <button class="qty-btn" onclick="changeCardQty(this, '${itemTitle}', 1)">+</button>
+            </div>`;
+    } else {
+        const originalMenuItem = menuData.find(menuItem => menuItem.title === itemTitle);
+        if (!originalMenuItem) return; // Original item not found
+
+        actionHtml = `
+            <button class="order-button"
+              data-title="${originalMenuItem.title}"
+              data-desc="${originalMenuItem.desc}"
+              data-price="${originalMenuItem.price}"
+              data-img="${originalMenuItem.img}"
+              data-type="${originalMenuItem.type}"
+              onclick="addToCartFromButton(this)"
+            >ADD</button>`;
+    }
+    imgBlock.innerHTML = `<img src="${menuData.find(d => d.title === itemTitle)?.img || ''}" alt="${itemTitle}">` + actionHtml;
+}
+
+function addToCartFromButton(button) {
+  const item = {
+    title: button.dataset.title,
+    desc: button.dataset.desc,
+    price: button.dataset.price,
+    img: button.dataset.img,
+    type: button.dataset.type
+  };
+  addToCart(item); // This will now handle updating the card via updateCardState
+}
+
+function changeCardQty(btn, title, delta) {
+  const itemInCart = cart.find(i => i.title === title);
+  if (!itemInCart && delta < 0) return; // Cannot decrement if not in cart
+
+  if (itemInCart) {
+      itemInCart.qty += delta;
+      if (itemInCart.qty <= 0) {
+          cart = cart.filter(i => i.title !== title); // Remove from cart if qty is 0 or less
+      }
+  } else if (delta > 0) {
+      const originalItem = menuData.find(d => d.title === title);
+      if (originalItem) {
+          cart.push({ ...originalItem, qty: 1 });
+      }
   }
-  renderCart();
+  
   saveCart();
+  renderCart(); // Update cart modal
+  updateCardState(title, itemInCart ? itemInCart.qty : 0); // Update the specific card
 }
 
-function removeItem(index) {
-  cart.splice(index, 1);
-  renderCart();
-  saveCart();
-}
-
+/* === MODALS & ACTIONS === */
 function openCartModal() {
   document.getElementById('cartModal').style.display = 'flex';
 }
@@ -643,8 +931,11 @@ function submitOrder(e) {
   const phone = document.getElementById('custPhone').value;
 
   let message = `*Order from Pizza Factory Slise*%0A`;
-  cart.forEach(item => {
-    const price = item.price.match(/\d+/)[0];
+  const orderedItems = [...cart]; // Take a snapshot of the cart before clearing
+  orderedItems.forEach(item => {
+    // Safely extract numeric part of the price
+    const priceMatch = item.price.match(/₹(\d+)/);
+    const price = priceMatch ? parseInt(priceMatch[1]) : 'Price Not Found';
     message += `🍕 ${item.title} - ₹${price} x ${item.qty}%0A`;
   });
 
@@ -655,40 +946,34 @@ function submitOrder(e) {
   const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
 
-  cart = [];
-  renderCart();
+  cart = []; // Clear the cart
+  renderCart(); // Update cart modal to show empty
   saveCart();
   closeOrderForm();
+  
+  // Reset all menu cards to "ADD" state after order
+  orderedItems.forEach(item => {
+      updateCardState(item.title, 0);
+  });
 }
 
+/* === UI FILTERS === */
 function openTab(evt, category) {
   document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
   evt.target.classList.add('active');
   activeCategory = category;
-  renderMenuItems();
+  renderMenuItems(); // Re-render all filtered items
 }
 
 function filterByType(evt, type) {
   document.querySelectorAll('.type-filter').forEach(btn => btn.classList.remove('active'));
   evt.target.classList.add('active');
   activeType = type;
-  renderMenuItems();
+  renderMenuItems(); // Re-render all filtered items
 }
 
 function searchMenu() {
-  renderMenuItems();
-}
-
-function openModal(item) {
-  document.getElementById('modalImage').src = item.img;
-  document.getElementById('modalTitle').innerText = item.title;
-  document.getElementById('modalDescription').innerText = item.desc;
-  document.getElementById('modalPrice').innerText = item.price;
-  document.getElementById('itemModal').style.display = 'flex';
-}
-
-function closeModal() {
-  document.getElementById('itemModal').style.display = 'none';
+  renderMenuItems(); // Re-render all filtered items
 }
 
 function handleModalOutsideClick(event, modalId) {
@@ -699,12 +984,68 @@ function handleModalOutsideClick(event, modalId) {
 }
 
 window.onload = () => {
-  renderMenuItems();
-  renderCart();
+  renderMenuItems(); // Initial render of all items
+  renderCart(); // Initial render of cart
+  // Set initial active filter button
+  document.querySelector('.type-filter[onclick="filterByType(event, \'all\')"]').classList.add('active');
 };
+function makePayment() {
+  const name = document.getElementById('custName').value;
+  const address = document.getElementById('custAddress').value;
+  const phone = document.getElementById('custPhone').value;
+  const totalAmount = parseInt(document.getElementById('cartTotal').innerText.replace('₹', ''));
+
+  if (!name || !address || !phone || totalAmount <= 0) {
+    alert("Please fill all details and add at least one item to cart.");
+    return;
+  }
+
+  const options = {
+    key: "YOUR_RAZORPAY_KEY", // Replace with your Razorpay key
+    amount: totalAmount * 100,
+    currency: "INR",
+    name: "Pizza Factory Slise",
+    description: "Order Payment",
+    handler: function (response) {
+      const paymentId = response.razorpay_payment_id;
+      let message = `*Order Confirmed!* ✅%0A`;
+      message += `🧾 *Receipt ID*: ${paymentId}%0A`;
+      message += `👤 *Name*: ${name}%0A🏠 *Address*: ${address}%0A📞 *Phone*: ${phone}%0A`;
+      message += `%0A*Items Ordered:*%0A`;
+
+      cart.forEach(item => {
+        const price = item.price.match(/\d+/)[0];
+        message += `🍕 ${item.title} - ₹${price} x ${item.qty}%0A`;
+      });
+
+      message += `%0A💰 *Total*: ₹${totalAmount}`;
+
+      const userWhatsApp = `https://wa.me/91${phone}?text=${message}`;
+      window.open(userWhatsApp, '_blank');
+
+      const adminNumber = "918297422016"; // Replace with your WhatsApp number
+      const adminWhatsApp = `https://wa.me/${adminNumber}?text=${message}`;
+      window.open(adminWhatsApp, '_blank');
+
+      alert("✅ Payment Successful!\n🧾 Payment ID: " + paymentId);
+      cart = [];
+      renderCart();
+      saveCart();
+      closeOrderForm();
+    },
+    prefill: {
+      name: name,
+      contact: phone
+    },
+    theme: {
+      color: "#ce221f"
+    }
+  };
+
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
 </script>
-
-
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>
