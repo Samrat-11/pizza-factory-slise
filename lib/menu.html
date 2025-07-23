@@ -14,15 +14,11 @@
   <style>
     :root {
       --primary-color: #ce221f;
-      --secondary-color: #fbc02d;
-      --bg-color: #fff3e0;
-      --card-bg: #ffffff;
       --text-dark: #3e2723;
-      --text-light: #6d4c41;
     }
 
     body {
-     background-color: var(--bg-color);
+     background-color: #fff3e0;
      color: var(--text-dark);
      margin: 0;
     }
@@ -37,7 +33,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      background-color: var(--secondary-color);
+      background-color: #fbc02d;
       padding: 15px;
       padding-top: 90px;
     }
@@ -194,12 +190,6 @@
       font-size: 16px;
     }
 
-    .rating {
-      font-size: 14px;
-      color: #333;
-      margin-top: 5px;
-    }
-
     .menu-img-block {
       width: 130px;
       position: relative;
@@ -213,16 +203,29 @@
       border-radius: 10px;
     }
 
+    .customise-btn-cart {
+      margin-left: 10px;
+      background-color: #eee;
+      color: #b71c1c;
+      font-size: 12px;
+      padding: 3px 8px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-block;
+    }
+
     .order-button {
-      margin-top: 8px;
       background-color: #0f8f04;
       color: white;
       padding: 6px 12px;
       border: none;
-      border-radius: 6px;
+      border-radius: 12px;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 16px;
       cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
     }
 
     .order-button:hover {
@@ -303,19 +306,17 @@
       z-index: 9999;
       border-radius: 50px;
       padding: 10px 20px;
-      background-color: #1bbf49;
+      background-color: red;
       color: white;
       border: none;
     }
 
     #cartModal .modal-content {
-      max-width: 420px;
-      background: #fff;
-      border-radius: 20px;
+      width: fit-content;
+      max-width: 90vw; 
+      min-width: 300px;
       padding: 25px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      text-align: left;
-      font-family: 'Arial', sans-serif;
+      max-height: 80vh;
     }
 
     #cartModal h3 {
@@ -323,6 +324,14 @@
       font-size: 24px;
       margin-bottom: 15px;
       color: #b71c1c;
+    }
+
+    #cartItems {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     #cartItems li {
@@ -341,6 +350,13 @@
       text-align: left; /* Ensure title is left-aligned */
     }
 
+    .cart-item-size {
+        font-size: 0.9em; /* Slightly smaller font for size */
+        color: #666;
+        margin-left: 5px; /* Space between title and size */
+        font-weight: normal; /* Make size less bold than title */
+    }
+
     /* Styles for quantity controls in cart modal */
     .cart-quantity-controls { /* New class */
       display: flex;
@@ -348,6 +364,7 @@
       gap: 8px;
       font-size: 16px;
       font-weight: bold;
+      margin-left: 15px; /* Added gap */
     }
 
     .cart-quantity-controls button {
@@ -369,15 +386,9 @@
         min-width: 60px; /* Ensure space for price */
         text-align: right; /* Align price to the right within its space */
     }
-
-    #cartTotal {
-      font-weight: bold;
-      color: #333;
-      font-size: 18px;
-    }
     
     #cartCountBadge {
-      background-color: #1bbf49;
+      background-color: red;
       color: white;
       padding: 0px 0px;
       font-size: 18px;
@@ -385,13 +396,18 @@
       margin-left: 6px;
     }
 
-    .order-button {
-      width: 100%;
-      margin-top: 15px;
-      font-size: 16px;
-      border-radius: 12px;
-    }
+    .cart-item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+.cart-topping-line {
+  font-size: 13px;
+  color: #555;
+  margin-left: 2px;
+  margin-top: 2px;
+}
     /* === Order Form Modal Styling === */
     #orderFormModal .modal-content {
       max-width: 420px;
@@ -431,11 +447,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .filters .tablink::before {
-      content: attr(data-icon);
-      margin-right: 8px;
-    }
-
     /* Styles for quantity control on menu cards */
     .quantity-control {
       display: flex;
@@ -458,7 +469,8 @@
     }
 
     .qty-btn.delete {
-        background-color: #dc3545; /* Red color for delete */
+        background-color: #f0f0f0; /* Changed to match '+' button background */
+        color: #dc3545; /* Keep the 'x' symbol red */
     }
 
     .qty-count {
@@ -470,7 +482,61 @@
       min-width: 30px; /* Ensure a minimum width */
       text-align: center;
     }
-    
+
+    /* New styles for customize modal */
+    #customiseModal .modal-content {
+        max-width: 480px;
+        text-align: left;
+        max-height: 80vh; /* Set a maximum height, e.g., 80% of viewport height */
+        overflow-y: auto; /* Add scrollbar if content exceeds max-height */
+        
+    }
+
+    #customiseModal h3 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    #customiseModal h4 {
+        margin-top: 15px;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+        font-size: 16px;
+    }
+
+    #customiseModal .option-group {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    #customiseModal .option-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    #customiseModal input[type="radio"],
+    #customiseModal input[type="checkbox"] {
+        width: auto;
+        margin-right: 8px;
+    }
+
+    #customiseModal .total-price-display {
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: var(--primary-color);
+    }
+
+    #customiseModal .order-button {
+        background-color: var(--primary-color);
+    }
+
   </style>
 </head>
 <body>
@@ -490,7 +556,6 @@
   <button id="menuToggleBtn" class="menu-toggle" onclick="toggleMenuPopup()">MENU</button>
 
   <div id="menuPopup" class="menu-popup hidden">
-    <!-- <h3>Recommended <span>20</span></h3> -->
     <button class="tablink" onclick="openTab(event, 'all')">All</button>
     <button class="tablink" onclick="openTab(event, 'pizzamania')">Pizza Mania</button>
     <button class="tablink" onclick="openTab(event, 'pizzas')">Pizzas</button>
@@ -525,11 +590,62 @@
         <input type="text" id="custName" placeholder="Your Name" required />
         <input type="text" id="custAddress" placeholder="Your Address" required />
         <input type="tel" id="custPhone" placeholder="Phone Number" required />
-        <!-- <button type="submit" class="order-button">✅ Send to WhatsApp</button> -->
         <button type="button" class="order-button" onclick="makePayment()">💳 Make Payment</button>
       </form>
     </div>
   </div>
+
+  <div id="customiseModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeCustomiseModal()">×</span>
+      <h3 id="customisePizzaName"></h3>
+
+      <div class="option-group">
+        <h4>Change Size</h4>
+        <label><input type="radio" name="pizzaSize" value="Regular" data-price="309" checked> Regular: ₹309</label>
+        <label><input type="radio" name="pizzaSize" value="Medium" data-price="519"> Medium: ₹519</label>
+        <label><input type="radio" name="pizzaSize" value="Large" data-price="709"> Large: ₹709</label>
+      </div>
+
+      <div class="option-group">
+        <h4>Change Crust</h4>
+        <label><input type="radio" name="pizzaCrust" value="Standard" data-price="0" checked> Standard Crust</label>
+        <label><input type="radio" name="pizzaCrust" value="Cheese Volcano Crust" data-price="309"> Cheese Volcano Crust: ₹309</label>
+        <label><input type="radio" name="pizzaCrust" value="Extra Cheese on Crust" data-price="50"> Extra Cheese on Crust: ₹50</label>
+      </div>
+
+      <div class="option-group">
+        <h4>Add Veg Toppings</h4>
+        <label><input type="checkbox" name="vegTopping" value="Crisp Capsicum" data-price="35"> Crisp Capsicum: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Fresh Tomato" data-price="35"> Fresh Tomato: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Paneer" data-price="35"> Paneer: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Red Pepper" data-price="35"> Red Pepper: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Jalapeno" data-price="35"> Jalapeno: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Black Olive" data-price="35"> Black Olive: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Grilled Mushrooms" data-price="35"> Grilled Mushrooms: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Onion" data-price="35"> Onion: ₹35</label>
+      </div>
+
+      <div class="option-group">
+        <h4>Add Non-Veg Toppings</h4>
+        <label><input type="checkbox" name="nonVegTopping" value="Pepper Barbecue Chicken" data-price="50"> Pepper Barbecue Chicken: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Peri-Peri Chicken" data-price="50"> Peri-Peri Chicken: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Grilled Chicken Rasher" data-price="50"> Grilled Chicken Rasher: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Sausage" data-price="50"> Chicken Sausage: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Tikka" data-price="50"> Chicken Tikka: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Pepperoni" data-price="50"> Chicken Pepperoni: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Keema" data-price="50"> Chicken Keema: ₹50</label>
+      </div>
+
+      <p class="total-price-display">Total: <span id="customiseTotalPrice">₹0</span></p>
+    <div style="display: flex; gap: 10px; justify-content: space-between;">
+      <button id="saveEditBtn" class="order-button" onclick="saveCustomisationChanges()" style="display:none;">💾 Save Edits</button>
+      <button class="order-button" onclick="addCustomisedItemToCart(true)">➕ Add As New</button>
+    </div>
+
+    </div>
+  </div>
+
   </div>
  <div id="footer-container"></div>
 
@@ -537,8 +653,8 @@
 
   <script>
 /* === MENU DATA === */
+// Refactored menuData to use 'sizes' object for multi-size items
 const menuData = [
-
   //Pizza Mania
   { category: 'pizzamania', title: 'Onion Pizza', desc: 'Mozerella cheese, onion', price: '₹79', img: '../assets/img/product-1.png', type: 'veg' },
   { category: 'pizzamania', title: 'Capsicum Onion Pizza', desc: 'Mozerella cheese, Capsicum, onion', price: '₹89', img: '../assets/img/product-2.png', type: 'veg' },
@@ -549,39 +665,39 @@ const menuData = [
   { category: 'pizzamania', title: 'Mushroom Pizza', desc: 'Mozerella cheese, Mushroom', price: '₹79', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
 
   // Veg Pizzas
-  { category: 'pizzas', title: 'Margarita Pizza', desc: 'Mozerella cheese', price: 'S-₹169/ M-₹289/ L-₹449', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Mozerella cheese, onion, green capsicum, red paprika, paneer tikka', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Mozerella cheese, onion, tomato, corn, green capsicum', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Tandoori Veggie Feast Pizza', desc: 'Mozerella cheese, onion, tomato, green capsicum, tandoori paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Veggie Supreme Delight Pizza', desc: 'Mozerella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Paneer Delight Explosion Pizza', desc: 'Mozerella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Pineapple Passion Blast Pizza', desc: 'Mozerella cheese, onion, pineapple, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹529', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'BBQ Veggie Bonanza Pizza', desc: 'Mozerella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Baby Corn Fiesta Pizza', desc: 'Mozerella cheese, baby corn, tomato, green capsicum, mushroom', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Peri Peri Paneer Paradise Pizza', desc: 'Mozerella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Paneer Perfection Pizza', desc: 'Mozerella cheese, onion, paneer, corn, green capsicum', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Mix Veggie Medley Pizza', desc: 'Mozerella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Paneer Makhani Marvel Pizza', desc: 'Mozerella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', price: 'S-₹189/ M-₹329/ L-₹539', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Tandoori Twist Pizza', desc: 'Mozerella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Fiery Fusion Surprise Pizza', desc: 'Mozerella cheese, onion, red paprika, jalapeno, green chilli, yellow capsicum, toping on jalapeno sause', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Capsicum Corn Sensation Pizza', desc: 'Mozerella cheese, onion, corn, red capsicum, toping on mint sause, golden corn', price: 'S-₹189/ M-₹339/ L-₹549', price: 'S-₹199/ M-₹349/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Chhese Gold Corn Pizza', desc: 'Mozerella cheese, goldenn corn', price: 'S-₹189/ M-₹339/ L-₹549', img: '', type: 'veg' },
-  { category: 'pizzas', title: 'Olive Paradise Pizza', desc: 'Mozerella cheese, olive, green capsicum, corn, red paprika', price: 'S-₹179/ M-₹320/ L-₹539', img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Margarita Pizza', desc: 'Mozerella cheese', sizes: { Regular: '₹169', Medium: '₹289', Large: '₹449' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Tikka Delight', desc: 'Mozerella cheese, onion, green capsicum, red paprika, paneer tikka', sizes: { Regular: '₹179', Medium: '₹319', Large: '₹479' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Farm Land Pizza', desc: 'Mozerella cheese, onion, tomato, corn, green capsicum', sizes: { Regular: '₹179', Medium: '₹319', Large: '₹479' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Tandoori Veggie Feast Pizza', desc: 'Mozerella cheese, onion, tomato, green capsicum, tandoori paneer', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Veggie Supreme Delight Pizza', desc: 'Mozerella cheese, onion, yellow capsicum, green capsicum, red paprika, corn, mushroom', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Delight Explosion Pizza', desc: 'Mozerella cheese, jalapeno, yellow capsicum, onion, red paprika, masala paneer', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Pineapple Passion Blast Pizza', desc: 'Mozerella cheese, onion, pineapple, corn, red paprika', sizes: { Regular: '₹179', Medium: '₹319', Large: '₹479' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, red paprika, green capsicum, olives, special spicy sauce', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'BBQ Veggie Bonanza Pizza', desc: 'Mozerella cheese, onion, corn, mushroom, jalapeno, BBQ sauce', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Baby Corn Fiesta Pizza', desc: 'Mozerella cheese, baby corn, tomato, green capsicum, mushroom', sizes: { Regular: '₹199', Medium: '₹359', Large: '₹529' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Peri Peri Paneer Paradise Pizza', desc: 'Mozerella cheese, onion, jalapeno, red capsicum, corn, peri peri paneer', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Perfection Pizza', desc: 'Mozerella cheese, onion, paneer, corn, green capsicum', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Mix Veggie Medley Pizza', desc: 'Mozerella cheese, onion, green capsicum, red capsicum, corn, tomato, jalapeno, olives', sizes: { Regular: '₹199', Medium: '₹359', Large: '₹529' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Paneer Makhani Marvel Pizza', desc: 'Mozerella cheese, onion, baby corn, red capsicum, mushroom, makhani paneer', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Tandoori Twist Pizza', desc: 'Mozerella cheese, red capsicum, green capsicum, corn, jalapeno, tandoori sauce', sizes: { Regular: '₹199', Medium: '₹359', Large: '₹529' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Fiery Fusion Surprise Pizza', desc: 'Mozerella cheese, onion, red paprika, jalapeno, green chilli, yellow capsicum, toping on jalapeno sause', sizes: { Regular: '₹179', Medium: '₹319', Large: '₹479' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Capsicum Corn Sensation Pizza', desc: 'Mozerella cheese, onion, corn, red capsicum, toping on mint sause, golden corn', sizes: { Regular: '₹199', Medium: '₹359', Large: '₹529' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Chhese Gold Corn Pizza', desc: 'Mozerella cheese, goldenn corn', sizes: { Regular: '₹189', Medium: '₹339', Large: '₹499' }, img: '', type: 'veg' },
+  { category: 'pizzas', title: 'Olive Paradise Pizza', desc: 'Mozerella cheese, olive, green capsicum, corn, red paprika', sizes: { Regular: '₹179', Medium: '₹319', Large: '₹479' }, img: '', type: 'veg' },
 
   // Non-Veg Pizzas
-  { category: 'pizzas', title: 'Chicken Tikka Masala Madness Pizza', desc: 'Mozerella cheese, chicken tikka, onion, capsicum', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'BBQ Chicken Blast Pizza', desc: 'Mozerella cheese, BBQ chicken, onion, jalapeno', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise Pizza', desc: 'Mozerella cheese, chicken sausage, red paprika', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Sweet Chilli Chicken Sensation Pizza', desc: 'Mozerella cheese, onion, mushroom, capsicum, sweet chilli chicken', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Chicken Salami Sensation Pizza', desc: 'Mozerella cheese, chicken salami, jalapeno', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Chicken Pepperoni Perfection Pizza', desc: 'Mozerella cheese, chicken pepperoni', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Chicken Tandoori Temptation Pizza', desc: 'Mozerella cheese, onion, capsicum, tomato, tandoori chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Peri Peri Chicken Explosion Pizza', desc: 'Mozerella cheese, onion, green capsicum, red paprika, peri peri chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion Pizza', desc: 'Mozerella cheese, onion, chicken tikka, paneer', price: 'S-₹249/ M-₹389/ L-₹639', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Mozerella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', price: 'S-₹219/ M-₹379/ L-₹589', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Mozerella cheese, corn, onion, chicken', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
-  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, chicken, jalapeno, corn, special spicy sauce', price: 'S-₹209/ M-₹369/ L-₹579', img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Tikka Masala Madness Pizza', desc: 'Mozerella cheese, chicken tikka, onion, capsicum', sizes: { Regular: '₹199', Medium: '₹369', Large: '₹549' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'BBQ Chicken Blast Pizza', desc: 'Mozerella cheese, BBQ chicken, onion, jalapeno', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Spicy Chicken Sausage Surprise Pizza', desc: 'Mozerella cheese, chicken sausage, red paprika', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Sweet Chilli Chicken Sensation Pizza', desc: 'Mozerella cheese, onion, mushroom, capsicum, sweet chilli chicken', sizes: { Regular: '₹249', Medium: '₹449', Large: '₹649' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Salami Sensation Pizza', desc: 'Mozerella cheese, chicken salami, jalapeno', sizes: { Regular: '₹199', Medium: '₹369', Large: '₹549' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Pepperoni Perfection Pizza', desc: 'Mozerella cheese, chicken pepperoni', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Tandoori Temptation Pizza', desc: 'Mozerella cheese, onion, capsicum, tomato, tandoori chicken', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Peri Peri Chicken Explosion Pizza', desc: 'Mozerella cheese, onion, green capsicum, red paprika, peri peri chicken', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Chicken Tikka Paneer Fusion Pizza', desc: 'Mozerella cheese, onion, chicken tikka, paneer', sizes: { Regular: '₹249', Medium: '₹449', Large: '₹649' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Non-Veg Loaded Pizza', desc: 'Mozerella cheese, red paprika, BBQ chicken, chicken tikka, chicken pepperoni', sizes: { Regular: '₹219', Medium: '₹409', Large: '₹599' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Golden Chicken Crunch Pizza', desc: 'Mozerella cheese, corn, onion, chicken', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
+  { category: 'pizzas', title: 'Pizza Factory Slise Special Pizza', desc: 'Mozerella cheese, onion, chicken, jalapeno, corn, special spicy sauce', sizes: { Regular: '₹209', Medium: '₹389', Large: '₹579' }, img: '', type: 'nonveg' },
 
 // Veg Burgers
   { category: 'burgers', title: 'Veggie Victory Burger', desc: 'Delicious veg patty with lettuce and creamy mayo', price: '₹119', img: 'assets/img/veg-burger-1.jpg', type: 'veg' },
@@ -616,8 +732,8 @@ const menuData = [
   
   // Beverages
   { category: 'beverages', title: 'Cold Coffee', desc: 'Classic chilled coffee', price: '₹129', img: 'assets/img/cold-coffee.jpg', type: 'veg' },
-  { category: 'beverages', title: 'Oreo Coffee Shake', desc: 'Coffee blended with Oreo cookies', price: '₹139/159', img: 'assets/img/oreo-shake.jpg', type: 'veg' },
-  { category: 'beverages', title: 'King of Mango Shake', desc: 'Mango flavored milkshake', price: '₹139/159', img: 'assets/img/mango-shake.jpg', type: 'veg' },
+  { category: 'beverages', title: 'Oreo Coffee Shake', desc: 'Coffee blended with Oreo cookies', price: '₹139', img: 'assets/img/oreo-shake.jpg', type: 'veg' },
+  { category: 'beverages', title: 'King of Mango Shake', desc: 'Mango flavored milkshake', price: '₹139', img: 'assets/img/mango-shake.jpg', type: 'veg' },
 
   // Ice Creams & Desserts
   { category: 'icecreams', title: 'Mango Icecream', desc: 'Mango Icecream', price: '₹80', img: 'assets/img/lava-cake.jpg', type: 'veg' },
@@ -640,7 +756,7 @@ const menuData = [
   { category: 'combos', title: 'BBQ Chicken Blast Combo', desc: 'BBQ Chicken Blast Pizza + Potato Veg Nuggets + Virgin Mojito', price: '₹347', img: '', type: 'nonveg' },
   { category: 'combos', title: 'Peri Peri Chicken Combo', desc: 'Peri Peri Chicken Explosion + Chicken Wings (3 Pieces) + Watermelon Mojito', price: '₹373', img: '', type: 'nonveg' },
   { category: 'combos', title: 'Sweet Chilli Chicken Combo', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Green Apple Mojito', price: '₹434', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Chicken Salami Sensation Combo', desc: 'Chicken Salami Sensation Pizza + Jalapeno', price: 'S-₹199/ M-₹359/ L-₹559', img: '', type: 'nonveg' },
+  { category: 'combos', title: 'Chicken Salami Sensation Combo', desc: 'Chicken Salami Sensation Pizza + Jalapeno', price: '₹199', img: '', type: 'nonveg' },
   { category: 'combos', title: 'Mixed Slice Combo', desc: 'Farm Land Slice + Peri Peri Chicken Slice Pizza', price: '₹294', img: '', type: 'nonveg' },
   { category: 'combos', title: 'Fiery Fusion Combo', desc: 'Fiery Fusion Surprise Slice Pizza + Salted French Fries + Thums Up', price: '₹230', img: '', type: 'veg' },
   { category: 'combos', title: 'Golden Crunch & Spicy Hero Combo', desc: 'Golden Chicken Crunch Slice Pizza + Spicy Hero Veg Burger', price: '₹278', img: '', type: 'nonveg' },
@@ -673,6 +789,42 @@ const menuData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let activeCategory = 'all';
 let activeType = 'all';
+let currentCustomisingItem = null; // To store the item being customized
+
+// reuseable functions start
+function extractNumericPrice(priceStr) {
+  const match = priceStr?.match(/₹(\d+)/);
+  return match ? parseInt(match[1]) : 0;
+}
+
+function showCustomiseButton(button) {
+  const card = button.closest('.menu-card');
+  const customiseBtn = card?.querySelector('.customise-btn');
+  if (customiseBtn) customiseBtn.style.display = 'block';
+}
+
+function isSimpleItem(item) {
+  return !item.selectedSize && !item.customizations && item.category !== 'beverages';
+}
+
+function formatCartItemDetails(item) {
+  let details = item.title;
+  if (item.selectedSize) details += ` (${item.selectedSize})`;
+  if (item.customizations) {
+    const c = item.customizations;
+    if (c.size) details += ` (Size: ${c.size})`;
+    if (c.crust && c.crust !== 'Standard') details += ` (Crust: ${c.crust})`;
+    if (c.vegToppings?.length) details += ` (Veg Toppings: ${c.vegToppings.join(', ')})`;
+    if (c.nonVegToppings?.length) details += ` (Non-Veg Toppings: ${c.nonVegToppings.join(', ')})`;
+  }
+  return details;
+}
+
+function saveCustomisationChanges() {
+  addCustomisedItemToCart(false); // Save edits
+}
+
+// reuseable functions end
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -710,7 +862,14 @@ document.addEventListener('click', function (e) {
 
 /* === CART FUNCTIONS === */
 function addToCart(item) {
-  const existing = cart.find(i => i.title === item.title);
+  // Find an existing item that matches both title and selectedSize (if applicable)
+  const existing = cart.find(i => 
+    i.title === item.title && 
+    (i.selectedSize === item.selectedSize || (!i.selectedSize && !item.selectedSize)) &&
+    // For customized items, also check all customization properties for a perfect match
+    (JSON.stringify(i.customizations || {}) === JSON.stringify(item.customizations || {}))
+  );
+
   if (existing) {
     existing.qty++;
   } else {
@@ -719,17 +878,27 @@ function addToCart(item) {
   }
   renderCart();
   saveCart();
-  updateCardState(item.title, item.qty); // Update the specific card
+  // For single-price items, update the card state directly.
+  // The check for !item.sizes is important here. item.selectedSize would only exist if item.sizes was present initially.
+  if (!item.sizes && !item.customizations) { // Only update card state for simple, non-customized items
+      updateCardState(item.title, item.qty);
+  }
 }
 
 function changeQty(index, delta) {
   const item = cart[index];
   item.qty += delta;
+  
   if (item.qty <= 0) {
-    cart.splice(index, 1);
-    updateCardState(item.title, 0); // Update card to show 'ADD'
+      cart.splice(index, 1);
+      // Only update card state if it's a non-sized, non-customized item being fully removed
+      if (isSimpleItem(item)) { updateCardState(item.title, 0); }
+
   } else {
-    updateCardState(item.title, item.qty); // Update card with new quantity
+      // For non-sized, non-customized items, update the card state to reflect new quantity
+      if (isSimpleItem(item)) {
+          updateCardState(item.title, item.qty);
+      }
   }
   renderCart();
   saveCart();
@@ -740,7 +909,23 @@ function removeItem(index) {
   cart.splice(index, 1);
   renderCart();
   saveCart();
-  updateCardState(item.title, 0); // Update card to show 'ADD'
+  // Only update card state for items that don't have selectedSize or customizations property
+  if (isSimpleItem(item)) { updateCardState(item.title, 0); }
+}
+
+function openCartCustomise(cartIndex) {
+  const item = cart[cartIndex];
+  currentCustomisingItem = menuData.find(m => m.title === item.title);
+  if (!currentCustomisingItem) return alert("Original item not found.");
+
+  // Pre-fill modal
+  openCustomiseModal(item.title, item); // prefill with item
+
+  // Save index for editing
+  document.getElementById('customiseModal').dataset.cartIndex = cartIndex;
+
+  // Show the "Save Edits" button
+  document.getElementById('saveEditBtn').style.display = 'inline-block';
 }
 
 function renderCart() {
@@ -750,29 +935,51 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, i) => {
-    // Safely extract numeric part of the price
-    // This regex will capture the first sequence of digits after '₹'
-    const priceMatch = item.price.match(/₹(\d+)/);
-    const itemPrice = priceMatch ? parseInt(priceMatch[1]) : 0; // Default to 0 if no match
-    
+    const itemPrice = extractNumericPrice(item.price);
     const itemTotal = itemPrice * item.qty;
     total += itemTotal;
+    const canCustomize = item.selectedSize || item.customizations;
 
-    // Conditional rendering for decrement/remove button
     let decrementButtonHtml;
     if (item.qty === 1) {
-      decrementButtonHtml = `<button onclick="removeItem(${i})">×</button>`; // 'x' to remove
+      decrementButtonHtml = `<button class="qty-btn delete" onclick="removeItem(${i})">×</button>`;
     } else {
-      decrementButtonHtml = `<button onclick="changeQty(${i}, -1)">−</button>`; // '-' to decrement
+      decrementButtonHtml = `<button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>`;
     }
-    
+
+    // === Cart item details with Customise beside title ===
+    let itemDetailsHtml = `<div class="cart-item-info"><span class="title">${item.title}`;
+
+    if (canCustomize) {
+      itemDetailsHtml += ` <button class="customise-btn-cart" onclick="openCartCustomise(${i})">Customise</button>`;
+    }
+
+    itemDetailsHtml += `</span>`;
+
+    // Show size if present
+    if (item.selectedSize) {
+      itemDetailsHtml += `<span class="cart-item-size"> (${item.selectedSize})</span>`;
+    }
+
+    // Show toppings/customizations
+    if (item.customizations) {
+      const c = item.customizations;
+      if (c.size) itemDetailsHtml += `<div class="cart-topping-line">Size: ${c.size} (₹${c.sizePrice})</div>`;
+      if (c.crust && c.crust !== 'Standard') itemDetailsHtml += `<div class="cart-topping-line">Crust: ${c.crust} (₹${c.crustPrice})</div>`;
+      if (c.vegToppings?.length) itemDetailsHtml += `<div class="cart-topping-line">Veg Toppings: ${c.vegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')}</div>`;
+      if (c.nonVegToppings?.length) itemDetailsHtml += `<div class="cart-topping-line">Non-Veg Toppings: ${c.nonVegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')}</div>`;
+    }
+
+    itemDetailsHtml += `</div>`;
+
+    // === Render full cart item ===
     list.innerHTML += `
       <li>
-        <span class="title">${item.title}</span>
+        ${itemDetailsHtml}
         <div class="cart-quantity-controls">
           ${decrementButtonHtml}
           <span>${item.qty}</span>
-          <button onclick="changeQty(${i}, 1)">+</button>
+          <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
         </div>
         <span class="cart-item-price">₹${itemTotal}</span>
       </li>`;
@@ -780,6 +987,11 @@ function renderCart() {
 
   totalEl.innerText = `₹${total}`;
   updateCartCountBadge();
+
+  // Auto-close cart if empty
+  if (cart.length === 0) {
+    closeCartModal();
+  }
 }
 
 /* === MENU DISPLAY & FILTERING === */
@@ -791,7 +1003,7 @@ function renderMenuItems() {
   const filteredItems = menuData.filter(item =>
     (activeCategory === 'all' || item.category === activeCategory) &&
     (activeType === 'all' || item.type === activeType) &&
-    (item.title.toLowerCase().includes(searchValue) || item.desc.toLowerCase().includes(searchValue))
+    (item.title.toLowerCase().includes(searchValue) || (item.desc && item.desc.toLowerCase().includes(searchValue)))
   );
 
   filteredItems.forEach(item => {
@@ -800,41 +1012,60 @@ function renderMenuItems() {
     card.dataset.title = item.title; // Add data-title for easy lookup
     const iconClass = item.type === 'veg' ? 'veg-icon' : 'nonveg-icon';
 
-    // Get current quantity from cart
-    const itemInCart = cart.find(cartItem => cartItem.title === item.title);
-    const currentQty = itemInCart ? itemInCart.qty : 0;
-    
-    let actionHtml;
+    let actionHtml = '';
+    let priceDisplayHtml = '';
 
-    if (currentQty > 0) {
-      const decrementButtonClass = currentQty === 1 ? 'qty-btn delete' : 'qty-btn';
-      const decrementButtonText = currentQty === 1 ? 'x' : '−'; // Changed from '🗑️' to 'x'
-      actionHtml = `
-        <div class="quantity-control">
-          <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${item.title}', -1)">${decrementButtonText}</button>
-          <span class="qty-count">${currentQty}</span>
-          <button class="qty-btn" onclick="changeCardQty(this, '${item.title}', 1)">+</button>
-        </div>`;
-    } else {
+    if (item.sizes) {
+      // Show all size-price options in plain text (no dropdown)
+      priceDisplayHtml = '<div class="price-line">';
+      for (const size in item.sizes) {
+        priceDisplayHtml += `<span class="size-price">${size} - ${item.sizes[size]}</span> `;
+      }
+      priceDisplayHtml += '</div>';
+
       actionHtml = `
         <button class="order-button"
           data-title="${item.title}"
-          data-desc="${item.desc}"
-          data-price="${item.price}"
-          data-img="${item.img}"
           data-type="${item.type}"
-          onclick="addToCartFromButton(this)"
+          data-desc="${item.desc || ''}"
+          onclick="addToCartFromSizedItem(this, '${item.title.replace(/\s/g, '-')}')"
         >ADD</button>`;
+    } else {
+      priceDisplayHtml = `<div class="price-line"><span class="discounted-price">${item.price}</span></div>`;
+
+      const itemInCart = cart.find(cartItem => cartItem.title === item.title && !cartItem.selectedSize && !cartItem.customizations);
+      const currentQty = itemInCart ? itemInCart.qty : 0;
+
+      if (currentQty > 0) {
+        const decrementButtonClass = currentQty === 1 ? 'qty-btn delete' : 'qty-btn';
+        const decrementButtonText = currentQty === 1 ? 'x' : '−';
+        actionHtml = `
+          <div class="quantity-control">
+            <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${item.title}', -1)">${decrementButtonText}</button>
+            <span class="qty-count">${currentQty}</span>
+            <button class="qty-btn" onclick="changeCardQty(this, '${item.title}', 1)">+</button>
+          </div>`;
+      } else {
+        actionHtml = `
+          <button class="order-button"
+            data-title="${item.title}"
+            data-desc="${item.desc || ''}"
+            data-price="${item.price}"
+            data-img="${item.img || ''}"
+            data-type="${item.type}"
+            onclick="addToCartFromButton(this)"
+          >ADD</button>`;
+      }
     }
 
     card.innerHTML = `
       <div class="menu-info">
         <div><span class="${iconClass}"></span><strong>${item.title}</strong></div>
-        <div class="price-line"><span class="discounted-price">${item.price}</span></div>
-        <p>${item.desc}</p>
+        ${priceDisplayHtml}
+        <p>${item.desc || ''}</p>
       </div>
       <div class="menu-img-block">
-        <img src="${item.img}" alt="${item.title}">
+        <img src="${item.img || ''}" alt="${item.title}">
         ${actionHtml}
       </div>`;
     container.appendChild(card);
@@ -845,35 +1076,37 @@ function updateCardState(itemTitle, newQty) {
     const card = document.querySelector(`.menu-card[data-title="${itemTitle}"]`);
     if (!card) return; // Card not found, might be filtered out
 
+    const originalMenuItem = menuData.find(menuItem => menuItem.title === itemTitle);
+    if (!originalMenuItem || originalMenuItem.sizes) return; // Only update non-sized items
+    if (originalMenuItem.customizations) return; // Do not update card for customized items directly
+
     const imgBlock = card.querySelector('.menu-img-block');
     let actionHtml;
 
     if (newQty > 0) {
-        const decrementButtonClass = newQty === 1 ? 'qty-btn delete' : 'qty-btn';
-        const decrementButtonText = newQty === 1 ? 'x' : '−'; // Changed from '🗑️' to 'x'
-        actionHtml = `
-            <div class="quantity-control">
-              <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${itemTitle}', -1)">${decrementButtonText}</button>
-              <span class="qty-count">${newQty}</span>
-              <button class="qty-btn" onclick="changeCardQty(this, '${itemTitle}', 1)">+</button>
-            </div>`;
+      const decBtn = newQty === 1 ? 'x' : '−';
+      const decClass = newQty === 1 ? 'qty-btn delete' : 'qty-btn';
+      actionHtml = `
+        <div class="quantity-control">
+          <button class="${decClass}" onclick="changeCardQty(this, '${itemTitle}', -1)">${decBtn}</button>
+          <span class="qty-count">${newQty}</span>
+          <button class="qty-btn" onclick="changeCardQty(this, '${itemTitle}', 1)">+</button>
+        </div>`;
     } else {
-        const originalMenuItem = menuData.find(menuItem => menuItem.title === itemTitle);
-        if (!originalMenuItem) return; // Original item not found
-
         actionHtml = `
             <button class="order-button"
               data-title="${originalMenuItem.title}"
-              data-desc="${originalMenuItem.desc}"
+              data-desc="${originalMenuItem.desc || ''}"
               data-price="${originalMenuItem.price}"
-              data-img="${originalMenuItem.img}"
+              data-img="${originalMenuItem.img || ''}"
               data-type="${originalMenuItem.type}"
-              onclick="addToCartFromButton(this)"
-            >ADD</button>`;
+              onclick="addToCartFromButton(this)">ADD</button>`;
     }
-    imgBlock.innerHTML = `<img src="${menuData.find(d => d.title === itemTitle)?.img || ''}" alt="${itemTitle}">` + actionHtml;
+    // Retain the customise button
+    imgBlock.innerHTML = `<img src="${originalMenuItem.img || ''}" alt="${itemTitle}">` + actionHtml;
 }
 
+// For single-price items
 function addToCartFromButton(button) {
   const item = {
     title: button.dataset.title,
@@ -882,28 +1115,79 @@ function addToCartFromButton(button) {
     img: button.dataset.img,
     type: button.dataset.type
   };
-  addToCart(item); // This will now handle updating the card via updateCardState
+  const original = menuData.find(i => i.title === item.title);
+  if (original?.category === 'beverages') {
+    addToCart(item); // Direct add for beverages
+  } else {
+    showCustomiseButton(button);
+    openCustomiseModal(item.title); // Customise for others
+  }
 }
 
+// For multi-size items
+function addToCartFromSizedItem(button, titleId) {
+  const originalTitle = button.dataset.title;
+  const originalMenuItem = menuData.find(menuItem => menuItem.title === originalTitle);
+
+  if (!originalMenuItem || !originalMenuItem.sizes) {
+    console.error("Error: Could not find item or its sizes.");
+    return;
+  }
+
+  const selectedSize = "Regular"; // Default size
+  const price = originalMenuItem.sizes[selectedSize];
+
+  if (!price) {
+    console.error(`Regular size not available for: ${originalTitle}`);
+    return;
+  }
+
+  const itemToAdd = {
+    title: originalTitle,
+    selectedSize: selectedSize,
+    desc: originalMenuItem.desc,
+    price: price,
+    img: originalMenuItem.img,
+    type: originalMenuItem.type
+  };
+
+  if (originalMenuItem.category === 'beverages') {
+    addToCart(itemToAdd);
+  } else {
+    showCustomiseButton(button);
+    openCustomiseModal(originalTitle);
+  }
+}
+
+// This function is only for single-price items on the card.
+// Quantity changes for sized items happen only in the cart modal.
 function changeCardQty(btn, title, delta) {
-  const itemInCart = cart.find(i => i.title === title);
-  if (!itemInCart && delta < 0) return; // Cannot decrement if not in cart
+  const itemInCart = cart.find(i => i.title === title && !i.selectedSize && !i.customizations);
+
+  if (!itemInCart && delta < 0) return;
 
   if (itemInCart) {
-      itemInCart.qty += delta;
-      if (itemInCart.qty <= 0) {
-          cart = cart.filter(i => i.title !== title); // Remove from cart if qty is 0 or less
+    itemInCart.qty += delta;
+    if (itemInCart.qty <= 0) {
+      cart = cart.filter(i => (i.title !== title || i.selectedSize || i.customizations));
+
+      // Hide Customise when qty = 0
+      const card = btn.closest('.menu-card');
+      const customiseBtn = card.querySelector('.customise-btn');
+      if (customiseBtn) {
+        customiseBtn.style.display = 'none';
       }
+    }
   } else if (delta > 0) {
-      const originalItem = menuData.find(d => d.title === title);
-      if (originalItem) {
-          cart.push({ ...originalItem, qty: 1 });
-      }
+    const originalItem = menuData.find(d => d.title === title && !d.sizes);
+    if (originalItem) {
+      cart.push({ ...originalItem, qty: 1 });
+    }
   }
-  
+
   saveCart();
-  renderCart(); // Update cart modal
-  updateCardState(title, itemInCart ? itemInCart.qty : 0); // Update the specific card
+  renderCart();
+  updateCardState(title, itemInCart ? itemInCart.qty : 0);
 }
 
 /* === MODALS & ACTIONS === */
@@ -934,16 +1218,17 @@ function submitOrder(e) {
   const orderedItems = [...cart]; // Take a snapshot of the cart before clearing
   orderedItems.forEach(item => {
     // Safely extract numeric part of the price
-    const priceMatch = item.price.match(/₹(\d+)/);
-    const price = priceMatch ? parseInt(priceMatch[1]) : 'Price Not Found';
-    message += `🍕 ${item.title} - ₹${price} x ${item.qty}%0A`;
+    const itemPrice = extractNumericPrice(item.price);
+
+    message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
+
   });
 
   const total = document.getElementById('cartTotal').innerText;
   message += `%0A*Total*: ${total}%0A`;
   message += `%0A*Customer Details*:%0A👤 ${name}%0A🏠 ${address}%0A📞 ${phone}`;
 
-  const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`; // Replace with your WhatsApp business number
   window.open(whatsappUrl, '_blank');
 
   cart = []; // Clear the cart
@@ -951,10 +1236,233 @@ function submitOrder(e) {
   saveCart();
   closeOrderForm();
   
-  // Reset all menu cards to "ADD" state after order
+  // Reset all menu cards to "ADD" state after order (only for single-price items)
   orderedItems.forEach(item => {
-      updateCardState(item.title, 0);
+      if (isSimpleItem(item)) { updateCardState(item.title, 0); }
+
   });
+}
+
+/* === Customise Modal Functions === */
+function updateCustomiseTotalPrice() {
+  let total = 0;
+
+  // Size price
+  const sizeInput = document.querySelector('input[name="pizzaSize"]:checked');
+  const sizePrice = parseInt(sizeInput?.dataset.price || '0');
+  total += sizePrice;
+
+  // Crust price
+  const crustInput = document.querySelector('input[name="pizzaCrust"]:checked');
+  const crustPrice = parseInt(crustInput?.dataset.price || '0');
+  total += crustPrice;
+
+  // Veg toppings
+  document.querySelectorAll('input[name="vegTopping"]:checked').forEach(cb => {
+    total += parseInt(cb.dataset.price || '0');
+  });
+
+  // Non-Veg toppings
+  document.querySelectorAll('input[name="nonVegTopping"]:checked').forEach(cb => {
+    total += parseInt(cb.dataset.price || '0');
+  });
+
+  // Update DOM
+  document.getElementById('customiseTotalPrice').innerText = `₹${total}`;
+}
+
+function openCustomiseModal(itemTitle, existingItem = null) {
+  currentCustomisingItem = menuData.find(item => item.title === itemTitle);
+  if (!currentCustomisingItem) {
+    console.error("Item not found for customization:", itemTitle);
+    return;
+  }
+
+  document.getElementById('customisePizzaName').innerText = currentCustomisingItem.title;
+
+  // Hide Save Edits button by default
+  document.getElementById('saveEditBtn').style.display = 'none';
+
+  const sizeOptionGroup = document.querySelector('.option-group:has(input[name="pizzaSize"])');
+  let sizeOptionsHtml = '<h4>Change Size</h4>';
+  const category = currentCustomisingItem.category;
+
+  // Show or hide crust and topping sections based on category
+const crustSection = document.querySelector('.option-group:has(input[name="pizzaCrust"])');
+const vegToppingSection = document.querySelector('.option-group:has(input[name="vegTopping"])');
+const nonVegToppingSection = document.querySelector('.option-group:has(input[name="nonVegTopping"])');
+
+if (category === 'beverages') {
+  crustSection.style.display = 'none';
+  vegToppingSection.style.display = 'none';
+  nonVegToppingSection.style.display = 'none';
+} else {
+  crustSection.style.display = 'block';
+  vegToppingSection.style.display = 'block';
+  nonVegToppingSection.style.display = 'block';
+}
+
+  if (category === 'beverages') {
+    const beverageSizes = [
+      { label: '200ml', price: 40 },
+      { label: '500ml', price: 50 },
+      { label: '1.5L', price: 70 },
+      { label: '2.5L', price: 100 },
+    ];
+    beverageSizes.forEach((s, i) => {
+      sizeOptionsHtml += `
+        <label>
+          <input type="radio" name="pizzaSize" value="${s.label}" data-price="${s.price}" ${i === 0 ? 'checked' : ''}>
+          ${s.label}: ₹${s.price}
+        </label>`;
+    });
+    sizeOptionGroup.style.display = 'block';
+    sizeOptionGroup.innerHTML = sizeOptionsHtml;
+
+  } else if ((category === 'pizzas' || category === 'burgers') && currentCustomisingItem.sizes) {
+    for (const size in currentCustomisingItem.sizes) {
+  const price = parseInt(currentCustomisingItem.sizes[size].replace('₹', ''));
+  const checkedAttr = size === 'Regular' ? 'checked' : '';
+  sizeOptionsHtml += `
+    <label>
+      <input type="radio" name="pizzaSize" value="${size}" data-price="${price}" ${checkedAttr}>
+      ${size}: ₹${price}
+    </label>`;
+}
+
+    sizeOptionGroup.style.display = 'block';
+    sizeOptionGroup.innerHTML = sizeOptionsHtml;
+
+  } else {
+    const basePrice = parseInt(currentCustomisingItem.price.replace('₹', ''));
+    sizeOptionsHtml += `
+      <label>
+        <input type="radio" name="pizzaSize" value="Regular" data-price="${basePrice}" checked>
+        Regular: ₹${basePrice}
+      </label>`;
+    sizeOptionGroup.style.display = 'block';
+    sizeOptionGroup.innerHTML = sizeOptionsHtml;
+  }
+
+  // Reset all selections
+  document.querySelectorAll('input[name="pizzaCrust"]').forEach(i => i.checked = i.value === 'Standard');
+  document.querySelectorAll('input[name="vegTopping"]').forEach(i => i.checked = false);
+  document.querySelectorAll('input[name="nonVegTopping"]').forEach(i => i.checked = false);
+
+  // Apply existing values if editing
+  if (existingItem?.customizations) {
+    const c = existingItem.customizations;
+    
+    if (c.size) {
+      const sizeRadio = document.querySelector(`input[name="pizzaSize"][value="${c.size}"]`);
+      if (sizeRadio) sizeRadio.checked = true;
+    }
+
+    if (c.crust) {
+      const crustRadio = document.querySelector(`input[name="pizzaCrust"][value="${c.crust}"]`);
+      if (crustRadio) crustRadio.checked = true;
+    }
+
+    c.vegToppings?.forEach(t => {
+      const checkbox = document.querySelector(`input[name="vegTopping"][value="${t.name}"]`);
+      if (checkbox) checkbox.checked = true;
+    });
+
+    c.nonVegToppings?.forEach(t => {
+      const checkbox = document.querySelector(`input[name="nonVegTopping"][value="${t.name}"]`);
+      if (checkbox) checkbox.checked = true;
+    });
+  }
+
+  setTimeout(() => {
+  document.querySelectorAll('#customiseModal input').forEach(input => {
+    input.addEventListener('change', updateCustomiseTotalPrice);
+  });
+  updateCustomiseTotalPrice(); // Initial calculation
+}, 0);
+
+  // Show modal
+  document.getElementById('customiseModal').style.display = 'flex';
+}
+
+function closeCustomiseModal() {
+  document.getElementById('customiseModal').style.display = 'none';
+  delete document.getElementById('customiseModal').dataset.cartIndex;
+}
+
+function calculateCustomPrice() {
+    let basePrice = 0;
+
+    // Get selected size price
+    const selectedSizeRadio = document.querySelector('input[name="pizzaSize"]:checked');
+    if (selectedSizeRadio) {
+        basePrice += parseInt(selectedSizeRadio.dataset.price);
+    } else if (currentCustomisingItem && !currentCustomisingItem.sizes) {
+        // If no size radio is checked (e.g., initially for a single-price item),
+        // and it's a single-price item, use its original price as base.
+        basePrice = parseInt(currentCustomisingItem.price.replace('₹', ''));
+    }
+
+    // Get selected crust price
+    const selectedCrustRadio = document.querySelector('input[name="pizzaCrust"]:checked');
+    if (selectedCrustRadio) {
+        basePrice += parseInt(selectedCrustRadio.dataset.price);
+    }
+
+    // Add veg toppings price
+    document.querySelectorAll('input[name="vegTopping"]:checked').forEach(checkbox => {
+        basePrice += parseInt(checkbox.dataset.price);
+    });
+
+    // Add non-veg toppings price
+    document.querySelectorAll('input[name="nonVegTopping"]:checked').forEach(checkbox => {
+        basePrice += parseInt(checkbox.dataset.price);
+    });
+
+    document.getElementById('customiseTotalPrice').innerText = `₹${basePrice}`;
+}
+
+function addCustomisedItemToCart(asNew = false) {
+  const sizeInput = document.querySelector('input[name="pizzaSize"]:checked');
+  const crustInput = document.querySelector('input[name="pizzaCrust"]:checked');
+  const vegInputs = [...document.querySelectorAll('input[name="vegTopping"]:checked')];
+  const nonVegInputs = [...document.querySelectorAll('input[name="nonVegTopping"]:checked')];
+
+  const customizations = {
+    size: sizeInput?.value,
+    sizePrice: parseInt(sizeInput?.dataset.price || '0'),
+    crust: crustInput?.value || 'Standard',
+    crustPrice: parseInt(crustInput?.dataset.price || '0'),
+    vegToppings: vegInputs.map(i => ({ name: i.value, price: parseInt(i.dataset.price || '0') })),
+    nonVegToppings: nonVegInputs.map(i => ({ name: i.value, price: parseInt(i.dataset.price || '0') }))
+  };
+
+  const totalPrice = customizations.sizePrice + customizations.crustPrice +
+  customizations.vegToppings.reduce((sum, t) => sum + t.price, 0) +
+  customizations.nonVegToppings.reduce((sum, t) => sum + t.price, 0);
+
+  const newItem = {
+    title: currentCustomisingItem.title,
+    desc: currentCustomisingItem.desc,
+    type: currentCustomisingItem.type,
+    customizations,
+    price: `₹${totalPrice}`,
+    qty: 1
+  };
+
+  const cartIndex = document.getElementById('customiseModal').dataset.cartIndex;
+
+  if (!asNew && cartIndex !== undefined && cart[cartIndex]) {
+    // Replace the existing item in cart
+    cart[cartIndex] = newItem;
+  } else {
+    // Add as new item
+    cart.push(newItem);
+  }
+
+  saveCart();
+  renderCart();
+  closeCustomiseModal();
 }
 
 /* === UI FILTERS === */
@@ -1014,17 +1522,18 @@ function makePayment() {
       message += `%0A*Items Ordered:*%0A`;
 
       cart.forEach(item => {
-        const price = item.price.match(/\d+/)[0];
-        message += `🍕 ${item.title} - ₹${price} x ${item.qty}%0A`;
+        const priceMatch = item.price.match(/₹(\d+)/); // Use regex to get just the number
+        const price = priceMatch ? priceMatch[1] : 'Price Not Found'; // Get the captured group
+        message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
       });
 
       message += `%0A💰 *Total*: ₹${totalAmount}`;
 
-      const userWhatsApp = `https://wa.me/91${phone}?text=${message}`;
+      const userWhatsApp = `https://wa.me/91${phone}?text=${encodeURIComponent(message)}`;
       window.open(userWhatsApp, '_blank');
 
       const adminNumber = "918297422016"; // Replace with your WhatsApp number
-      const adminWhatsApp = `https://wa.me/${adminNumber}?text=${message}`;
+      const adminWhatsApp = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
       window.open(adminWhatsApp, '_blank');
 
       alert("✅ Payment Successful!\n🧾 Payment ID: " + paymentId);
