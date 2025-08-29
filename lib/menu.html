@@ -656,7 +656,7 @@
 // Refactored menuData to use 'sizes' object for multi-size items
 const menuData = [
   //Pizza Mania
-  { category: 'pizzamania', title: 'Onion Pizza', desc: 'Mozerella cheese, onion', price: '₹79', img: '../assets/img/product-1.png', type: 'veg' },
+  { category: 'pizzamania', title: 'Onion Pizza', desc: 'Mozerella cheese, onion', price: '₹1', img: '../assets/img/product-1.png', type: 'veg' },
   { category: 'pizzamania', title: 'Capsicum Onion Pizza', desc: 'Mozerella cheese, Capsicum, onion', price: '₹89', img: '../assets/img/product-2.png', type: 'veg' },
   { category: 'pizzamania', title: 'Mushroom Red Paprika Pizza', desc: 'Mozerella cheese, Mushroom, red paprika', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'Corn Pizza Mania Pizza', desc: 'Mozerella cheese, Corn', price: '₹89', img: 'assets/img/farm-land-slice.jpg', type: 'veg' },
@@ -1509,7 +1509,7 @@ function makePayment() {
   }
 
   const options = {
-    key: "YOUR_RAZORPAY_KEY", // Replace with your Razorpay key
+    key: "rzp_live_R9ffQUds74mw4P", // Replace with your Razorpay key
     amount: totalAmount * 100,
     currency: "INR",
     name: "Pizza Factory Slise",
