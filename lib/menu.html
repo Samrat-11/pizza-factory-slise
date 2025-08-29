@@ -1498,63 +1498,151 @@ window.onload = () => {
   document.querySelector('.type-filter[onclick="filterByType(event, \'all\')"]').classList.add('active');
 };
 function makePayment() {
-  const name = document.getElementById('custName').value;
-  const address = document.getElementById('custAddress').value;
-  const phone = document.getElementById('custPhone').value;
-  const totalAmount = parseInt(document.getElementById('cartTotal').innerText.replace('₹', ''));
+    const name = document.getElementById('custName').value;
+    const address = document.getElementById('custAddress').value;
+    const phone = document.getElementById('custPhone').value;
+    const totalAmount = parseInt(document.getElementById('cartTotal').innerText.replace('₹', ''));
 
-  if (!name || !address || !phone || totalAmount <= 0) {
-    alert("Please fill all details and add at least one item to cart.");
-    return;
-  }
-
-  const options = {
-    key: "rzp_live_R9ffQUds74mw4P", // Your Razorpay key
-    amount: totalAmount * 100,
-    currency: "INR",
-    name: "Pizza Factory Slise",
-    description: "Order Payment",
-    handler: function (response) {
-      const paymentId = response.razorpay_payment_id;
-      let message = `*Order Confirmed!* ✅%0A`;
-      message += `🧾 *Receipt ID*: ${paymentId}%0A`;
-      message += `👤 *Name*: ${name}%0A🏠 *Address*: ${address}%0A📞 *Phone*: ${phone}%0A`;
-      message += `%0A*Items Ordered:*%0A`;
-
-      cart.forEach(item => {
-        const priceMatch = item.price.match(/₹(\d+)/); 
-        const price = priceMatch ? priceMatch[1] : 'Price Not Found'; 
-        message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
-      });
-
-      message += `%0A💰 *Total*: ₹${totalAmount}`;
-
-      // This line prepares the confirmation for the user
-      const userWhatsApp = `https://wa.me/91${phone}?text=${encodeURIComponent(message)}`;
-      window.open(userWhatsApp, '_blank');
-
-      // This line prepares the confirmation for the admin
-      const adminNumber = "919505564388"; // Admin's WhatsApp number
-      const adminWhatsApp = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-      window.open(adminWhatsApp, '_blank');
-
-      alert("✅ Payment Successful!\n🧾 Payment ID: " + paymentId);
-      cart = [];
-      renderCart();
-      saveCart();
-      closeOrderForm();
-    },
-    prefill: {
-      name: name,
-      contact: phone
-    },
-    theme: {
-      color: "#ce221f"
+    if (!name || !address || !phone || totalAmount <= 0) {
+        alert("Please fill all details and add at least one item to cart.");
+        return;
     }
-  };
 
-  const rzp = new Razorpay(options);
-  rzp.open();
+    const options = {
+        key: "rzp_live_R9ffQUds74mw4P", // Replace with your Razorpay key
+        amount: totalAmount * 100,
+        currency: "INR",
+        name: "Pizza Factory Slise",
+        description: "Order Payment",
+        handler: function (response) {
+            const paymentId = response.razorpay_payment_id;
+            const orderDate = new Date().toLocaleDateString('en-IN', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            // --- 1. Generate HTML Receipt for the User in a New Tab ---
+            const receiptWindow = window.open('', '_blank');
+            let receiptHtml = `
+                <html>
+                <head>
+                    <title>Order Receipt - ${paymentId}</title>
+                    <style>
+                        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
+                        .receipt-container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+                        h1, h2 { color: #ce221f; text-align: center; }
+                        .header { border-bottom: 2px dashed #ccc; padding-bottom: 15px; margin-bottom: 20px; }
+                        .details-section { margin-bottom: 20px; line-height: 1.6; }
+                        .details-section p { margin: 5px 0; color: #555; }
+                        .details-section strong { color: #333; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+                        th { background-color: #f9f9f9; }
+                        .total-row td { font-weight: bold; font-size: 1.1em; border-top: 2px solid #333; color: #ce221f;}
+                        .footer { text-align: center; margin-top: 30px; color: #777; font-size: 0.9em; }
+                        .print-btn { display: block; width: 150px; margin: 20px auto 0; padding: 10px; background-color: #ce221f; color: white; text-align: center; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
+                        @media print {
+                            body { background-color: #fff; }
+                            .receipt-container { box-shadow: none; border: 1px solid #ccc; }
+                            .print-btn { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="receipt-container">
+                        <div class="header">
+                            <h1>Pizza Factory Slise</h1>
+                            <h2>Thank You For Your Order!</h2>
+                        </div>
+                        <div class="details-section">
+                            <p><strong>Order ID:</strong> ${paymentId}</p>
+                            <p><strong>Order Date:</strong> ${orderDate}</p>
+                        </div>
+                        <div class="details-section">
+                            <p><strong>Billed To:</strong></p>
+                            <p>${name}</p>
+                            <p>${address}</p>
+                            <p><strong>Phone:</strong> +91 ${phone}</p>
+                        </div>
+                        
+                        <h2>Order Details</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+            
+            cart.forEach(item => {
+                const itemPrice = extractNumericPrice(item.price);
+                const itemTotal = itemPrice * item.qty;
+                receiptHtml += `
+                    <tr>
+                        <td>
+                            ${item.title}
+                            <small style="color: #666; display: block;">${item.selectedSize || ''}</small>
+                        </td>
+                        <td>${item.qty}</td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            receiptHtml += `
+                            </tbody>
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td colspan="2">Total Paid</td>
+                                    <td>₹${totalAmount.toFixed(2)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <a href="javascript:window.print()" class="print-btn">🖨️ Print Receipt</a>
+                        <div class="footer">
+                            <p>We hope you enjoy your meal!</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            receiptWindow.document.write(receiptHtml);
+            receiptWindow.document.close();
+
+            // --- 2. Send Simplified Notification to Admin via WhatsApp ---
+            let adminMessage = `*New Order Received!* 🔥%0A%0A`;
+            adminMessage += `*Order ID:* ${paymentId}%0A`;
+            adminMessage += `*Customer:* ${name}, ${phone}%0A`;
+            adminMessage += `*Address:* ${address}%0A%0A`;
+            adminMessage += `*Total Amount:* ₹${totalAmount}%0A%0A`;
+            adminMessage += `*Items:*%0A`;
+            cart.forEach(item => {
+                adminMessage += `- ${item.qty} x ${formatCartItemDetails(item)}%0A`;
+            });
+            
+            const adminNumber = "919505564388"; // Replace with your WhatsApp number
+            const adminWhatsApp = `https://wa.me/${adminNumber}?text=${encodeURIComponent(adminMessage)}`;
+            window.open(adminWhatsApp, '_blank');
+
+            // --- 3. Finalize and Clean Up on the Main Page ---
+            alert("✅ Payment Successful! Your receipt has been opened in a new tab.");
+            cart = [];
+            renderCart();
+            saveCart();
+            closeOrderForm();
+        },
+        prefill: {
+            name: name,
+            contact: phone
+        },
+        theme: {
+            color: "#ce221f"
+        }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
 }
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
