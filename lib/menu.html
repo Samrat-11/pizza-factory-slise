@@ -1509,7 +1509,7 @@ function makePayment() {
   }
 
   const options = {
-    key: "rzp_live_R9ffQUds74mw4P", // Replace with your Razorpay key
+    key: "rzp_live_R9ffQUds74mw4P", // Your Razorpay key
     amount: totalAmount * 100,
     currency: "INR",
     name: "Pizza Factory Slise",
@@ -1522,17 +1522,19 @@ function makePayment() {
       message += `%0A*Items Ordered:*%0A`;
 
       cart.forEach(item => {
-        const priceMatch = item.price.match(/₹(\d+)/); // Use regex to get just the number
-        const price = priceMatch ? priceMatch[1] : 'Price Not Found'; // Get the captured group
+        const priceMatch = item.price.match(/₹(\d+)/); 
+        const price = priceMatch ? priceMatch[1] : 'Price Not Found'; 
         message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
       });
 
       message += `%0A💰 *Total*: ₹${totalAmount}`;
 
+      // This line prepares the confirmation for the user
       const userWhatsApp = `https://wa.me/91${phone}?text=${encodeURIComponent(message)}`;
       window.open(userWhatsApp, '_blank');
 
-      const adminNumber = "918297422016"; // Replace with your WhatsApp number
+      // This line prepares the confirmation for the admin
+      const adminNumber = "919505564388"; // Admin's WhatsApp number
       const adminWhatsApp = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
       window.open(adminWhatsApp, '_blank');
 
