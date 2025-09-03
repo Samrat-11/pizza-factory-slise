@@ -1520,30 +1520,35 @@ function makePayment() {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
 
-            // Close other popups
+             // Close other popups
   closeCartModal();
   closeOrderForm();
 
-  // Generate receipt details
+  // Collect customer details
   const name = document.getElementById('custName').value;
   const address = document.getElementById('custAddress').value;
   const phone = document.getElementById('custPhone').value;
   const total = document.getElementById('cartTotal').innerText;
 
+  // Build order summary HTML
   let receiptHTML = `<p><strong>Customer:</strong> ${name}</p>`;
   receiptHTML += `<p><strong>Address:</strong> ${address}</p>`;
   receiptHTML += `<p><strong>Phone:</strong> ${phone}</p>`;
   receiptHTML += `<h4>Order Summary</h4><ul>`;
 
   cart.forEach(item => {
-    receiptHTML += `<li>${item.qty} x ${item.title} - ₹${extractNumericPrice(item.price) * item.qty}</li>`;
+    const lineTotal = extractNumericPrice(item.price) * item.qty;
+    receiptHTML += `<li>${item.qty} x ${item.title} - ₹${lineTotal}</li>`;
   });
 
   receiptHTML += `</ul><p><strong>Total: ${total}</strong></p>`;
 
-  // Show in modal
+  // Show receipt in modal
   document.getElementById('receiptDetails').innerHTML = receiptHTML;
   document.getElementById('receiptModal').style.display = 'flex';
+
+  // Send order confirmation to Chef/Manager
+  sendOrderToManager(name, address, phone, total);
 
   // Clear cart
   cart = [];
@@ -1565,6 +1570,55 @@ function makePayment() {
 }
 function closeReceiptModal() {
   document.getElementById('receiptModal').style.display = 'none';
+}
+/* === WhatsApp Integration Functions === */
+
+// Send order confirmation to Manager/Chef automatically after payment
+function sendOrderToManager(name, address, phone, total) {
+  const managerNumber = "919505564388"; // Change to chef/manager WhatsApp number
+
+  let message = `*New Order Received - Pizza Factory Slise*%0A%0A`;
+  message += `👤 *Customer:* ${name}%0A`;
+  message += `🏠 *Address:* ${address}%0A`;
+  message += `📞 *Phone:* ${phone}%0A%0A`;
+  message += `*Items Ordered:*%0A`;
+
+  cart.forEach(item => {
+    const lineTotal = extractNumericPrice(item.price) * item.qty;
+    message += `- ${item.qty} x ${item.title} - ₹${lineTotal}%0A`;
+  });
+
+  message += `%0A*Total:* ${total}%0A%0A⚡ Please start preparing this order!`;
+
+  const whatsappUrl = `https://wa.me/${managerNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Allow customer to share their receipt on WhatsApp
+function shareReceiptOnWhatsApp() {
+  const name = document.getElementById('custName').value;
+  const address = document.getElementById('custAddress').value;
+  const phone = document.getElementById('custPhone').value;
+  const total = document.getElementById('cartTotal').innerText;
+
+  // Extract digits to create valid WhatsApp number format
+  const customerNumber = phone.replace(/\D/g, '');
+
+  let message = `*Your Order Receipt - Pizza Factory Slise*%0A%0A`;
+  message += `👤 *Customer:* ${name}%0A`;
+  message += `🏠 *Address:* ${address}%0A`;
+  message += `📞 *Phone:* ${phone}%0A%0A`;
+  message += `*Items Ordered:*%0A`;
+
+  cart.forEach(item => {
+    const lineTotal = extractNumericPrice(item.price) * item.qty;
+    message += `- ${item.qty} x ${item.title} - ₹${lineTotal}%0A`;
+  });
+
+  message += `%0A*Total Paid:* ${total}%0A%0AThank you for your order! 🍕`;
+
+  const whatsappUrl = `https://wa.me/${customerNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
 }
 
 </script>
