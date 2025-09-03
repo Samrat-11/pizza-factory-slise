@@ -1520,134 +1520,36 @@ function makePayment() {
                 year: 'numeric', month: 'long', day: 'numeric'
             });
 
-            // --- 1. Construct WhatsApp Share Message for Customer ---
-            let customerShareMessage = `*My Order from Pizza Factory Slise!* 🍕\n\n`;
-            customerShareMessage += `*Order ID:* ${paymentId}\n`;
-            customerShareMessage += `*Date:* ${orderDate}\n\n`;
-            customerShareMessage += `*My Items:*\n`;
-            cart.forEach(item => {
-                const itemDetails = formatCartItemDetails(item); 
-                customerShareMessage += `- ${item.qty} x ${itemDetails}\n`;
-            });
-            customerShareMessage += `\n*Total Paid:* ₹${totalAmount.toFixed(2)}\n\n`;
-            customerShareMessage += `Such a great place to order from!`;
-            
-            const customerWhatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(customerShareMessage)}`;
+            // Close other popups
+  closeCartModal();
+  closeOrderForm();
 
-            // --- 2. Generate HTML Receipt for the User in a New Tab ---
-            const receiptWindow = window.open('', '_blank');
-            let receiptHtml = `
-                <html>
-                <head>
-                    <title>Order Receipt - ${paymentId}</title>
-                    <style>
-                        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
-                        .receipt-container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
-                        h1, h2 { color: #ce221f; text-align: center; }
-                        .header { border-bottom: 2px dashed #ccc; padding-bottom: 15px; margin-bottom: 20px; }
-                        .details-section { margin-bottom: 20px; line-height: 1.6; }
-                        .details-section p { margin: 5px 0; color: #555; }
-                        .details-section strong { color: #333; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
-                        th { background-color: #f9f9f9; }
-                        .total-row td { font-weight: bold; font-size: 1.1em; border-top: 2px solid #333; color: #ce221f;}
-                        .footer { text-align: center; margin-top: 30px; color: #777; font-size: 0.9em; }
-                        .action-btn { display: block; width: 180px; margin: 10px auto 0; padding: 12px; color: white; text-align: center; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; font-size: 15px; }
-                        .print-btn { background-color: #ce221f; }
-                        .share-btn { background-color: #25D366; } /* WhatsApp Green */
-                        @media print {
-                            body { background-color: #fff; }
-                            .receipt-container { box-shadow: none; border: 1px solid #ccc; }
-                            .action-btn { display: none; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="receipt-container">
-                        <div class="header">
-                            <h1>Pizza Factory Slise</h1>
-                            <h2>Thank You For Your Order!</h2>
-                        </div>
-                        <div class="details-section">
-                            <p><strong>Order ID:</strong> ${paymentId}</p>
-                            <p><strong>Order Date:</strong> ${orderDate}</p>
-                        </div>
-                        <div class="details-section">
-                            <p><strong>Billed To:</strong></p>
-                            <p>${name}</p>
-                            <p>${address}</p>
-                            <p><strong>Phone:</strong> +91 ${phone}</p>
-                        </div>
-                        
-                        <h2>Order Details</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Qty</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-            
-            cart.forEach(item => {
-                const itemPrice = extractNumericPrice(item.price);
-                const itemTotal = itemPrice * item.qty;
-                receiptHtml += `
-                    <tr>
-                        <td>
-                            ${formatCartItemDetails(item)}
-                        </td>
-                        <td>${item.qty}</td>
-                        <td>₹${itemTotal.toFixed(2)}</td>
-                    </tr>
-                `;
-            });
+  // Generate receipt details
+  const name = document.getElementById('custName').value;
+  const address = document.getElementById('custAddress').value;
+  const phone = document.getElementById('custPhone').value;
+  const total = document.getElementById('cartTotal').innerText;
 
-            receiptHtml += `
-                            </tbody>
-                            <tfoot>
-                                <tr class="total-row">
-                                    <td colspan="2">Total Paid</td>
-                                    <td>₹${totalAmount.toFixed(2)}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                        <a href="javascript:window.print()" class="action-btn print-btn">🖨️ Print Receipt</a>
-                        <a href="${customerWhatsappUrl}" target="_blank" class="action-btn share-btn">✔️ Share on WhatsApp</a>
-                        <div class="footer">
-                            <p>We hope you enjoy your meal!</p>
-                        </div>
-                    </div>
-                </body>
-                </html>
-            `;
-            receiptWindow.document.write(receiptHtml);
-            receiptWindow.document.close();
+  let receiptHTML = `<p><strong>Customer:</strong> ${name}</p>`;
+  receiptHTML += `<p><strong>Address:</strong> ${address}</p>`;
+  receiptHTML += `<p><strong>Phone:</strong> ${phone}</p>`;
+  receiptHTML += `<h4>Order Summary</h4><ul>`;
 
-            // --- 3. Send Simplified Notification to Admin via WhatsApp ---
-            // CORRECTED SECTION: Using '\n' for newlines instead of '%0A'
-            let adminMessage = `*New Order Received!* 🔥\n\n`;
-            adminMessage += `*Order ID:* ${paymentId}\n`;
-            adminMessage += `*Customer:* ${name}, ${phone}\n`;
-            adminMessage += `*Address:* ${address}\n\n`;
-            adminMessage += `*Total Amount:* ₹${totalAmount}\n\n`;
-            adminMessage += `*Items:*\n`;
-            cart.forEach(item => {
-                adminMessage += `- ${item.qty} x ${formatCartItemDetails(item)}\n`;
-            });
-            
-            const adminNumber = "919505564388"; // Replace with your WhatsApp number
-            const adminWhatsApp = `https://wa.me/${adminNumber}?text=${encodeURIComponent(adminMessage)}`;
-            window.open(adminWhatsApp, '_blank');
+  cart.forEach(item => {
+    receiptHTML += `<li>${item.qty} x ${item.title} - ₹${extractNumericPrice(item.price) * item.qty}</li>`;
+  });
 
-            // --- 4. Finalize and Clean Up on the Main Page ---
-            alert("✅ Payment Successful! Your receipt has been opened in a new tab.");
-            cart = [];
-            renderCart();
-            saveCart();
-            closeOrderForm();
+  receiptHTML += `</ul><p><strong>Total: ${total}</strong></p>`;
+
+  // Show in modal
+  document.getElementById('receiptDetails').innerHTML = receiptHTML;
+  document.getElementById('receiptModal').style.display = 'flex';
+
+  // Clear cart
+  cart = [];
+  saveCart();
+  renderCart();
+  updateCartCountBadge();
         },
         prefill: {
             name: name,
@@ -1661,7 +1563,21 @@ function makePayment() {
     const rzp = new Razorpay(options);
     rzp.open();
 }
+function closeReceiptModal() {
+  document.getElementById('receiptModal').style.display = 'none';
+}
+
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- Receipt Modal -->
+<div id="receiptModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeReceiptModal()">×</span>
+    <h3>Payment Successful ✅</h3>
+    <div id="receiptDetails" style="text-align:left; margin-top:15px;"></div>
+    <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button>
+  </div>
+</div>
+
 </body>
 </html>
