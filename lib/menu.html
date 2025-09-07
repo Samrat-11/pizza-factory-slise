@@ -1072,81 +1072,151 @@ function renderCart() {
 
 /* === MENU DISPLAY & FILTERING === */
 function renderMenuItems() {
-  const container = document.getElementById('menu');
-  container.innerHTML = ''; // Clear existing content for re-render on filter/search
-  const searchValue = document.getElementById('searchBox')?.value.toLowerCase() || '';
+  try {
+    const container = document.getElementById('menu');
+    if (!container) return;
+    container.innerHTML = ''; // Clear existing content for re-render on filter/search
+    const searchValue = (document.getElementById('searchBox')?.value || '').toLowerCase();
 
-  const filteredItems = menuData.filter(item =>
-    (activeCategory === 'all' || item.category === activeCategory) &&
-    (activeType === 'all' || item.type === activeType) &&
-    (item.title.toLowerCase().includes(searchValue) || (item.desc && item.desc.toLowerCase().includes(searchValue)))
-  );
+    const filteredItems = menuData.filter(function(item) {
+      const matchesCategory = (activeCategory === 'all' || item.category === activeCategory);
+      const matchesType = (activeType === 'all' || item.type === activeType);
+      const matchesSearch = !searchValue || (item.title && item.title.toLowerCase().includes(searchValue)) || (item.desc && item.desc.toLowerCase().includes(searchValue));
+      return matchesCategory && matchesType && matchesSearch;
+    });
 
-  filteredItems.forEach(item => {
-    const card = document.createElement('div');
-    card.className = `menu-card ${item.type}`;
-    card.dataset.title = item.title; // Add data-title for easy lookup
-    const iconClass = item.type === 'veg' ? 'veg-icon' : 'nonveg-icon';
+    filteredItems.forEach(function(item) {
+      const card = document.createElement('div');
+      card.className = 'menu-card ' + (item.type || '');
+      // store title safely as data attribute (dataset handles escaping)
+      card.dataset.title = item.title;
 
-    let actionHtml = '';
-    let priceDisplayHtml = '';
+      // left/info block
+      const info = document.createElement('div');
+      info.className = 'menu-info';
 
-    if (item.sizes) {
-      // Show all size-price options in plain text (no dropdown)
-      priceDisplayHtml = '<div class="price-line">';
-      for (const size in item.sizes) {
-        priceDisplayHtml += `<span class="size-price">${size} - ${item.sizes[size]}</span> `;
+      const titleRow = document.createElement('div');
+      const iconSpan = document.createElement('span');
+      iconSpan.className = (item.type === 'veg') ? 'veg-icon' : 'nonveg-icon';
+      const strong = document.createElement('strong');
+      strong.textContent = item.title || '';
+      titleRow.appendChild(iconSpan);
+      titleRow.appendChild(strong);
+      info.appendChild(titleRow);
+
+      // price(s)
+      const priceLine = document.createElement('div');
+      priceLine.className = 'price-line';
+      if (item.sizes && typeof item.sizes === 'object') {
+        for (const size in item.sizes) {
+          const sp = document.createElement('span');
+          sp.className = 'size-price';
+          sp.textContent = size + ' - ' + item.sizes[size];
+          priceLine.appendChild(sp);
+        }
+      } else {
+        const sp = document.createElement('span');
+        sp.className = 'discounted-price';
+        sp.textContent = item.price || '';
+        priceLine.appendChild(sp);
       }
-      priceDisplayHtml += '</div>';
+      info.appendChild(priceLine);
 
-      actionHtml = `
-        <button class="order-button"
-          data-title="${item.title}"
-          data-type="${item.type}"
-          data-desc="${item.desc || ''}"
-          onclick="addToCartFromSizedItem(this, '${item.title.replace(/\s/g, '-')}')"
-        >ADD</button>`;
-    } else {
-      priceDisplayHtml = `<div class="price-line"><span class="discounted-price">${item.price}</span></div>`;
+      if (item.desc) {
+        const p = document.createElement('p');
+        p.textContent = item.desc;
+        info.appendChild(p);
+      }
 
-      const itemInCart = cart.find(cartItem => cartItem.title === item.title && !cartItem.selectedSize && !cartItem.customizations);
+      // right/image block
+      const imgBlock = document.createElement('div');
+      imgBlock.className = 'menu-img-block';
+      const img = document.createElement('img');
+      img.src = item.img || '';
+      img.alt = item.title || '';
+      imgBlock.appendChild(img);
+
+      // create action button (ADD / quantity controls)
+      const actionContainer = document.createElement('div');
+
+      // Check current qty in cart for this item (basic match by title & size absence)
+      const itemInCart = cart.find(function(ci) {
+        return ci.title === item.title && !ci.selectedSize && !ci.customizations;
+      });
       const currentQty = itemInCart ? itemInCart.qty : 0;
 
-      if (currentQty > 0) {
-        const decrementButtonClass = currentQty === 1 ? 'qty-btn delete' : 'qty-btn';
-        const decrementButtonText = currentQty === 1 ? 'x' : '−';
-        actionHtml = `
-          <div class="quantity-control">
-            <button class="${decrementButtonClass}" onclick="changeCardQty(this, '${item.title}', -1)">${decrementButtonText}</button>
-            <span class="qty-count">${currentQty}</span>
-            <button class="qty-btn" onclick="changeCardQty(this, '${item.title}', 1)">+</button>
-          </div>`;
-      } else {
-        actionHtml = `
-          <button class="order-button"
-            data-title="${item.title}"
-            data-desc="${item.desc || ''}"
-            data-price="${item.price}"
-            data-img="${item.img || ''}"
-            data-type="${item.type}"
-            onclick="addToCartFromButton(this)"
-          >ADD</button>`;
-      }
-    }
+      if (!item.sizes) {
+        if (currentQty > 0) {
+          // show quantity controls
+          const qtyWrap = document.createElement('div');
+          qtyWrap.className = 'quantity-control';
 
-    card.innerHTML = `
-      <div class="menu-info">
-        <div><span class="${iconClass}"></span><strong>${item.title}</strong></div>
-        ${priceDisplayHtml}
-        <p>${item.desc || ''}</p>
-      </div>
-      <div class="menu-img-block">
-        <img src="${item.img || ''}" alt="${item.title}">
-        ${actionHtml}
-      </div>`;
-    container.appendChild(card);
-  });
+          const decBtn = document.createElement('button');
+          decBtn.className = (currentQty === 1) ? 'qty-btn delete' : 'qty-btn';
+          decBtn.textContent = (currentQty === 1) ? 'x' : '−';
+          decBtn.addEventListener('click', function() { changeCardQty(decBtn, item.title, -1); });
+
+          const qtySpan = document.createElement('span');
+          qtySpan.className = 'qty-count';
+          qtySpan.textContent = String(currentQty);
+
+          const incBtn = document.createElement('button');
+          incBtn.className = 'qty-btn';
+          incBtn.textContent = '+';
+          incBtn.addEventListener('click', function() { changeCardQty(incBtn, item.title, 1); });
+
+          qtyWrap.appendChild(decBtn);
+          qtyWrap.appendChild(qtySpan);
+          qtyWrap.appendChild(incBtn);
+          actionContainer.appendChild(qtyWrap);
+        } else {
+          const addBtn = document.createElement('button');
+          addBtn.className = 'order-button';
+          addBtn.textContent = 'ADD';
+          addBtn.dataset.title = item.title || '';
+          addBtn.dataset.desc = item.desc || '';
+          addBtn.dataset.price = item.price || '';
+          addBtn.dataset.img = item.img || '';
+          addBtn.dataset.type = item.type || '';
+          addBtn.addEventListener('click', function() { addToCartFromButton(addBtn); });
+          actionContainer.appendChild(addBtn);
+        }
+      } else {
+        // sized item -> single ADD that opens size picker/customize
+        const addBtn = document.createElement('button');
+        addBtn.className = 'order-button';
+        addBtn.textContent = 'ADD';
+        addBtn.dataset.title = item.title || '';
+        addBtn.dataset.type = item.type || '';
+        addBtn.dataset.desc = item.desc || '';
+        // using a safe id (no quotes) for titleId by replacing spaces with '-'
+        const titleId = (item.title || '').replace(/\s+/g, '-');
+        addBtn.addEventListener('click', function() { addToCartFromSizedItem(addBtn, titleId); });
+        actionContainer.appendChild(addBtn);
+      }
+
+      imgBlock.appendChild(actionContainer);
+
+      card.appendChild(info);
+      card.appendChild(imgBlock);
+
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error('renderMenuItems failed:', err);
+    // fallback: show simple list of item titles so UI is usable even if something breaks
+    const container = document.getElementById('menu');
+    if (container) {
+      container.innerHTML = '';
+      const fallback = document.createElement('div');
+      fallback.style.padding = '20px';
+      fallback.innerHTML = '<h3>Menu</h3><ul>' + menuData.map(function(i){ return '<li>' + (i.title || '') + '</li>'; }).join('') + '</ul>';
+      container.appendChild(fallback);
+    }
+  }
 }
+
 
 function updateCardState(itemTitle, newQty) {
     const card = document.querySelector(`.menu-card[data-title="${itemTitle}"]`);
@@ -1573,6 +1643,7 @@ window.onload = () => {
   // Set initial active filter button
   document.querySelector('.type-filter[onclick="filterByType(event, \'all\')"]').classList.add('active');
 };
+
 function makePayment() {
     const name = document.getElementById('custName').value;
     const address = document.getElementById('custAddress').value;
