@@ -97,7 +97,7 @@
       box-shadow: 0 4px 30px rgba(0,0,0,0.4);
       z-index: 999;
       font-family: 'Arial', sans-serif;
-      max-width: 300px;
+      max-width: 220px;
       width: 90%;
     }
 
@@ -204,10 +204,10 @@
     }
 
     #menuPopup {
-  max-height: 80vh;   /* limit height to viewport */
-  overflow-y: auto;   /* enable vertical scrolling */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
-  }
+      max-height: 50vh;   /* limit height to viewport */
+      overflow-y: auto;   /* enable vertical scrolling */
+      -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
+    }
 
     .customise-btn-cart {
       margin-left: 10px;
@@ -561,21 +561,21 @@
 
   <button id="menuToggleBtn" class="menu-toggle" onclick="toggleMenuPopup()">MENU</button>
 
-  <div id="menuPopup" class="menu-popup hidden">
-    <button class="tablink" onclick="openTab(event, 'all')">All</button>
-    <button class="tablink" onclick="openTab(event, 'pizzamania')">Pizza Blast</button>
-    <button class="tablink" onclick="openTab(event, 'pizzas')">Pizzas</button>
-    <button class="tablink" onclick="openTab(event, 'pizzaslices')">Pizza Slices</button>
-    <button class="tablink" onclick="openTab(event, 'burgers')">Burgers</button>
-    <button class="tablink" onclick="openTab(event, 'pasta')">Pasta</button>
-    <button class="tablink" onclick="openTab(event, 'sides')">Sides</button>
-    <button class="tablink" onclick="openTab(event, 'breads')">Breads</button>
-    <button class="tablink" onclick="openTab(event, 'desserts')">Desserts</button>
-    <button class="tablink" onclick="openTab(event, 'mojitos')">Mojitos</button>
-    <button class="tablink" onclick="openTab(event, 'beverages')">Beverages</button>
-    <button class="tablink" onclick="openTab(event, 'icecreams')">Natural Ice Creams</button>
-    <button class="tablink" onclick="openTab(event, 'combos')">Combos</button>
-  </div>
+<div id="menuPopup" class="menu-popup hidden">
+  <button class="tablink" onclick="openTab(event, 'all'); closeMenuPopup()">All</button>
+  <button class="tablink" onclick="openTab(event, 'pizzamania'); closeMenuPopup()">Pizza Blast</button>
+  <button class="tablink" onclick="openTab(event, 'pizzas'); closeMenuPopup()">Pizzas</button>
+  <button class="tablink" onclick="openTab(event, 'pizzaslices'); closeMenuPopup()">Pizza Slices</button>
+  <button class="tablink" onclick="openTab(event, 'burgers'); closeMenuPopup()">Burgers</button>
+  <button class="tablink" onclick="openTab(event, 'pasta'); closeMenuPopup()">Pasta</button>
+  <button class="tablink" onclick="openTab(event, 'sides'); closeMenuPopup()">Sides</button>
+  <button class="tablink" onclick="openTab(event, 'breads'); closeMenuPopup()">Breads</button>
+  <button class="tablink" onclick="openTab(event, 'desserts'); closeMenuPopup()">Desserts</button>
+  <button class="tablink" onclick="openTab(event, 'mojitos'); closeMenuPopup()">Mojitos</button>
+  <button class="tablink" onclick="openTab(event, 'beverages'); closeMenuPopup()">Beverages</button>
+  <button class="tablink" onclick="openTab(event, 'icecreams'); closeMenuPopup()">Natural Ice Creams</button>
+  <button class="tablink" onclick="openTab(event, 'combos'); closeMenuPopup()">Combos</button>
+</div>
 
   <div id="menu" class="menu-container active"></div>
 
@@ -901,6 +901,12 @@ function saveCustomisationChanges() {
 }
 
 // reuseable functions end
+
+// Helper Functions Start
+function closeMenuPopup() {
+  document.getElementById('menuPopup').classList.add('hidden');
+}
+// Helper Functions End
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
