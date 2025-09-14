@@ -572,6 +572,7 @@
   <button class="tablink" onclick="openTab(event, 'breads'); closeMenuPopup()">Breads</button>
   <button class="tablink" onclick="openTab(event, 'desserts'); closeMenuPopup()">Desserts</button>
   <button class="tablink" onclick="openTab(event, 'mojitos'); closeMenuPopup()">Mojitos</button>
+  <button class="tablink" onclick="openTab(event, 'mocktails'); closeMenuPopup()">Mocktails</button>
   <button class="tablink" onclick="openTab(event, 'beverages'); closeMenuPopup()">Beverages</button>
   <button class="tablink" onclick="openTab(event, 'icecreams'); closeMenuPopup()">Natural Ice Creams</button>
   <button class="tablink" onclick="openTab(event, 'combos'); closeMenuPopup()">Combos</button>
@@ -662,6 +663,61 @@
 
   <script src="load.js"></script>
 
+  <!-- WhatsApp Config -->
+<script>
+  const WH_API_VERSION = 'v20.0'; // keep updated if Meta changes version
+  const WH_API_BASE = 'https://graph.facebook.com';
+
+  // Replace with your values
+  const WH_PHONE_NUMBER_ID = "716301431576675";
+  const WH_ACCESS_TOKEN = "EAAPKEBmoa4kBPVQDHZBaXSHQrgfPARPOWimuDqMHRhEnB7HDFIMBNuRcIb7obhcZCVcZAbZCeldUcrFrZCXV4lfYAIrqxcO23xEgDwdIn8f9SyZAuy5wEW0Dlgz63rlxMZCc5zZATkq6h2TyZB46gT6gI6N34w71HIUXVKk2ZCmdGNZAwYWqhxItvvZBmH0Iu9gX02jMrAZDZD";
+
+  // Team numbers (use country code without +)
+  const CHEF_PHONE = "918500112155";
+  const MANAGER_PHONE = "919505564388";
+
+  // Template names from Meta
+  const TEMPLATE_CUSTOMER = "customer_receipt";
+  const TEMPLATE_KITCHEN  = "new_order_notification";
+</script>
+
+<script>
+async function sendWhatsAppMessage(toPhone, templateName, bodyTexts = []) {
+  const url = `${WH_API_BASE}/${WH_API_VERSION}/${WH_PHONE_NUMBER_ID}/messages`;
+
+  const components = [{
+    type: "body",
+    parameters: bodyTexts.map(text => ({ type: "text", text: String(text) }))
+  }];
+
+  const payload = {
+    messaging_product: "whatsapp",
+    to: toPhone,
+    type: "template",
+    template: {
+      name: templateName,
+      language: { code: "en" }, // match your template language
+      components
+    }
+  };
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${WH_ACCESS_TOKEN}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+  console.log("WhatsApp Response:", data);
+  return data;
+}
+</script>
+
+
+
   <script>
 /* === MENU DATA === */
 
@@ -735,39 +791,39 @@ const menuData = [
   { category: 'pizzaslices', title: 'PERI PERI CHICKEN EXPLOSION SLISE PIZZA', desc: 'A single slice that packs a fiery punch of peri peri chicken and zesty paprika.', price: '₹185', img: '../assets/img/placeholder.png', type: 'nonveg' },
 
 // Veg Burgers
-{ category: 'burgers', title: 'Veggie Victory Burger', desc: 'A victorious combination of our delicious veg patty, crisp lettuce, and smooth, creamy mayo.', price: '₹119', img: '..assets/img/veg-burger-1.jpg', type: 'veg' },
-{ category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Be a hero and take on the heat! A delicious veg patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹129', img: '..assets/img/veg-burger-2.jpg', type: 'veg' },
-{ category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'A stroke of genius! Our veg patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹139', img: '..assets/img/veg-burger-3.jpg', type: 'veg' },
-{ category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'A fiery fajita-spiced veg patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹139', img: '..assets/img/veg-burger-3.jpg', type: 'veg' },
-{ category: 'burgers', title: 'Nacho Vixen Burger', desc: 'A cunningly delicious burger with a veg patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹149', img: '..assets/img/veg-burger-4.jpg', type: 'veg' },
+{ category: 'burgers', title: 'Veggie Victory Burger', desc: 'A victorious combination of our delicious veg patty, crisp lettuce, and smooth, creamy mayo.', price: '₹119', img: '../assets/img/veg-burger-1.jpg', type: 'veg' },
+{ category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Be a hero and take on the heat! A delicious veg patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹129', img: '../assets/img/veg-burger-2.jpg', type: 'veg' },
+{ category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'A stroke of genius! Our veg patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹139', img: '../assets/img/veg-burger-3.jpg', type: 'veg' },
+{ category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'A fiery fajita-spiced veg patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹139', img: '../assets/img/veg-burger-3.jpg', type: 'veg' },
+{ category: 'burgers', title: 'Nacho Vixen Burger', desc: 'A cunningly delicious burger with a veg patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹149', img: '../assets/img/veg-burger-4.jpg', type: 'veg' },
  
 // Non-Veg Burgers
-{ category: 'burgers', title: 'Nonveg Victory Burger', desc: 'A victorious combination of our juicy chicken patty, crisp lettuce, and smooth, creamy mayo.', price: '₹129', img: '..assets/img/veg-burger-1.jpg', type: 'nonveg' },
-{ category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Be a hero and take on the heat! A juicy chicken patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹139', img: '..assets/img/veg-burger-2.jpg', type: 'nonveg' },
-{ category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'A stroke of genius! Our chicken patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹149', img: '..assets/img/veg-burger-3.jpg', type: 'nonveg' },
-{ category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'A fiery fajita-spiced chicken patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹159', img: '..assets/img/veg-burger-3.jpg', type: 'nonveg' },
-{ category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: 'A cunningly delicious burger with a chicken patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹179', img: '..assets/img/veg-burger-4.jpg', type: 'nonveg' },
+{ category: 'burgers', title: 'Nonveg Victory Burger', desc: 'A victorious combination of our juicy chicken patty, crisp lettuce, and smooth, creamy mayo.', price: '₹129', img: '../assets/img/veg-burger-1.jpg', type: 'nonveg' },
+{ category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Be a hero and take on the heat! A juicy chicken patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹139', img: '../assets/img/veg-burger-2.jpg', type: 'nonveg' },
+{ category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'A stroke of genius! Our chicken patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹149', img: '../assets/img/veg-burger-3.jpg', type: 'nonveg' },
+{ category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'A fiery fajita-spiced chicken patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹159', img: '../assets/img/veg-burger-3.jpg', type: 'nonveg' },
+{ category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: 'A cunningly delicious burger with a chicken patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹179', img: '../assets/img/veg-burger-4.jpg', type: 'nonveg' },
   
-  //pasta
-  {category:'Pasta',title:'RED SAUCE PASTA',type:'veg',price:'239', img: '..assets/img/red sause pasta.jpg',},
-  {category:'Pasta',title:'WHITE SAUCE PASA',type:'veg',price:'239', img: '..assets/img/white sause pasta.jpg',},
-  {category:'Pasta',title:'RED CHICKEN SAUCE PASTA',type:'non-veg',price:'299', img: '..assets/img/chicken white sause pasta.jpg',},
-  {category:'Pasta',title:'WHITE CHICKEN SAUCE PASTA',type:'non-veg',price:'299', img: '..assets/img/red sause chicken pasta.jpg',},
+//pasta
+  {category:'Pasta',title:'RED SAUCE PASTA',type:'veg',price:'239', img: '../assets/img/red sause pasta.jpg',},
+  {category:'Pasta',title:'WHITE SAUCE PASA',type:'veg',price:'239', img: '../assets/img/white sause pasta.jpg',},
+  {category:'Pasta',title:'RED CHICKEN SAUCE PASTA',type:'non-veg',price:'299', img: '../assets/img/chicken white sause pasta.jpg',},
+  {category:'Pasta',title:'WHITE CHICKEN SAUCE PASTA',type:'non-veg',price:'299', img: '../assets/img/red sause chicken pasta.jpg',},  
 
   // Veg Sides
-{ category: 'sides', title: 'Veg Nuggets', desc: 'Golden-fried, crispy vegetable nuggets perfect for dipping.', price: '₹89', img: '..assets/img/veg nuggets.jpg', type: 'veg' },
-{ category: 'sides', title: 'Veg Nachos', desc: 'A crunchy pile of classic nachos, perfect for sharing or enjoying solo.', price: '₹179', img: '..assets/img/veg nachos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Potato Wedges', desc: 'Thick-cut potato wedges, seasoned and fried to a perfect golden crisp.', price: '₹99', img: '..assets/img/potato wedges.jpg', type: 'veg' },
-{ category: 'sides', title: 'Fried Veg Momos', desc: 'Delicious vegetable-stuffed momos, fried to a perfect golden-brown crisp.', price: '₹80', img: '..assets/img/veg fried momos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Salted French Fries', desc: 'The timeless classic—perfectly crispy, golden french fries, lightly salted.', price: '₹85', img: '..assets/img/salted french fries.jpg', type: 'veg' },
-{ category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'An irresistible classic! Crispy nachos generously topped with warm, melted cheese.', price: '₹199', img: '..assets/img/classic veg cheese nachos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Bite-sized potato pops bursting with a zesty chili and garlic flavor.', price: '₹89', img: '..assets/img/chilli garlic potato pops.jpg', type: 'veg' },
-{ category: 'sides', title: 'Peri Peri French Fries', desc: 'Our classic golden fries tossed in a fiery and tangy peri peri seasoning.', price: '₹99', img: '..assets/img/peri peri french fries.jpg', type: 'veg' },
+{ category: 'sides', title: 'Veg Nuggets', desc: 'Golden-fried, crispy vegetable nuggets perfect for dipping.', price: '₹89', img: '../assets/img/veg nuggets.jpg', type: 'veg' },
+{ category: 'sides', title: 'Veg Nachos', desc: 'A crunchy pile of classic nachos, perfect for sharing or enjoying solo.', price: '₹179', img: '../assets/img/veg nachos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Potato Wedges', desc: 'Thick-cut potato wedges, seasoned and fried to a perfect golden crisp.', price: '₹99', img: '../assets/img/potato wedges.jpg', type: 'veg' },
+{ category: 'sides', title: 'Fried Veg Momos', desc: 'Delicious vegetable-stuffed momos, fried to a perfect golden-brown crisp.', price: '₹80', img: '../assets/img/veg fried momos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Salted French Fries', desc: 'The timeless classic—perfectly crispy, golden french fries, lightly salted.', price: '₹85', img: '../assets/img/salted french fries.jpg', type: 'veg' },
+{ category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'An irresistible classic! Crispy nachos generously topped with warm, melted cheese.', price: '₹199', img: '../assets/img/classic veg cheese nachos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Bite-sized potato pops bursting with a zesty chili and garlic flavor.', price: '₹89', img: '../assets/img/chilli garlic potato pops.jpg', type: 'veg' },
+{ category: 'sides', title: 'Peri Peri French Fries', desc: 'Our classic golden fries tossed in a fiery and tangy peri peri seasoning.', price: '₹99', img: '../assets/img/peri peri french fries.jpg', type: 'veg' },
 
 // Non-Veg Sides
-{ category: 'sides', title: 'Chicken Nuggets', desc: 'Tender, juicy, all-white chicken nuggets fried to a perfect golden crisp.', price: '₹119', img: '..assets/img/chicken nuggets.jpg', type: 'nonveg' },
-{ category: 'sides', title: 'Chicken Wings', desc: 'Classic, spicy chicken wings, tossed in a fiery sauce for the perfect kick.', price: '₹99', img: '..assets/img/chicken wings.jpg', type: 'nonveg' },
-{ category: 'sides', title: 'Fried Chicken Momos', desc: 'Savory chicken-stuffed momos, fried to a delicious golden-brown perfection.', price: '₹99', img: '..assets/img/fried chicken momos.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Chicken Nuggets', desc: 'Tender, juicy, all-white chicken nuggets fried to a perfect golden crisp.', price: '₹119', img: '../assets/img/chicken nuggets.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Chicken Wings', desc: 'Classic, spicy chicken wings, tossed in a fiery sauce for the perfect kick.', price: '₹99', img: '../assets/img/chicken wings.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Fried Chicken Momos', desc: 'Savory chicken-stuffed momos, fried to a delicious golden-brown perfection.', price: '₹99', img: '../assets/img/fried chicken momos.jpg', type: 'nonveg' },
   
   // BREADS
   { category: 'breads', title: 'PLAIN GARLIC BREAD (4 pieces)', desc: 'Warm and toasty bread brushed with a rich garlic butter glaze. Comes in 4 pieces.', price: '₹139', img: '../assets/img/plain garlic bread.jpg', type: 'veg' },
@@ -797,33 +853,33 @@ const menuData = [
 
   
   // Beverages
-{ category: 'beverages', title: 'BELGIUM DARK CHOCOLATE THICK SHAKE', desc: 'Indulge in pure decadence with this incredibly rich and creamy shake made from fine Belgium dark chocolate.', price: '₹259', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'BELGIUM DARK CHOCOLATE MILK SHAKE', desc: 'A classic, smooth milkshake blended with the luxurious taste of fine Belgium dark chocolate.', price: '₹229', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'OREO COFFEE THICK SHAKE', desc: 'The perfect pick-me-up! A thick, creamy blend of real Oreo cookies and rich coffee.', price: '₹249', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'OREO COFFEE MILK SHAKE', desc: 'Your favorite cookie meets coffee in this smooth, creamy, and energizing milkshake.', price: '₹219', img: '../assets/img/placeholder.png', type: 'veg' },
+{ category: 'beverages', title: 'BELGIUM DARK CHOCOLATE THICK SHAKE', desc: 'Indulge in pure decadence with this incredibly rich and creamy shake made from fine Belgium dark chocolate.', price: '₹259', img: '../assets/img/belgium dark chocolate thick milk.jpg', type: 'veg' },
+{ category: 'beverages', title: 'BELGIUM DARK CHOCOLATE MILK SHAKE', desc: 'A classic, smooth milkshake blended with the luxurious taste of fine Belgium dark chocolate.', price: '₹229', img: '../assets/img/belgium dark chocolate thick milk.jpg', type: 'veg' },
+{ category: 'beverages', title: 'OREO COFFEE THICK SHAKE', desc: 'The perfect pick-me-up! A thick, creamy blend of real Oreo cookies and rich coffee.', price: '₹249', img: '../assets/img/oreo coffee thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'OREO COFFEE MILK SHAKE', desc: 'Your favorite cookie meets coffee in this smooth, creamy, and energizing milkshake.', price: '₹219', img: '../assets/img/oreo coffee thick milk shake.jpg', type: 'veg' },
 { category: 'beverages', title: 'STRAWBERRY THICK SHAKE', desc: 'A thick, luscious, and creamy shake bursting with the sweet flavor of fresh strawberries.', price: '₹249', img: '../assets/img/placeholder.png', type: 'veg' },
 { category: 'beverages', title: 'STRAWBERRY MILK SHAKE', desc: 'A timeless treat! Smooth, creamy, and full of sweet, classic strawberry flavor.', price: '₹219', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'OREO CHOCO CHIPS THICK SHAKE', desc: 'A dream come true for cookie lovers! A thick shake packed with Oreo cookies and chocolate chips.', price: '₹249', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'OREO CHOCO CHIPS MILK SHAKE', desc: 'A delightful blend of creamy vanilla, Oreo cookies, and rich chocolate chips.', price: '₹219', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'KING OF MANGO THICK SHAKE', desc: 'Hail to the king! A royally thick and creamy shake made with the sweet flavor of luscious mangoes.', price: '₹259', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'KING OF MANGO MILK SHAKE', desc: 'A smooth, creamy, and royally refreshing milkshake bursting with sweet mango flavor.', price: '₹229', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'COLD COFFEE', desc: 'The perfect classic—a smooth, creamy, and refreshing cold coffee to brighten your day.', price: '₹219', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'beverages', title: 'VANILLA COLD COFFEE', desc: 'A creamy twist on the classic, with a smooth vanilla flavor blended into rich cold coffee.', price: '₹229', img: '../assets/img/placeholder.png', type: 'veg' },
+{ category: 'beverages', title: 'OREO CHOCO CHIPS THICK SHAKE', desc: 'A dream come true for cookie lovers! A thick shake packed with Oreo cookies and chocolate chips.', price: '₹249', img: '../assets/img/oreo choco chips thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'OREO CHOCO CHIPS MILK SHAKE', desc: 'A delightful blend of creamy vanilla, Oreo cookies, and rich chocolate chips.', price: '₹219', img: '../assets/img/oreo choco chips thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'KING OF MANGO THICK SHAKE', desc: 'Hail to the king! A royally thick and creamy shake made with the sweet flavor of luscious mangoes.', price: '₹259', img: '../assets/img/king of mango thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'KING OF MANGO MILK SHAKE', desc: 'A smooth, creamy, and royally refreshing milkshake bursting with sweet mango flavor.', price: '₹229', img: '../assets/img/king of mango thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'COLD COFFEE', desc: 'The perfect classic—a smooth, creamy, and refreshing cold coffee to brighten your day.', price: '₹219', img: '../assets/img/cold coffee thick milk shake.jpg', type: 'veg' },
+{ category: 'beverages', title: 'VANILLA COLD COFFEE', desc: 'A creamy twist on the classic, with a smooth vanilla flavor blended into rich cold coffee.', price: '₹229', img: '../assets/img/cold coffee thick milk shake.jpg', type: 'veg' },
   
   // NATURAL ICECREAMS
-{ category: 'icecreams', title: 'MANGO ICECREAM', desc: 'Experience the sweet, luscious taste of real mangoes in this smooth and creamy natural ice cream.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
+{ category: 'icecreams', title: 'MANGO ICECREAM', desc: 'Experience the sweet, luscious taste of real mangoes in this smooth and creamy natural ice cream.', price: '₹119', img: '../assets/img/natural mango ice cream.jpg', type: 'veg' },
 { category: 'icecreams', title: 'SITAPHAL ICECREAM', desc: 'A creamy, delightful treat made with the unique, sweet flavor of real Sitaphal (Custard Apple).', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
 { category: 'icecreams', title: 'TENDER COCONUT ICECREAM', desc: 'A taste of the tropics! Refreshing and creamy ice cream made with real tender coconut pieces.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'ANJEER ICECREAM', desc: 'A rich and wholesome treat, enjoy the unique sweetness and texture of real Anjeer (fig) in every bite.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'LITCHI ICECREAM', desc: 'Delight in the sweet, floral, and exotic taste of real litchi in this refreshing natural ice cream.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'CHIKOO ICECREAM', desc: 'A uniquely sweet and malty flavor, this creamy ice cream is made with the goodness of real Chikoo.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'STRAWBERRY ICECREAM', desc: 'A timeless classic bursting with the sweet and tangy flavor of real, juicy strawberries.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'ROASTED ALMOND ICECREAM', desc: 'A nutty and delightful crunch in every spoonful, made with real roasted almonds.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'MALAI ICECREAM', desc: 'Indulge in the rich, creamy goodness of our special Malai ice cream, a simple yet luxurious treat.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'BELGIUM CHOCOLATE ICECREAM', desc: 'Pure decadence for chocolate lovers. A rich, intense flavor made from fine Belgium chocolate.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'KESAR PISTA ICECREAM', desc: 'A royal treat combining the aromatic flavor of Kesar (saffron) with the nutty crunch of pistachios.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
+{ category: 'icecreams', title: 'ANJEER ICECREAM', desc: 'A rich and wholesome treat, enjoy the unique sweetness and texture of real Anjeer (fig) in every bite.', price: '₹119', img: '../assets/img/natural anjeer ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'LITCHI ICECREAM', desc: 'Delight in the sweet, floral, and exotic taste of real litchi in this refreshing natural ice cream.', price: '₹119', img: '../assets/img/natural litchi ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'CHIKOO ICECREAM', desc: 'A uniquely sweet and malty flavor, this creamy ice cream is made with the goodness of real Chikoo.', price: '₹119', img: '../assets/img/natural chikoo ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'STRAWBERRY ICECREAM', desc: 'A timeless classic bursting with the sweet and tangy flavor of real, juicy strawberries.', price: '₹119', img: '../assets/img/natural stawberry ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'ROASTED ALMOND ICECREAM', desc: 'A nutty and delightful crunch in every spoonful, made with real roasted almonds.', price: '₹119', img: '../assets/img/roasted almond ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'MALAI ICECREAM', desc: 'Indulge in the rich, creamy goodness of our special Malai ice cream, a simple yet luxurious treat.', price: '₹119', img: '../assets/img/natural malai ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'BELGIUM CHOCOLATE ICECREAM', desc: 'Pure decadence for chocolate lovers. A rich, intense flavor made from fine Belgium chocolate.', price: '₹119', img: '../assets/img/natural belgium ice cream.jpg', type: 'veg' },
+{ category: 'icecreams', title: 'KESAR PISTA ICECREAM', desc: 'A royal treat combining the aromatic flavor of Kesar (saffron) with the nutty crunch of pistachios.', price: '₹119', img: '../assets/img/natural kisara pista.jpg', type: 'veg' },
 { category: 'icecreams', title: 'BLACKCURRANT ICECREAM', desc: 'A sweet and tangy burst of flavor, made with real, juicy blackcurrants.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
-{ category: 'icecreams', title: 'CHOCO CHIPS ICECREAM', desc: 'A delightful classic for all ages, creamy vanilla ice cream loaded with crunchy chocolate chips.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
+{ category: 'icecreams', title: 'CHOCO CHIPS ICECREAM', desc: 'A delightful classic for all ages, creamy vanilla ice cream loaded with crunchy chocolate chips.', price: '₹119', img: '../assets/img/natural choco chips ice cream.jpg', type: 'veg' },
   
   // More Combos
   { category: 'combos', title: 'Margarita Combo', desc: 'Margarita Pizza + Salted French Fries + Green Apple Mojito', price: '₹319', img: '', type: 'veg' },
@@ -1726,6 +1782,99 @@ function closeReceiptModal() {
   document.getElementById('receiptModal').style.display = 'none';
 }
 /* === WhatsApp Integration Functions === */
+async function makePayment() {
+  // 1) Collect customer data from form inputs
+  const name = document.getElementById("custName").value.trim() || "Customer";
+  const address = document.getElementById("custAddress").value.trim() || "No address provided";
+  const phone = document.getElementById("custPhone").value.trim();
+
+  // Validate phone number
+  if (!phone || phone.length < 10) {
+    alert("Please enter a valid phone number.");
+    return;
+  }
+
+  // Total amount
+  const total = document.getElementById("cartTotal").innerText || "₹0";
+
+  // 2) Build a list of cart items for WhatsApp message
+  if (!cart || cart.length === 0) {
+    alert("Your cart is empty. Please add items before making payment.");
+    return;
+  }
+
+  const itemsList = cart.map(item => {
+    let line = `${item.title}`;
+    if (item.selectedSize) line += ` (${item.selectedSize})`;
+    if (item.customizations) {
+      // Add toppings or customizations if any
+      if (item.customizations.vegToppings?.length) {
+        line += ` | Veg Toppings: ${item.customizations.vegToppings.join(", ")}`;
+      }
+      if (item.customizations.nonVegToppings?.length) {
+        line += ` | Non-Veg Toppings: ${item.customizations.nonVegToppings.join(", ")}`;
+      }
+    }
+    line += ` x${item.quantity || 1}`;
+    return line;
+  }).join("\n");
+
+  // Generate unique order ID using timestamp
+  const orderId = "ORD-" + Date.now();
+
+  try {
+    // === 3) Send receipt to CUSTOMER ===
+    await sendWhatsAppMessage(phone, TEMPLATE_CUSTOMER, [
+      name,        // {{1}} Customer name
+      total,       // {{2}} Total amount
+      address,     // {{3}} Delivery address
+      orderId      // {{4}} Order ID
+    ]);
+
+    console.log("Receipt sent to customer:", phone);
+
+    // === 4) Send order details to CHEF ===
+    await sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, [
+      name,        // {{1}} Customer name
+      phone,       // {{2}} Customer phone
+      address,     // {{3}} Address
+      total,       // {{4}} Total
+      itemsList    // {{5}} Order items
+    ]);
+
+    console.log("Order sent to chef:", CHEF_PHONE);
+
+    // === 5) Send order details to MANAGER ===
+    await sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, [
+      name,        // {{1}} Customer name
+      phone,       // {{2}} Customer phone
+      address,     // {{3}} Address
+      total,       // {{4}} Total
+      itemsList    // {{5}} Order items
+    ]);
+
+    console.log("Order sent to manager:", MANAGER_PHONE);
+
+    // === 6) Show success message ===
+    alert("Payment successful! WhatsApp messages have been sent to customer, chef, and manager.");
+
+    // === 7) Close the order modal ===
+    closeOrderForm(); // This should already exist in your code
+
+    // === 8) Clear cart data ===
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Refresh the cart display (if your site has this function)
+    if (typeof updateCartUI === "function") {
+      updateCartUI();
+    }
+
+  } catch (error) {
+    console.error("Error sending WhatsApp messages:", error);
+    alert("There was an issue sending WhatsApp notifications. Please check the console.");
+  }
+}
 
 // Send order confirmation to Manager/Chef automatically after payment
 function sendOrderToManager(name, address, phone, total) {
