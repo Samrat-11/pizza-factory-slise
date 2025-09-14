@@ -673,7 +673,7 @@
   const WH_ACCESS_TOKEN = "EAAPKEBmoa4kBPVQDHZBaXSHQrgfPARPOWimuDqMHRhEnB7HDFIMBNuRcIb7obhcZCVcZAbZCeldUcrFrZCXV4lfYAIrqxcO23xEgDwdIn8f9SyZAuy5wEW0Dlgz63rlxMZCc5zZATkq6h2TyZB46gT6gI6N34w71HIUXVKk2ZCmdGNZAwYWqhxItvvZBmH0Iu9gX02jMrAZDZD";
 
   // Team numbers (use country code without +)
-  const CHEF_PHONE = "918247634398";
+  const CHEF_PHONE = "918500112155";
   const MANAGER_PHONE = "919505564388";
 
   // Template names from Meta
@@ -723,7 +723,7 @@ async function sendWhatsAppMessage(toPhone, templateName, bodyTexts = []) {
 
 const menuData = [
   // VEG PIZZA BLAST 
-  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹10', img: '../assets/img/onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹109', img: '../assets/img/onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CAPSICUM ONION PIZZA BLAST', desc: 'A perfect combination of crunchy capsicum and savory onions for a truly satisfying bite.', price: '₹129', img: '../assets/img/capsicum onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'MUSHROOM RED PAPRIKA PIZZA BLAST', desc: 'Earthy mushrooms paired with a zesty kick of red paprika for a uniquely delicious taste.', price: '₹129', img: '../assets/img/mushroom and red paprika pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CORN PIZZA BLAST', desc: 'Experience a burst of sweetness with golden corn, a simple yet irresistible classic.', price: '₹109', img: '../assets/img/corn pizza.jpg', type: 'veg' },
@@ -1711,44 +1711,48 @@ function makePayment() {
   const custPhone = document.getElementById('custPhone').value;
   const custName = document.getElementById('custName').value;
   const custAddress = document.getElementById('custAddress').value;
-  const orderAmount = document.getElementById('cartTotal').innerText.replace('₹', '') * 100; // Amount in paise
+  const cartTotalText = document.getElementById('cartTotal').innerText.replace('₹', '').trim();
+  const orderAmount = parseInt(cartTotalText) * 100; // Convert to paise
 
   var options = {
-    "key": "rzp_live_R9ffQUds74mw4P",  // Your Razorpay Key ID
+    "key": "rzp_live_R9ffQUds74mw4P",  // Replace with your Razorpay Key ID
     "amount": orderAmount,
     "currency": "INR",
     "name": "Pizza Factory Slise",
     "description": "Order Payment",
-    "handler": function (response) {
-      console.log("Razorpay Payment ID:", response.razorpay_payment_id);
-
-      // Prepare WhatsApp message content
-      const customerMessage = [
-        `Hi ${custName}, your order has been confirmed ✅.\nOrder Amount: ₹${orderAmount / 100}\nDelivery Address: ${custAddress}\nThanks for ordering! 🍕`
-      ];
-
-      const kitchenMessage = [
-        `New order received from ${custName} (${custPhone}).\nAddress: ${custAddress}\nOrder Amount: ₹${orderAmount / 100}\nPrepare immediately! 👨‍🍳`
-      ];
-
-      const managerMessage = [
-        `Order Alert!\nCustomer: ${custName}\nPhone: ${custPhone}\nAddress: ${custAddress}\nAmount Paid: ₹${orderAmount / 100}`
-      ];
-
-      // Send WhatsApp Messages
-      sendWhatsAppMessage(custPhone, TEMPLATE_CUSTOMER, customerMessage);
-      sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, kitchenMessage);
-      sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, managerMessage);
-
-      alert('Payment successful and WhatsApp messages sent!');
-      closeOrderForm();
-    },
     "prefill": {
       "name": custName,
       "contact": custPhone
     },
     "theme": {
       "color": "#F37254"
+    },
+    "handler": async function (response) {
+      console.log("Razorpay Payment ID:", response.razorpay_payment_id);
+
+      if (response.razorpay_payment_id) {
+        const customerMessage = [
+          `Hi ${custName}, ✅ Your order has been confirmed!\nOrder Amount: ₹${orderAmount / 100}\nDelivery Address: ${custAddress}\nThank you for ordering 🍕`
+        ];
+
+        const kitchenMessage = [
+          `🔥 New Order Alert!\nCustomer: ${custName} (${custPhone})\nAddress: ${custAddress}\nOrder Amount: ₹${orderAmount / 100}\nPrepare immediately 👨‍🍳`
+        ];
+
+        const managerMessage = [
+          `📢 Order Confirmed:\nCustomer: ${custName}\nPhone: ${custPhone}\nAddress: ${custAddress}\nAmount Paid: ₹${orderAmount / 100}`
+        ];
+
+        // Send WhatsApp messages
+        await sendWhatsAppMessage(custPhone, TEMPLATE_CUSTOMER, customerMessage);
+        await sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, kitchenMessage);
+        await sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, managerMessage);
+
+        alert('✅ Payment successful and WhatsApp messages sent!');
+        closeOrderForm();
+      } else {
+        alert('⚠️ Payment failed to generate Payment ID.');
+      }
     }
   };
 
@@ -1760,100 +1764,6 @@ function closeReceiptModal() {
   document.getElementById('receiptModal').style.display = 'none';
 }
 /* === WhatsApp Integration Functions === */
-async function makePayment() {
-  // 1) Collect customer data from form inputs
-  const name = document.getElementById("custName").value.trim() || "Customer";
-  const address = document.getElementById("custAddress").value.trim() || "No address provided";
-  const phone = document.getElementById("custPhone").value.trim();
-
-  // Validate phone number
-  if (!phone || phone.length < 10) {
-    alert("Please enter a valid phone number.");
-    return;
-  }
-
-  // Total amount
-  const total = document.getElementById("cartTotal").innerText || "₹0";
-
-  // 2) Build a list of cart items for WhatsApp message
-  if (!cart || cart.length === 0) {
-    alert("Your cart is empty. Please add items before making payment.");
-    return;
-  }
-
-  const itemsList = cart.map(item => {
-    let line = `${item.title}`;
-    if (item.selectedSize) line += ` (${item.selectedSize})`;
-    if (item.customizations) {
-      // Add toppings or customizations if any
-      if (item.customizations.vegToppings?.length) {
-        line += ` | Veg Toppings: ${item.customizations.vegToppings.join(", ")}`;
-      }
-      if (item.customizations.nonVegToppings?.length) {
-        line += ` | Non-Veg Toppings: ${item.customizations.nonVegToppings.join(", ")}`;
-      }
-    }
-    line += ` x${item.quantity || 1}`;
-    return line;
-  }).join("\n");
-
-  // Generate unique order ID using timestamp
-  const orderId = "ORD-" + Date.now();
-
-  try {
-    // === 3) Send receipt to CUSTOMER ===
-    await sendWhatsAppMessage(phone, TEMPLATE_CUSTOMER, [
-      name,        // {{1}} Customer name
-      total,       // {{2}} Total amount
-      address,     // {{3}} Delivery address
-      orderId      // {{4}} Order ID
-    ]);
-
-    console.log("Receipt sent to customer:", phone);
-
-    // === 4) Send order details to CHEF ===
-    await sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, [
-      name,        // {{1}} Customer name
-      phone,       // {{2}} Customer phone
-      address,     // {{3}} Address
-      total,       // {{4}} Total
-      itemsList    // {{5}} Order items
-    ]);
-
-    console.log("Order sent to chef:", CHEF_PHONE);
-
-    // === 5) Send order details to MANAGER ===
-    await sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, [
-      name,        // {{1}} Customer name
-      phone,       // {{2}} Customer phone
-      address,     // {{3}} Address
-      total,       // {{4}} Total
-      itemsList    // {{5}} Order items
-    ]);
-
-    console.log("Order sent to manager:", MANAGER_PHONE);
-
-    // === 6) Show success message ===
-    alert("Payment successful! WhatsApp messages have been sent to customer, chef, and manager.");
-
-    // === 7) Close the order modal ===
-    closeOrderForm(); // This should already exist in your code
-
-    // === 8) Clear cart data ===
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Refresh the cart display (if your site has this function)
-    if (typeof updateCartUI === "function") {
-      updateCartUI();
-    }
-
-  } catch (error) {
-    console.error("Error sending WhatsApp messages:", error);
-    alert("There was an issue sending WhatsApp notifications. Please check the console.");
-  }
-}
-
 // Send order confirmation to Manager/Chef automatically after payment
 function sendOrderToManager(name, address, phone, total) {
   const managerNumber = "919505564388"; // Change to chef/manager WhatsApp number
