@@ -659,71 +659,28 @@
   </div>
 
   </div>
+
+  <!-- Receipt Modal -->
+<div id="receiptModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeReceiptModal()">×</span>
+    <h3>Payment Successful ✅</h3>
+    <div id="receiptDetails" style="text-align:left; margin-top:15px;"></div>
+    <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button>
+  </div>
+</div>
+
+
  <div id="footer-container"></div>
 
   <script src="load.js"></script>
 
-  <!-- WhatsApp Config -->
 <script>
-  const WH_API_VERSION = 'v20.0'; // keep updated if Meta changes version
-  const WH_API_BASE = 'https://graph.facebook.com';
-
-  // Replace with your values
-  const WH_PHONE_NUMBER_ID = "716301431576675";
-  const WH_ACCESS_TOKEN = "EAAPKEBmoa4kBPVQDHZBaXSHQrgfPARPOWimuDqMHRhEnB7HDFIMBNuRcIb7obhcZCVcZAbZCeldUcrFrZCXV4lfYAIrqxcO23xEgDwdIn8f9SyZAuy5wEW0Dlgz63rlxMZCc5zZATkq6h2TyZB46gT6gI6N34w71HIUXVKk2ZCmdGNZAwYWqhxItvvZBmH0Iu9gX02jMrAZDZD";
-
-  // Team numbers (use country code without +)
-  const CHEF_PHONE = "918500112155";
-  const MANAGER_PHONE = "919505564388";
-
-  // Template names from Meta
-  const TEMPLATE_CUSTOMER = "customer_receipt";
-  const TEMPLATE_KITCHEN  = "new_order_notification";
-</script>
-
-<script>
-async function sendWhatsAppMessage(toPhone, templateName, bodyTexts = []) {
-  const url = `${WH_API_BASE}/${WH_API_VERSION}/${WH_PHONE_NUMBER_ID}/messages`;
-
-  const components = [{
-    type: "body",
-    parameters: bodyTexts.map(text => ({ type: "text", text: String(text) }))
-  }];
-
-  const payload = {
-    messaging_product: "whatsapp",
-    to: toPhone,
-    type: "template",
-    template: {
-      name: templateName,
-      language: { code: "en" }, // match your template language
-      components
-    }
-  };
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${WH_ACCESS_TOKEN}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
-
-  const data = await res.json();
-  console.log("WhatsApp Response:", data);
-  return data;
-}
-</script>
-
-
-
-  <script>
 /* === MENU DATA === */
 
 const menuData = [
   // VEG PIZZA BLAST 
-  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹109', img: '../assets/img/onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹10', img: '../assets/img/onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CAPSICUM ONION PIZZA BLAST', desc: 'A perfect combination of crunchy capsicum and savory onions for a truly satisfying bite.', price: '₹129', img: '../assets/img/capsicum onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'MUSHROOM RED PAPRIKA PIZZA BLAST', desc: 'Earthy mushrooms paired with a zesty kick of red paprika for a uniquely delicious taste.', price: '₹129', img: '../assets/img/mushroom and red paprika pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CORN PIZZA BLAST', desc: 'Experience a burst of sweetness with golden corn, a simple yet irresistible classic.', price: '₹109', img: '../assets/img/corn pizza.jpg', type: 'veg' },
@@ -1712,10 +1669,10 @@ function makePayment() {
   const custName = document.getElementById('custName').value;
   const custAddress = document.getElementById('custAddress').value;
   const cartTotalText = document.getElementById('cartTotal').innerText.replace('₹', '').trim();
-  const orderAmount = parseInt(cartTotalText) * 100; // Convert to paise
+  const orderAmount = parseInt(cartTotalText) * 100; // Amount in paise
 
   var options = {
-    "key": "rzp_live_R9ffQUds74mw4P",  // Replace with your Razorpay Key ID
+    "key": "YOUR_RAZORPAY_KEY", // Your Razorpay Key ID
     "amount": orderAmount,
     "currency": "INR",
     "name": "Pizza Factory Slise",
@@ -1728,22 +1685,21 @@ function makePayment() {
       "color": "#F37254"
     },
     "handler": async function (response) {
-      console.log("Razorpay Payment ID:", response.razorpay_payment_id);
+      console.log("Payment ID:", response.razorpay_payment_id);
 
       if (response.razorpay_payment_id) {
         const customerMessage = [
-          `Hi ${custName}, ✅ Your order has been confirmed!\nOrder Amount: ₹${orderAmount / 100}\nDelivery Address: ${custAddress}\nThank you for ordering 🍕`
+          `Hi ${custName}, ✅ Your order is confirmed!\nAmount: ₹${orderAmount / 100}\nAddress: ${custAddress}\nThanks for ordering 🍕`
         ];
 
         const kitchenMessage = [
-          `🔥 New Order Alert!\nCustomer: ${custName} (${custPhone})\nAddress: ${custAddress}\nOrder Amount: ₹${orderAmount / 100}\nPrepare immediately 👨‍🍳`
+          `🔥 New Order!\nCustomer: ${custName} (${custPhone})\nAddress: ${custAddress}\nAmount: ₹${orderAmount / 100}`
         ];
 
         const managerMessage = [
-          `📢 Order Confirmed:\nCustomer: ${custName}\nPhone: ${custPhone}\nAddress: ${custAddress}\nAmount Paid: ₹${orderAmount / 100}`
+          `📢 Order Confirmed!\nCustomer: ${custName}\nPhone: ${custPhone}\nAddress: ${custAddress}\nAmount Paid: ₹${orderAmount / 100}`
         ];
 
-        // Send WhatsApp messages
         await sendWhatsAppMessage(custPhone, TEMPLATE_CUSTOMER, customerMessage);
         await sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, kitchenMessage);
         await sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, managerMessage);
@@ -1759,6 +1715,7 @@ function makePayment() {
   var rzp1 = new Razorpay(options);
   rzp1.open();
 }
+
 
 function closeReceiptModal() {
   document.getElementById('receiptModal').style.display = 'none';
@@ -1813,16 +1770,7 @@ function shareReceiptOnWhatsApp() {
 }
 
 </script>
+<script src="whatsapp-config.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<!-- Receipt Modal -->
-<div id="receiptModal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeReceiptModal()">×</span>
-    <h3>Payment Successful ✅</h3>
-    <div id="receiptDetails" style="text-align:left; margin-top:15px;"></div>
-    <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button>
-  </div>
-</div>
-
 </body>
 </html>
