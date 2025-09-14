@@ -673,7 +673,7 @@
   const WH_ACCESS_TOKEN = "EAAPKEBmoa4kBPVQDHZBaXSHQrgfPARPOWimuDqMHRhEnB7HDFIMBNuRcIb7obhcZCVcZAbZCeldUcrFrZCXV4lfYAIrqxcO23xEgDwdIn8f9SyZAuy5wEW0Dlgz63rlxMZCc5zZATkq6h2TyZB46gT6gI6N34w71HIUXVKk2ZCmdGNZAwYWqhxItvvZBmH0Iu9gX02jMrAZDZD";
 
   // Team numbers (use country code without +)
-  const CHEF_PHONE = "918247634398";
+  const CHEF_PHONE = "918500112155";
   const MANAGER_PHONE = "919505564388";
 
   // Template names from Meta
@@ -723,7 +723,7 @@ async function sendWhatsAppMessage(toPhone, templateName, bodyTexts = []) {
 
 const menuData = [
   // VEG PIZZA BLAST 
-  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹10', img: '../assets/img/onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹109', img: '../assets/img/onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CAPSICUM ONION PIZZA BLAST', desc: 'A perfect combination of crunchy capsicum and savory onions for a truly satisfying bite.', price: '₹129', img: '../assets/img/capsicum onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'MUSHROOM RED PAPRIKA PIZZA BLAST', desc: 'Earthy mushrooms paired with a zesty kick of red paprika for a uniquely delicious taste.', price: '₹129', img: '../assets/img/mushroom and red paprika pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'CORN PIZZA BLAST', desc: 'Experience a burst of sweetness with golden corn, a simple yet irresistible classic.', price: '₹109', img: '../assets/img/corn pizza.jpg', type: 'veg' },
@@ -1746,39 +1746,19 @@ function makePayment() {
   receiptHTML += `<p><strong>Phone:</strong> ${phone}</p>`;
   receiptHTML += `<h4>Order Summary</h4><ul>`;
 
-  // cart.forEach(item => {
-  //   const lineTotal = extractNumericPrice(item.price) * item.qty;
-  //   receiptHTML += `<li>${item.qty} x ${item.title} - ₹${lineTotal}</li>`;
-  // });
+  cart.forEach(item => {
+    const lineTotal = extractNumericPrice(item.price) * item.qty;
+    receiptHTML += `<li>${item.qty} x ${item.title} - ₹${lineTotal}</li>`;
+  });
 
-  // receiptHTML += `</ul><p><strong>Total: ${total}</strong></p>`;
+  receiptHTML += `</ul><p><strong>Total: ${total}</strong></p>`;
 
-  // // Show receipt in modal
-  // document.getElementById('receiptDetails').innerHTML = receiptHTML;
-  // document.getElementById('receiptModal').style.display = 'flex';
+  // Show receipt in modal
+  document.getElementById('receiptDetails').innerHTML = receiptHTML;
+  document.getElementById('receiptModal').style.display = 'flex';
 
-  // // Send order confirmation to Chef/Manager
-  // sendOrderToManager(name, address, phone, total);
-  if (paymentSuccess) {
-    const custPhone = document.getElementById('custPhone').value;
-    const custName = document.getElementById('custName').value;
-    const custAddress = document.getElementById('custAddress').value;
-
-    const customerMessage = ["Hello " + custName + ", your order has been received! It will be delivered to: " + custAddress];
-    const kitchenMessage = ["New Order Received from " + custName + " (" + custPhone + "). Address: " + custAddress];
-
-    // Send message to customer
-    sendWhatsAppMessage(custPhone, TEMPLATE_CUSTOMER, customerMessage);
-
-    // Send message to kitchen/manager
-    sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, kitchenMessage);
-
-    alert('Payment Successful and WhatsApp messages sent!');
-    closeOrderForm();
-  } else {
-    alert('Payment failed. Please try again.');
-  }
-
+  // Send order confirmation to Chef/Manager
+  sendOrderToManager(name, address, phone, total);
 
   // Clear cart
   cart = [];
