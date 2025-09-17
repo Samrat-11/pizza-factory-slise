@@ -1665,110 +1665,64 @@ window.onload = () => {
 };
 
 function makePayment() {
-  const custPhone = document.getElementById('custPhone').value;
-  const custName = document.getElementById('custName').value;
-  const custAddress = document.getElementById('custAddress').value;
-  const cartTotalText = document.getElementById('cartTotal').innerText.replace('₹', '').trim();
-  const orderAmount = parseInt(cartTotalText) * 100; // Amount in paise
+  const customerDetails = {
+    name: document.getElementById('custName').value,
+    address: document.getElementById('custAddress').value,
+    phone: document.getElementById('custPhone').value
+  };
 
-  var options = {
-    "key": "rzp_live_R9ffQUds74mw4P", // Your Razorpay Key ID
-    "amount": orderAmount,
-    "currency": "INR",
-    "name": "Pizza Factory Slise",
-    "description": "Order Payment",
-    "prefill": {
-      "name": custName,
-      "contact": custPhone
+  const cartItems = getCartItems();
+
+  if (cartItems.length === 0) {
+    alert('Cart is empty! Add some items first.');
+    return;
+  }
+
+  let totalAmount = 0;
+  cartItems.forEach(item => {
+    totalAmount += item.price * item.qty;
+  });
+
+  const options = {
+    key: "rzp_live_R9ffQUds74mw4P", // ← Replace with your Razorpay key
+    amount: totalAmount * 100, // Amount in paise (₹)
+    currency: "INR",
+    name: "Pizza Factory",
+    description: "Order Payment",
+    handler: function (response) {
+      // Payment successful!
+      const orderId = generateOrderId();
+      const dateTime = getCurrentDateTime();
+
+      // Send WhatsApp receipt and notifications
+      sendOrderNotifications(orderId, dateTime, customerDetails, cartItems);
+
+      // Show receipt modal
+      let itemSummary = cartItems.map(i => `- ${i.title} x${i.qty}`).join('\n');
+      document.getElementById('receiptDetails').innerText = 
+        `✅ Payment Successful!\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\nItems:\n${itemSummary}\n\nThank you for ordering!`;
+
+      document.getElementById('receiptModal').style.display = 'flex';
+
+      // Clear cart
+      localStorage.removeItem('cart');
     },
-    "theme": {
-      "color": "#F37254"
+    prefill: {
+      name: customerDetails.name,
+      contact: customerDetails.phone
     },
-    "handler": async function (response) {
-      console.log("Payment ID:", response.razorpay_payment_id);
-
-      if (response.razorpay_payment_id) {
-        const customerMessage = [
-          `Hi ${custName}, ✅ Your order is confirmed!\nAmount: ₹${orderAmount / 100}\nAddress: ${custAddress}\nThanks for ordering 🍕`
-        ];
-
-        const kitchenMessage = [
-          `🔥 New Order!\nCustomer: ${custName} (${custPhone})\nAddress: ${custAddress}\nAmount: ₹${orderAmount / 100}`
-        ];
-
-        const managerMessage = [
-          `📢 Order Confirmed!\nCustomer: ${custName}\nPhone: ${custPhone}\nAddress: ${custAddress}\nAmount Paid: ₹${orderAmount / 100}`
-        ];
-
-        await sendWhatsAppMessage(custPhone, TEMPLATE_CUSTOMER, customerMessage);
-        await sendWhatsAppMessage(CHEF_PHONE, TEMPLATE_KITCHEN, kitchenMessage);
-        await sendWhatsAppMessage(MANAGER_PHONE, TEMPLATE_KITCHEN, managerMessage);
-
-        alert('✅ Payment successful and WhatsApp messages sent!');
-        closeOrderForm();
-      } else {
-        alert('⚠️ Payment failed to generate Payment ID.');
-      }
+    theme: {
+      color: "#F37254"
     }
   };
 
-  var rzp1 = new Razorpay(options);
+  const rzp1 = new Razorpay(options);
   rzp1.open();
 }
-
 
 function closeReceiptModal() {
   document.getElementById('receiptModal').style.display = 'none';
 }
-/* === WhatsApp Integration Functions === */
-// Send order confirmation to Manager/Chef automatically after payment
-function sendOrderToManager(name, address, phone, total) {
-  const managerNumber = "919505564388"; // Change to chef/manager WhatsApp number
-
-  let message = `*New Order Received - Pizza Factory Slise*%0A%0A`;
-  message += `👤 *Customer:* ${name}%0A`;
-  message += `🏠 *Address:* ${address}%0A`;
-  message += `📞 *Phone:* ${phone}%0A%0A`;
-  message += `*Items Ordered:*%0A`;
-
-  cart.forEach(item => {
-    const lineTotal = extractNumericPrice(item.price) * item.qty;
-    message += `- ${item.qty} x ${item.title} - ₹${lineTotal}%0A`;
-  });
-
-  message += `%0A*Total:* ${total}%0A%0A⚡ Please start preparing this order!`;
-
-  const whatsappUrl = `https://wa.me/${managerNumber}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank');
-}
-
-// Allow customer to share their receipt on WhatsApp
-function shareReceiptOnWhatsApp() {
-  const name = document.getElementById('custName').value;
-  const address = document.getElementById('custAddress').value;
-  const phone = document.getElementById('custPhone').value;
-  const total = document.getElementById('cartTotal').innerText;
-
-  // Extract digits to create valid WhatsApp number format
-  const customerNumber = phone.replace(/\D/g, '');
-
-  let message = `*Your Order Receipt - Pizza Factory Slise*%0A%0A`;
-  message += `👤 *Customer:* ${name}%0A`;
-  message += `🏠 *Address:* ${address}%0A`;
-  message += `📞 *Phone:* ${phone}%0A%0A`;
-  message += `*Items Ordered:*%0A`;
-
-  cart.forEach(item => {
-    const lineTotal = extractNumericPrice(item.price) * item.qty;
-    message += `- ${item.qty} x ${item.title} - ₹${lineTotal}%0A`;
-  });
-
-  message += `%0A*Total Paid:* ${total}%0A%0AThank you for your order! 🍕`;
-
-  const whatsappUrl = `https://wa.me/${customerNumber}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank');
-}
-
 </script>
 <script src="whatsapp-config.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
