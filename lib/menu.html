@@ -666,7 +666,8 @@
     <span class="modal-close" onclick="closeReceiptModal()">×</span>
     <h3>Payment Successful ✅</h3>
     <div id="receiptDetails" style="text-align:left; margin-top:15px;"></div>
-    <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button>
+    <!-- <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button> -->
+    <h3>Receipt will sent to the WhatsApp</h3>
   </div>
 </div>
 
@@ -1694,6 +1695,10 @@ function makePayment() {
       const orderId = generateOrderId();
       const dateTime = getCurrentDateTime();
 
+      // Close other popups
+      closeCartModal();
+      closeOrderForm();
+
       // Send WhatsApp receipt and notifications
       sendOrderNotifications(orderId, dateTime, customerDetails, cartItems);
 
@@ -1706,6 +1711,10 @@ function makePayment() {
 
       // Clear cart
       localStorage.removeItem('cart');
+      cart = [];
+      saveCart();
+      renderCart();
+      updateCartCountBadge();
     },
     prefill: {
       name: customerDetails.name,
