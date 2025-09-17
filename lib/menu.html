@@ -1702,13 +1702,28 @@ function makePayment() {
       sendOrderNotifications(orderId, dateTime, customerDetails, cartItems);
 
       // Show receipt modal
-      let itemSummary = cartItems.map(i => `- ${i.title} x${i.qty}`).join('\n');
-      document.getElementById('receiptDetails').innerText = 
-        `✅ Payment Successful!\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\nItems:\n${itemSummary}\n\nThank you for ordering!`;
+       // Prepare item summary for popup
+      let itemSummary = cartItems.map(item => {
+        let vegToppings = item.vegToppings.length > 0
+          ? item.vegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')
+          : 'No Veg Toppings';
+        let nonVegToppings = item.nonVegToppings.length > 0
+          ? item.nonVegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')
+          : 'No Non-Veg Toppings';
 
+        return `- ${item.title} (${item.size})\n  Veg Toppings: ${vegToppings}\n  Non-Veg Toppings: ${nonVegToppings}\n  Price: ₹${item.price} x ${item.qty} = ₹${item.price * item.qty}\n`;
+      }).join('\n');
+
+      let receiptText = `🍕 *Pizza Order Receipt*\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\n🧾 Items Ordered:\n${itemSummary}\n*Total: ₹${totalAmount}*\n\nThank you for ordering! Visit again!`;
+
+      document.getElementById('receiptDetails').innerText = receiptText;
       document.getElementById('receiptModal').style.display = 'flex';
 
-      // Clear cart
+      // Close other modals
+      // document.getElementById('orderFormModal').style.display = 'none';
+      // document.getElementById('cartModal').style.display = 'none';
+      // document.getElementById('customiseModal').style.display = 'none';
+
       localStorage.removeItem('cart');
       cart = [];
       saveCart();
