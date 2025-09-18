@@ -594,6 +594,15 @@
 
   <button id="stickyCartBtn" style="font-weight: bold;" onclick="openCartModal()">🛒 View Cart<span id="cartCountBadge">[0]</span></button>
 
+  <button id="viewReceiptBtn" style="
+  position: fixed; bottom: 80px; left: 25px; 
+  z-index: 9999; border-radius: 50px; 
+  padding: 10px 20px; background-color: green; 
+  color: white; border: none; font-weight: bold;">
+  📄 View Receipt
+</button>
+
+
   <div id="orderFormModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeOrderForm()">×</span>
@@ -623,7 +632,7 @@
         <h4>Change Crust</h4>
         <label><input type="radio" name="pizzaCrust" value="Standard" data-price="0" checked> Standard Crust</label>
         <label><input type="radio" name="pizzaCrust" value="Cheese Volcano Crust" data-price="309"> Cheese Volcano Crust: ₹309</label>
-        <label><input type="radio" name="pizzaCrust" value="Extra Cheese on Crust" data-price="50"> Extra Cheese on Crust: ₹50</label>
+        <label><input type="radio" name="pizzaCrust" value="Extra Cheese on Crust" data-price="1"> Extra Cheese on Crust: ₹1</label>
       </div>
 
       <div class="option-group">
@@ -635,7 +644,7 @@
         <label><input type="checkbox" name="vegTopping" value="Jalapeno" data-price="35"> Jalapeno: ₹35</label>
         <label><input type="checkbox" name="vegTopping" value="Black Olive" data-price="35"> Black Olive: ₹35</label>
         <label><input type="checkbox" name="vegTopping" value="Grilled Mushrooms" data-price="35"> Grilled Mushrooms: ₹35</label>
-        <label><input type="checkbox" name="vegTopping" value="Onion" data-price="35"> Onion: ₹35</label>
+        <label><input type="checkbox" name="vegTopping" value="Onion" data-price="1"> Onion: ₹1</label>
       </div>
 
       <div class="option-group">
@@ -646,7 +655,7 @@
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Sausage" data-price="50"> Chicken Sausage: ₹50</label>
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Tikka" data-price="50"> Chicken Tikka: ₹50</label>
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Pepperoni" data-price="50"> Chicken Pepperoni: ₹50</label>
-        <label><input type="checkbox" name="nonVegTopping" value="Chicken Keema" data-price="50"> Chicken Keema: ₹50</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Keema" data-price="1"> Chicken Keema: ₹1</label>
       </div>
 
       <p class="total-price-display">Total: <span id="customiseTotalPrice">₹0</span></p>
@@ -1702,28 +1711,13 @@ function makePayment() {
       sendOrderNotifications(orderId, dateTime, customerDetails, cartItems);
 
       // Show receipt modal
-       // Prepare item summary for popup
-      let itemSummary = cartItems.map(item => {
-        let vegToppings = item.vegToppings.length > 0
-          ? item.vegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')
-          : 'No Veg Toppings';
-        let nonVegToppings = item.nonVegToppings.length > 0
-          ? item.nonVegToppings.map(t => `${t.name} (₹${t.price})`).join(', ')
-          : 'No Non-Veg Toppings';
+      let itemSummary = cartItems.map(i => `- ${i.title} x${i.qty}`).join('\n');
+      document.getElementById('receiptDetails').innerText = 
+        `✅ Payment Successful!\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\nItems:\n${itemSummary}\n\nThank you for ordering!`;
 
-        return `- ${item.title} (${item.size})\n  Veg Toppings: ${vegToppings}\n  Non-Veg Toppings: ${nonVegToppings}\n  Price: ₹${item.price} x ${item.qty} = ₹${item.price * item.qty}\n`;
-      }).join('\n');
-
-      let receiptText = `🍕 *Pizza Order Receipt*\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\n🧾 Items Ordered:\n${itemSummary}\n*Total: ₹${totalAmount}*\n\nThank you for ordering! Visit again!`;
-
-      document.getElementById('receiptDetails').innerText = receiptText;
       document.getElementById('receiptModal').style.display = 'flex';
 
-      // Close other modals
-      // document.getElementById('orderFormModal').style.display = 'none';
-      // document.getElementById('cartModal').style.display = 'none';
-      // document.getElementById('customiseModal').style.display = 'none';
-
+      // Clear cart
       localStorage.removeItem('cart');
       cart = [];
       saveCart();
@@ -1748,6 +1742,7 @@ function closeReceiptModal() {
 }
 </script>
 <script src="whatsapp-config.js"></script>
+<script src="receipt.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>
