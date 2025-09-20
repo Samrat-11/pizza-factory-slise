@@ -11,6 +11,7 @@
       const NavUrl = 'navbar.html'; // Replace with your actual navbar URL
       const FooterUrl = 'footer.html'; // Replace with your actual footer URL
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     :root {
       --primary-color: #ce221f;
@@ -594,13 +595,22 @@
 
   <button id="stickyCartBtn" style="font-weight: bold;" onclick="openCartModal()">🛒 View Cart<span id="cartCountBadge">[0]</span></button>
 
-  <button id="viewReceiptBtn" style="
+  <!-- <button id="viewReceiptBtn" style="
   position: fixed; bottom: 80px; left: 25px; 
   z-index: 9999; border-radius: 50px; 
   padding: 10px 20px; background-color: green; 
   color: white; border: none; font-weight: bold;">
   📄 View Receipt
-</button>
+</button> -->
+
+<!-- <button id="sendWhatsAppBtn" style="
+  position: fixed; bottom: 140px; left: 25px; 
+  z-index: 9999; border-radius: 50px; 
+  padding: 10px 20px; background-color: #25d366; 
+  color: white; border: none; font-weight: bold;">
+  📲 Send WhatsApp
+</button> -->
+
 
 
   <div id="orderFormModal" class="modal">
@@ -1383,40 +1393,40 @@ function closeOrderForm() {
   document.getElementById('orderFormModal').style.display = 'none';
 }
 
-function submitOrder(e) {
-  e.preventDefault();
-  const name = document.getElementById('custName').value;
-  const address = document.getElementById('custAddress').value;
-  const phone = document.getElementById('custPhone').value;
+// function submitOrder(e) {
+//   e.preventDefault();
+//   const name = document.getElementById('custName').value;
+//   const address = document.getElementById('custAddress').value;
+//   const phone = document.getElementById('custPhone').value;
 
-  let message = `*Order from Pizza Factory Slise*%0A`;
-  const orderedItems = [...cart]; // Take a snapshot of the cart before clearing
-  orderedItems.forEach(item => {
-    // Safely extract numeric part of the price
-    const itemPrice = extractNumericPrice(item.price);
+//   let message = `*Order from Pizza Factory Slise*%0A`;
+//   const orderedItems = [...cart]; // Take a snapshot of the cart before clearing
+//   orderedItems.forEach(item => {
+//     // Safely extract numeric part of the price
+//     const itemPrice = extractNumericPrice(item.price);
 
-    message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
+//     message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
 
-  });
+//   });
 
-  const total = document.getElementById('cartTotal').innerText;
-  message += `%0A*Total*: ${total}%0A`;
-  message += `%0A*Customer Details*:%0A👤 ${name}%0A🏠 ${address}%0A📞 ${phone}`;
+//   const total = document.getElementById('cartTotal').innerText;
+//   message += `%0A*Total*: ${total}%0A`;
+//   message += `%0A*Customer Details*:%0A👤 ${name}%0A🏠 ${address}%0A📞 ${phone}`;
 
-  const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`; // Replace with your WhatsApp business number
-  window.open(whatsappUrl, '_blank');
+//   const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`; // Replace with your WhatsApp business number
+//   window.open(whatsappUrl, '_blank');
 
-  cart = []; // Clear the cart
-  renderCart(); // Update cart modal to show empty
-  saveCart();
-  closeOrderForm();
+//   cart = []; // Clear the cart
+//   renderCart(); // Update cart modal to show empty
+//   saveCart();
+//   closeOrderForm();
   
-  // Reset all menu cards to "ADD" state after order (only for single-price items)
-  orderedItems.forEach(item => {
-      if (isSimpleItem(item)) { updateCardState(item.title, 0); }
+//   // Reset all menu cards to "ADD" state after order (only for single-price items)
+//   orderedItems.forEach(item => {
+//       if (isSimpleItem(item)) { updateCardState(item.title, 0); }
 
-  });
-}
+//   });
+// }
 
 /* === Customise Modal Functions === */
 function updateCustomiseTotalPrice() {
@@ -1674,7 +1684,7 @@ window.onload = () => {
 };
 
 function makePayment() {
-  const customerDetails = {
+  const customer = {
     name: document.getElementById('custName').value,
     address: document.getElementById('custAddress').value,
     phone: document.getElementById('custPhone').value
@@ -1700,22 +1710,18 @@ function makePayment() {
     description: "Order Payment",
     handler: function (response) {
       // Payment successful!
-      const orderId = generateOrderId();
-      const dateTime = getCurrentDateTime();
+      // const orderId = generateOrderId();
+      // const dateTime = getCurrentDateTime();
 
       // Close other popups
       closeCartModal();
       closeOrderForm();
 
       // Send WhatsApp receipt and notifications
-      sendOrderNotifications(orderId, dateTime, customerDetails, cartItems);
+      autoSendAfterPayment(); // 🚀 auto send WhatsApp
 
       // Show receipt modal
-      let itemSummary = cartItems.map(i => `- ${i.title} x${i.qty}`).join('\n');
-      document.getElementById('receiptDetails').innerText = 
-        `✅ Payment Successful!\n\nOrder ID: ${orderId}\nDate & Time: ${dateTime}\n\n👤 Customer: ${customerDetails.name}\n🏠 Address: ${customerDetails.address}\n📱 Phone: ${customerDetails.phone}\n\nItems:\n${itemSummary}\n\nThank you for ordering!`;
-
-      document.getElementById('receiptModal').style.display = 'flex';
+       openReceiptModal(); 
 
       // Clear cart
       localStorage.removeItem('cart');
@@ -1725,8 +1731,8 @@ function makePayment() {
       updateCartCountBadge();
     },
     prefill: {
-      name: customerDetails.name,
-      contact: customerDetails.phone
+      name: customer.name,
+      contact: customer.phone
     },
     theme: {
       color: "#F37254"
@@ -1737,9 +1743,6 @@ function makePayment() {
   rzp1.open();
 }
 
-function closeReceiptModal() {
-  document.getElementById('receiptModal').style.display = 'none';
-}
 </script>
 <script src="whatsapp-config.js"></script>
 <script src="receipt.js"></script>
