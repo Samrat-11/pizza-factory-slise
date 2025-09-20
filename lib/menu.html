@@ -1393,41 +1393,6 @@ function closeOrderForm() {
   document.getElementById('orderFormModal').style.display = 'none';
 }
 
-// function submitOrder(e) {
-//   e.preventDefault();
-//   const name = document.getElementById('custName').value;
-//   const address = document.getElementById('custAddress').value;
-//   const phone = document.getElementById('custPhone').value;
-
-//   let message = `*Order from Pizza Factory Slise*%0A`;
-//   const orderedItems = [...cart]; // Take a snapshot of the cart before clearing
-//   orderedItems.forEach(item => {
-//     // Safely extract numeric part of the price
-//     const itemPrice = extractNumericPrice(item.price);
-
-//     message += `🍕 ${formatCartItemDetails(item)} - ₹${item.price} x ${item.qty}%0A`;
-
-//   });
-
-//   const total = document.getElementById('cartTotal').innerText;
-//   message += `%0A*Total*: ${total}%0A`;
-//   message += `%0A*Customer Details*:%0A👤 ${name}%0A🏠 ${address}%0A📞 ${phone}`;
-
-//   const whatsappUrl = `https://wa.me/919182714776?text=${encodeURIComponent(message)}`; // Replace with your WhatsApp business number
-//   window.open(whatsappUrl, '_blank');
-
-//   cart = []; // Clear the cart
-//   renderCart(); // Update cart modal to show empty
-//   saveCart();
-//   closeOrderForm();
-  
-//   // Reset all menu cards to "ADD" state after order (only for single-price items)
-//   orderedItems.forEach(item => {
-//       if (isSimpleItem(item)) { updateCardState(item.title, 0); }
-
-//   });
-// }
-
 /* === Customise Modal Functions === */
 function updateCustomiseTotalPrice() {
   let total = 0;
@@ -1686,8 +1651,8 @@ window.onload = () => {
 function makePayment() {
   const customer = {
     name: document.getElementById('custName').value,
-    address: document.getElementById('custAddress').value,
-    phone: document.getElementById('custPhone').value
+    phone: document.getElementById('custPhone').value,
+    address: document.getElementById('custAddress').value
   };
 
   const cartItems = getCartItems();
@@ -1710,8 +1675,7 @@ function makePayment() {
     description: "Order Payment",
     handler: function (response) {
       // Payment successful!
-      // const orderId = generateOrderId();
-      // const dateTime = getCurrentDateTime();
+      // console.log("Payment successful. Razorpay Payment ID:", response.razorpay_payment_id);
 
       // Close other popups
       closeCartModal();
@@ -1719,9 +1683,7 @@ function makePayment() {
 
       // Send WhatsApp receipt and notifications
       autoSendAfterPayment(); // 🚀 auto send WhatsApp
-
-      // Show receipt modal
-       openReceiptModal(); 
+      openReceiptModal(); // Show receipt
 
       // Clear cart
       localStorage.removeItem('cart');
