@@ -611,16 +611,14 @@
   📲 Send WhatsApp
 </button> -->
 
-
-
   <div id="orderFormModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeOrderForm()">×</span>
       <h3>Enter Your Details</h3>
       <form id="orderForm" onsubmit="submitOrder(event)">
         <input type="text" id="custName" placeholder="Your Name" required />
-        <input type="text" id="custAddress" placeholder="Your Address" required />
         <input type="tel" id="custPhone" placeholder="Phone Number" required />
+        <input type="text" id="custAddress" placeholder="Your Address" required />
         <button type="button" class="order-button" onclick="makePayment()">💳 Make Payment</button>
       </form>
     </div>
@@ -669,14 +667,13 @@
       </div>
 
       <p class="total-price-display">Total: <span id="customiseTotalPrice">₹0</span></p>
-    <div style="display: flex; gap: 10px; justify-content: space-between;">
-      <button id="saveEditBtn" class="order-button" onclick="saveCustomisationChanges()" style="display:none;">💾 Save Edits</button>
-      <button class="order-button" onclick="addCustomisedItemToCart(true)">➕ Add As New</button>
-    </div>
 
+      <div style="display: flex; gap: 10px; justify-content: space-between;">
+        <button id="saveEditBtn" class="order-button" onclick="saveCustomisationChanges()" style="display:none;">💾 Save Edits</button>
+        <button class="order-button" onclick="addCustomisedItemToCart(true)">➕ Add As New</button>
+      </div>
     </div>
   </div>
-
   </div>
 
   <!-- Receipt Modal -->
@@ -685,15 +682,13 @@
     <span class="modal-close" onclick="closeReceiptModal()">×</span>
     <h3>Payment Successful ✅</h3>
     <div id="receiptDetails" style="text-align:left; margin-top:15px;"></div>
-    <!-- <button class="order-button" onclick="shareReceiptOnWhatsApp()">📲 Share via WhatsApp</button> -->
     <h3>Receipt will sent to the WhatsApp</h3>
   </div>
 </div>
 
+<div id="footer-container"></div>
 
- <div id="footer-container"></div>
-
-  <script src="load.js"></script>
+<script src="load.js"></script>
 
 <script>
 /* === MENU DATA === */
@@ -937,14 +932,9 @@ function saveCustomisationChanges() {
 // reuseable functions end
 
 // Helper Functions Start
-function closeMenuPopup() {
-  document.getElementById('menuPopup').classList.add('hidden');
-}
-// Helper Functions End
+function closeMenuPopup() { document.getElementById('menuPopup').classList.add('hidden'); }
 
-function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
 function updateCartCountBadge() {
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -958,6 +948,8 @@ function updateCartCountBadge() {
     stickyCartBtn.style.display = 'none';
   }
 }
+
+// Helper Functions End
 
 function toggleMenuPopup() {
   const popup = document.getElementById('menuPopup');
@@ -986,12 +978,9 @@ function addToCart(item) {
     (JSON.stringify(i.customizations || {}) === JSON.stringify(item.customizations || {}))
   );
 
-  if (existing) {
-    existing.qty++;
-  } else {
-    item.qty = 1;
-    cart.push(item);
-  }
+  if (existing) { existing.qty++; } 
+  else { item.qty = 1; cart.push(item); }
+
   renderCart();
   saveCart();
   // For single-price items, update the card state directly.
@@ -1009,7 +998,6 @@ function changeQty(index, delta) {
       cart.splice(index, 1);
       // Only update card state if it's a non-sized, non-customized item being fully removed
       if (isSimpleItem(item)) { updateCardState(item.title, 0); }
-
   } else {
       // For non-sized, non-customized items, update the card state to reflect new quantity
       if (isSimpleItem(item)) {
@@ -1033,13 +1021,10 @@ function openCartCustomise(cartIndex) {
   const item = cart[cartIndex];
   currentCustomisingItem = menuData.find(m => m.title === item.title);
   if (!currentCustomisingItem) return alert("Original item not found.");
-
   // Pre-fill modal
   openCustomiseModal(item.title, item); // prefill with item
-
   // Save index for editing
   document.getElementById('customiseModal').dataset.cartIndex = cartIndex;
-
   // Show the "Save Edits" button
   document.getElementById('saveEditBtn').style.display = 'inline-block';
 }
@@ -1105,9 +1090,7 @@ function renderCart() {
   updateCartCountBadge();
 
   // Auto-close cart if empty
-  if (cart.length === 0) {
-    closeCartModal();
-  }
+  if (cart.length === 0) { closeCartModal(); }
 }
 
 /* === MENU DISPLAY & FILTERING === */
