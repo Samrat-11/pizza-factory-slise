@@ -576,7 +576,18 @@
   <button class="tablink" onclick="openTab(event, 'mocktails'); closeMenuPopup()">Mocktails</button>
   <button class="tablink" onclick="openTab(event, 'beverages'); closeMenuPopup()">Beverages</button>
   <button class="tablink" onclick="openTab(event, 'icecreams'); closeMenuPopup()">Natural Ice Creams</button>
-  <button class="tablink" onclick="openTab(event, 'combos'); closeMenuPopup()">Combos</button>
+  <button class="tablink" onclick="openTab(event, 'burger-combos'); closeMenuPopup()">Burger Combos</button>
+  <button class="tablink" onclick="openTab(event, 'sides-combos'); closeMenuPopup()">Side Combos</button>
+  <button class="tablink" onclick="openTab(event, 'milkshake-combos'); closeMenuPopup()">Milkshake Combos</button>
+  <button class="tablink" onclick="openTab(event, 'mojito-combos'); closeMenuPopup()">Mojito Combos</button>
+  <button class="tablink" onclick="openTab(event, 'mocktail-combos'); closeMenuPopup()">Mocktail Combos</button>
+  <button class="tablink" onclick="openTab(event, 'desserts-combos'); closeMenuPopup()">Desserts Combos</button>
+  <button class="tablink" onclick="openTab(event, 'pizza-blast-combos'); closeMenuPopup()">Pizza Blast Combos</button>
+  <button class="tablink" onclick="openTab(event, 'veg-pizza-combos'); closeMenuPopup()">Veg Pizza Combos</button>
+  <button class="tablink" onclick="openTab(event, 'nonveg-pizza-combos'); closeMenuPopup()">Non Veg Combos</button>
+  <button class="tablink" onclick="openTab(event, 'mixed-pizza-combos'); closeMenuPopup()">Mixed Pizza Combos</button>
+  <button class="tablink" onclick="openTab(event, 'slice-mixed-combos'); closeMenuPopup()">Slice Mixed Combos</button>
+  <!-- <button class="tablink" onclick="openTab(event, 'combos'); closeMenuPopup()">Combos</button> -->
 </div>
 
   <div id="menu" class="menu-container active"></div>
@@ -695,86 +706,86 @@
 
 const menuData = [
   // VEG PIZZA BLAST 
-  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹10', img: '../assets/img/onion pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'CAPSICUM ONION PIZZA BLAST', desc: 'A perfect combination of crunchy capsicum and savory onions for a truly satisfying bite.', price: '₹129', img: '../assets/img/capsicum onion pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'MUSHROOM RED PAPRIKA PIZZA BLAST', desc: 'Earthy mushrooms paired with a zesty kick of red paprika for a uniquely delicious taste.', price: '₹129', img: '../assets/img/mushroom and red paprika pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'CORN PIZZA BLAST', desc: 'Experience a burst of sweetness with golden corn, a simple yet irresistible classic.', price: '₹109', img: '../assets/img/corn pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'JALAPENO AND CORN PIZZA BLAST', desc: 'A thrilling mix of spicy jalapenos and sweet golden corn for an unforgettable flavor explosion.', price: '₹139', img: '../assets/img/corn and jalapeno pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'OLIVE AND ONION PIZZA BLAST', desc: 'A sophisticated blend of tangy olives and crisp onions for a truly savory experience.', price: '₹139', img: '../assets/img/olive and onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'ONION PIZZA BLAST', desc: 'A delightful blast of flavor featuring the classic, savory taste of fresh onions.', price: '₹89', img: '../assets/img/onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'CAPSICUM ONION PIZZA BLAST', desc: 'A perfect combination of crunchy capsicum and savory onions for a truly satisfying bite.', price: '₹109', img: '../assets/img/capsicum onion pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'MUSHROOM RED PAPRIKA PIZZA BLAST', desc: 'Earthy mushrooms paired with a zesty kick of red paprika for a uniquely delicious taste.', price: '₹109', img: '../assets/img/mushroom and red paprika pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'CORN PIZZA BLAST', desc: 'Experience a burst of sweetness with golden corn, a simple yet irresistible classic.', price: '₹99', img: '../assets/img/corn pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'JALAPENO AND CORN PIZZA BLAST', desc: 'A thrilling mix of spicy jalapenos and sweet golden corn for an unforgettable flavor explosion.', price: '₹109', img: '../assets/img/corn and jalapeno pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'OLIVE AND ONION PIZZA BLAST', desc: 'A sophisticated blend of tangy olives and crisp onions for a truly savory experience.', price: '₹109', img: '../assets/img/olive and onion pizza.jpg', type: 'veg' },
   { category: 'pizzamania', title: 'MARGERITA PIZZA BLAST', desc: 'The timeless Italian classic perfected—a simple, cheesy, and utterly delicious masterpiece.', price: '₹109', img: '../assets/img/marghrita pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'TOMATO PIZZA BLAST', desc: 'Delight in the fresh, juicy flavor of ripe tomatoes in this vibrant and tasty pizza.', price: '₹99', img: '../assets/img/', type: 'veg' },
-  { category: 'pizzamania', title: 'PINEAPPLE BLAST PIZZA', desc: 'A tropical explosion of sweet pineapple, crunchy corn, and savory onion with a hint of red paprika.', price: '₹169', img: '../assets/img/pineapple blast pizza.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'FARM LAND PIZZA BLAST', desc: 'A wholesome bounty of farm-fresh onion, juicy tomato, sweet corn, and crisp green capsicum.', price: '₹169', img: '../assets/img/farm land pizz.jpg', type: 'veg' },
-  { category: 'pizzamania', title: 'MUSHROOM PIZZA BLAST', desc: 'An earthy and savory delight, generously topped with fresh mushrooms for the perfect bite.', price: '₹129', img: '../assets/img/mushroom pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'TOMATO PIZZA BLAST', desc: 'Delight in the fresh, juicy flavor of ripe tomatoes in this vibrant and tasty pizza.', price: '₹89', img: '../assets/img/', type: 'veg' },
+  { category: 'pizzamania', title: 'PINEAPPLE BLAST PIZZA', desc: 'A tropical explosion of sweet pineapple, crunchy corn, and savory onion with a hint of red paprika.', price: '₹149', img: '../assets/img/pineapple blast pizza.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'FARM LAND PIZZA BLAST', desc: 'A wholesome bounty of farm-fresh onion, juicy tomato, sweet corn, and crisp green capsicum.', price: '₹149', img: '../assets/img/farm land pizz.jpg', type: 'veg' },
+  { category: 'pizzamania', title: 'MUSHROOM PIZZA BLAST', desc: 'An earthy and savory delight, generously topped with fresh mushrooms for the perfect bite.', price: '₹109', img: '../assets/img/mushroom pizza.jpg', type: 'veg' },
 
   // NON VEG BLAST (Mapped to 'pizzamania' category) [cite: 5, 6, 7]
-  { category: 'pizzamania', title: 'GOLDEN CRUNCHY CHICKEN PIZZA BLAST', desc: 'Savor the irresistible crunch of golden chicken paired with sweet corn, onions, and creamy cheese.', price: '₹159', img: '../assets/img/golden chicken crunchy pizz.jpg', type: 'nonveg' },
-  { category: 'pizzamania', title: 'CHICKEN SAUSAGE PIZZA BLAST', desc: 'Hearty chicken sausage and a sprinkle of zesty red paprika on a rich, creamy cheese base.', price: '₹149', img: '../assets/img/chicken sausage pizza.jpg', type: 'nonveg' },
-  { category: 'pizzamania', title: 'BBQ CHICKEN PIZZA BLAST', desc: 'Smoky BBQ chicken, crisp onions, and a spicy kick of jalapeno melt into rich, creamy cheese.', price: '₹159', img: '../assets/img/bbq chicken blast pizza.jpg', type: 'nonveg' },
-  { category: 'pizzamania', title: 'CHICKEN SALAMI PIZZA BLAST', desc: 'Deliciously savory chicken salami meets the fiery bite of jalapenos over a layer of creamy cheese.', price: '₹149', img: '../assets/img/chicken salami pizza.jpg', type: 'nonveg' },
+  { category: 'pizzamania', title: 'GOLDEN CRUNCHY CHICKEN PIZZA BLAST', desc: 'Savor the irresistible crunch of golden chicken paired with sweet corn, onions, and creamy cheese.', price: '₹139', img: '../assets/img/golden chicken crunchy pizz.jpg', type: 'nonveg' },
+  { category: 'pizzamania', title: 'CHICKEN SAUSAGE PIZZA BLAST', desc: 'Hearty chicken sausage and a sprinkle of zesty red paprika on a rich, creamy cheese base.', price: '₹139', img: '../assets/img/chicken sausage pizza.jpg', type: 'nonveg' },
+  { category: 'pizzamania', title: 'BBQ CHICKEN PIZZA BLAST', desc: 'Smoky BBQ chicken, crisp onions, and a spicy kick of jalapeno melt into rich, creamy cheese.', price: '₹139', img: '../assets/img/bbq chicken blast pizza.jpg', type: 'nonveg' },
+  { category: 'pizzamania', title: 'CHICKEN SALAMI PIZZA BLAST', desc: 'Deliciously savory chicken salami meets the fiery bite of jalapenos over a layer of creamy cheese.', price: '₹139', img: '../assets/img/chicken salami pizza.jpg', type: 'nonveg' },
 
  // VEG PIZZA'S
-  { category: 'pizzas', title: 'MARGARITA PIZZA', desc: 'The timeless Italian classic. A generous layer of rich mozzarella cheese over a tangy tomato base.', sizes: { Regular: '₹198', Medium: '₹356', Large: '₹556' }, img: '../assets/img/margherita.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PANEER TIKKA DELIGHT', desc: 'Tender chunks of marinated paneer tikka with crisp onions, green capsicum, and a sprinkle of red paprika.', sizes: { Regular: '₹265', Medium: '₹519', Large: '₹699' }, img: '../assets/img/paneer tikka delight.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'FARM LAND PIZZA', desc: 'A wholesome bounty from the farm, loaded with fresh onions, juicy tomatoes, sweet corn, and crisp capsicum.', sizes: { Regular: '₹239', Medium: '₹468', Large: '₹598' }, img: '../assets/img/farm land pizza.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'TANDOORI VEGGIE FEAST PIZZA', desc: 'A smoky and savory feast of authentic tandoori paneer, fresh onions, tomatoes, and green capsicum.', sizes: { Regular: '₹249', Medium: '₹519', Large: '₹699' }, img: '../assets/img/tandoori veg fiest.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'VEGGIE SUPREME DELIGHT PIZZA', desc: 'The ultimate veggie experience! A delightful mix of colorful capsicums, mushrooms, olives, and red paprika.', sizes: { Regular: '₹249', Medium: '₹519', Large: '₹699' }, img: '../assets/img/veg supreme delight.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PANEER DELIGHT EXPLOSION PIZZA', desc: 'A flavor explosion of spicy masala paneer, fiery jalapenos, colorful capsicums, and zesty Schezwan sauce.', sizes: { Regular: '₹249', Medium: '₹519', Large: '₹699' }, img: '../assets/img/panner delight explosion.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PINEAPPLE PASSION BLAST PIZZA', desc: 'A sweet and savory delight, pairing juicy pineapple with sweet corn, onions, and a hint of red paprika.', sizes: { Regular: '₹249', Medium: '₹519', Large: '₹699' }, img: '../assets/img/pineapple passion blast.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PIZZA FACTORY SLISE SPECIAL PIZZA', desc: 'Our secret signature! A special spicy sauce base topped with onions, red paprika, capsicum, and olives.', sizes: { Regular: '₹279', Medium: '₹559', Large: '₹749' }, img: '../assets/img/pizza factory slise special.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'MARGARITA PIZZA', desc: 'The timeless Italian classic. A generous layer of rich mozzarella cheese over a tangy tomato base.', sizes: { Regular: '₹179', Medium: '₹336', Large: '₹556' }, img: '../assets/img/margherita.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PANEER TIKKA DELIGHT', desc: 'Tender chunks of marinated paneer tikka with crisp onions, green capsicum, and a sprinkle of red paprika.', sizes: { Regular: '₹245', Medium: '₹499', Large: '₹679' }, img: '../assets/img/paneer tikka delight.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'FARM LAND PIZZA', desc: 'A wholesome bounty from the farm, loaded with fresh onions, juicy tomatoes, sweet corn, and crisp capsicum.', sizes: { Regular: '₹219', Medium: '₹448', Large: '₹578' }, img: '../assets/img/farm land pizza.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'TANDOORI VEGGIE FEAST PIZZA', desc: 'A smoky and savory feast of authentic tandoori paneer, fresh onions, tomatoes, and green capsicum.', sizes: { Regular: '₹229', Medium: '₹499', Large: '₹679' }, img: '../assets/img/tandoori veg fiest.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'VEGGIE SUPREME DELIGHT PIZZA', desc: 'The ultimate veggie experience! A delightful mix of colorful capsicums, mushrooms, olives, and red paprika.', sizes: { Regular: '₹229', Medium: '₹499', Large: '₹679' }, img: '../assets/img/veg supreme delight.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PANEER DELIGHT EXPLOSION PIZZA', desc: 'A flavor explosion of spicy masala paneer, fiery jalapenos, colorful capsicums, and zesty Schezwan sauce.', sizes: { Regular: '₹229', Medium: '₹499', Large: '₹679' }, img: '../assets/img/panner delight explosion.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PINEAPPLE PASSION BLAST PIZZA', desc: 'A sweet and savory delight, pairing juicy pineapple with sweet corn, onions, and a hint of red paprika.', sizes: { Regular: '₹229', Medium: '₹499', Large: '₹679' }, img: '../assets/img/pineapple passion blast.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PIZZA FACTORY SLISE SPECIAL PIZZA', desc: 'Our secret signature! A special spicy sauce base topped with onions, red paprika, capsicum, and olives.', sizes: { Regular: '₹259', Medium: '₹539', Large: '₹729' }, img: '../assets/img/pizza factory slise special.jpg', type: 'veg' },
   { category: 'pizzas', title: 'BBQ VEGGIE BONANZA PIZZA', desc: 'A veggie lover\'s dream with a smoky BBQ twist, featuring corn, mushrooms, jalapenos, and onions.', sizes: { Regular: '₹239', Medium: '₹468', Large: '₹599' }, img: '../assets/img/bbq veggie bonaza.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'BABY CORN FIESTA PIZZA', desc: 'A delightful crunch in every bite with tender baby corn, juicy tomatoes, and crisp green capsicum.', sizes: { Regular: '₹259', Medium: '₹498', Large: '₹619' }, img: '../assets/img/baby corn fiesta.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PERI PERI PANEER PARADISE PIZZA', desc: 'A spicy paradise of peri peri paneer, fiery jalapenos, onions, and red capsicum.', sizes: { Regular: '₹279', Medium: '₹559', Large: '₹749' }, img: '../assets/img/peri peri paneer paradise.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PANEER PERFECTION PIZZA', desc: 'Simply perfect! A classic combination of soft paneer, sweet corn, onions, and green capsicum.', sizes: { Regular: '₹239', Medium: '₹468', Large: '₹599' }, img: '../assets/img/paneer perfection.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'MIX VEGGIE MEDLEY PIZZA', desc: 'A vibrant medley of all your favorites: colorful capsicums, corn, tomatoes, jalapenos, and olives.', sizes: { Regular: '₹249', Medium: '₹499', Large: '₹689' }, img: '../assets/img/mixed veg madly.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'PANEER MAKHANI MARVEL PIZZA', desc: 'A marvel of rich, creamy flavors! Makhani paneer with baby corn, red capsicum, onions, and mushrooms.', sizes: { Regular: '₹219', Medium: '₹419', Large: '₹539' }, img: '../assets/img/tandoori twist.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'TANDOORI TWIST PIZZA', desc: 'A delightful twist of smoky tandoori sauce with sweet corn, jalapenos, and colorful capsicums.', sizes: { Regular: '₹249', Medium: '₹499', Large: '₹689' }, img: '../assets/img/tandoori twist.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'FIERY FUSION SURPRISE PIZZA', desc: 'A surprising fusion of heat and flavor, topped with jalapeno sauce, green chillies, and red paprika.', sizes: { Regular: '₹219', Medium: '₹419', Large: '₹539' }, img: '../assets/img/fiery fusion surprise.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'CAPSICUM CORN SENSATION PIZZA', desc: 'A sensational pairing of sweet golden corn and crisp red capsicum, finished with a cool mint sauce.', sizes: { Regular: '₹219', Medium: '₹419', Large: '₹539' }, img: '../assets/img/capsicum and corn sensation.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'CHEESE GOLD CORN PIZZA', desc: 'A simple yet golden classic. Sweet golden corn layered over a generous amount of mozzarella cheese.', sizes: { Regular: '₹219', Medium: '₹419', Large: '₹539' }, img: '../assets/img/cheese gold corn.jpg', type: 'veg' },
-  { category: 'pizzas', title: 'OLIVE PARADISE PIZZA', desc: 'Find your paradise in this savory blend of tangy olives, sweet corn, green capsicum, and red paprika.', sizes: { Regular: '₹258', Medium: '₹499', Large: '₹688' }, img: '../assets/img/olive paradise.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'BABY CORN FIESTA PIZZA', desc: 'A delightful crunch in every bite with tender baby corn, juicy tomatoes, and crisp green capsicum.', sizes: { Regular: '₹239', Medium: '₹478', Large: '₹599' }, img: '../assets/img/baby corn fiesta.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PERI PERI PANEER PARADISE PIZZA', desc: 'A spicy paradise of peri peri paneer, fiery jalapenos, onions, and red capsicum.', sizes: { Regular: '₹259', Medium: '₹539', Large: '₹729' }, img: '../assets/img/peri peri paneer paradise.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PANEER PERFECTION PIZZA', desc: 'Simply perfect! A classic combination of soft paneer, sweet corn, onions, and green capsicum.', sizes: { Regular: '₹219', Medium: '₹448', Large: '₹579' }, img: '../assets/img/paneer perfection.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'MIX VEGGIE MEDLEY PIZZA', desc: 'A vibrant medley of all your favorites: colorful capsicums, corn, tomatoes, jalapenos, and olives.', sizes: { Regular: '₹266', Medium: '₹539', Large: '₹729' }, img: '../assets/img/mixed veg madly.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'PANEER MAKHANI MARVEL PIZZA', desc: 'A marvel of rich, creamy flavors! Makhani paneer with baby corn, red capsicum, onions, and mushrooms.', sizes: { Regular: '₹266', Medium: '₹539', Large: '₹729' }, img: '../assets/img/tandoori twist.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'TANDOORI TWIST PIZZA', desc: 'A delightful twist of smoky tandoori sauce with sweet corn, jalapenos, and colorful capsicums.', sizes: { Regular: '₹219', Medium: '₹449', Large: '₹539' }, img: '../assets/img/tandoori twist.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'FIERY FUSION SURPRISE PIZZA', desc: 'A surprising fusion of heat and flavor, topped with jalapeno sauce, green chillies, and red paprika.', sizes: { Regular: '₹259', Medium: '₹539', Large: '₹729' }, img: '../assets/img/fiery fusion surprise.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'CAPSICUM CORN SENSATION PIZZA', desc: 'A sensational pairing of sweet golden corn and crisp red capsicum, finished with a cool mint sauce.', sizes: { Regular: '₹219', Medium: '₹449', Large: '₹579' }, img: '../assets/img/capsicum and corn sensation.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'CHEESE GOLD CORN PIZZA', desc: 'A simple yet golden classic. Sweet golden corn layered over a generous amount of mozzarella cheese.', sizes: { Regular: '₹219', Medium: '₹449', Large: '₹579' }, img: '../assets/img/cheese gold corn.jpg', type: 'veg' },
+  { category: 'pizzas', title: 'OLIVE PARADISE PIZZA', desc: 'Find your paradise in this savory blend of tangy olives, sweet corn, green capsicum, and red paprika.', sizes: { Regular: '₹266', Medium: '₹539', Large: '₹729' }, img: '../assets/img/olive paradise.jpg', type: 'veg' },
 
   // NON VEG PIZZA'S
-  { category: 'pizzas', title: 'CHICKEN TIKKA MASALA MADNESS', desc: 'Go mad for this classic! Juicy, marinated chicken tikka with onions and capsicum for an authentic taste.', sizes: { Regular: '₹289', Medium: '₹579', Large: '₹759' }, img: '../assets/img/chicken tikka masala madness.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'BBQ CHICKEN BLAST', desc: 'A blast of smoky and tangy flavor with tender BBQ chicken, crisp onions, and a fiery jalapeno kick.', sizes: { Regular: '₹289', Medium: '₹579', Large: '₹759' }, img: '../assets/img/bbq chicken blast.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'SPICY CHICKEN SAUSAGE SURPRISE', desc: 'A deliciously spicy surprise of hearty chicken sausage and zesty red paprika.', sizes: { Regular: '₹289', Medium: '₹579', Large: '₹759' }, img: '../assets/img/spicy chicken sausage.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'SWEET CHILI CHICKEN SENSATION PIZZA', desc: 'A sensational mix of sweet and spicy, featuring tender sweet chili chicken, mushrooms, and capsicum.', sizes: { Regular: '₹305', Medium: '₹609', Large: '₹799' }, img: '../assets/img/sweet chilli chicken sensational.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'CHICKEN SALAMI SENSATION', desc: 'A savory sensation of premium chicken salami paired perfectly with the spicy bite of jalapenos.', sizes: { Regular: '₹289', Medium: '₹579', Large: '₹759' }, img: '../assets/img/chicken salami sensational pizza.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'CHICKEN PEPPERONI PERFECTION', desc: 'The ultimate pepperoni pizza, perfected with generous layers of delicious chicken pepperoni.', sizes: { Regular: '₹329', Medium: '₹639', Large: '₹849' }, img: '../assets/img/chicken peproni perfection.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'CHICKEN TANDOORI TEMPTATION', desc: 'A tempting, smoky delight featuring authentic tandoori chicken, onions, capsicum, and tomatoes.', sizes: { Regular: '₹279', Medium: '₹609', Large: '₹759' }, img: '../assets/img/chicken tandoori temptation.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'PERI PERI CHICKEN EXPLOSION', desc: 'A true flavor explosion of spicy peri peri chicken, crisp onions, green capsicum, and red paprika.', sizes: { Regular: '₹329', Medium: '₹639', Large: '₹849' }, img: '../assets/img/peri peri chicken explosion.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'CHICKEN TIKKA PANEER FUSION', desc: 'The best of both worlds! A unique fusion of juicy chicken tikka and soft, savory paneer.', sizes: { Regular: '₹279', Medium: '₹609', Large: '₹759' }, img: '../assets/img/chicken tikka paneer fussion.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'NON VEG LOADED PIZZA', desc: 'Fully loaded with all the favorites! BBQ chicken, chicken tikka, and chicken pepperoni.', sizes: { Regular: '₹329', Medium: '₹639', Large: '₹849' }, img: '../assets/img/non veg loaded.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'GOLDEN CHICKEN CRUNCH PIZZA', desc: 'Experience the perfect crunch with golden fried chicken pieces, sweet corn, and onions.', sizes: { Regular: '₹279', Medium: '₹609', Large: '₹759' }, img: '../assets/img/golden chicken crunchy pizza.jpg', type: 'nonveg' },
-  { category: 'pizzas', title: 'PIZZA FACTORY SLISE SPECIAL PIZZA', desc: 'Our non-veg signature! Juicy chicken, jalapenos, and corn meet our special spicy sauce.', sizes: { Regular: '₹329', Medium: '₹639', Large: '₹849' }, img: '../assets/img/pizza factory slise chicken special pizza.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'CHICKEN TIKKA MASALA MADNESS', desc: 'Go mad for this classic! Juicy, marinated chicken tikka with onions and capsicum for an authentic taste.', sizes: { Regular: '₹269', Medium: '₹559', Large: '₹739' }, img: '../assets/img/chicken tikka masala madness.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'BBQ CHICKEN BLAST', desc: 'A blast of smoky and tangy flavor with tender BBQ chicken, crisp onions, and a fiery jalapeno kick.', sizes: { Regular: '₹269', Medium: '₹559', Large: '₹739' }, img: '../assets/img/bbq chicken blast.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'SPICY CHICKEN SAUSAGE SURPRISE', desc: 'A deliciously spicy surprise of hearty chicken sausage and zesty red paprika.', sizes: { Regular: '₹269', Medium: '₹559', Large: '₹739' }, img: '../assets/img/spicy chicken sausage.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'SWEET CHILI CHICKEN SENSATION PIZZA', desc: 'A sensational mix of sweet and spicy, featuring tender sweet chili chicken, mushrooms, and capsicum.', sizes: { Regular: '₹285', Medium: '₹589', Large: '₹779' }, img: '../assets/img/sweet chilli chicken sensational.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'CHICKEN SALAMI SENSATION', desc: 'A savory sensation of premium chicken salami paired perfectly with the spicy bite of jalapenos.', sizes: { Regular: '₹269', Medium: '₹559', Large: '₹739' }, img: '../assets/img/chicken salami sensational pizza.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'CHICKEN PEPPERONI PERFECTION', desc: 'The ultimate pepperoni pizza, perfected with generous layers of delicious chicken pepperoni.', sizes: { Regular: '₹285', Medium: '₹589', Large: '₹779' }, img: '../assets/img/chicken peproni perfection.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'CHICKEN TANDOORI TEMPTATION', desc: 'A tempting, smoky delight featuring authentic tandoori chicken, onions, capsicum, and tomatoes.', sizes: { Regular: '₹269', Medium: '₹559', Large: '₹739' }, img: '../assets/img/chicken tandoori temptation.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'PERI PERI CHICKEN EXPLOSION', desc: 'A true flavor explosion of spicy peri peri chicken, crisp onions, green capsicum, and red paprika.', sizes: { Regular: '₹309', Medium: '₹619', Large: '₹829' }, img: '../assets/img/peri peri chicken explosion.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'CHICKEN TIKKA PANEER FUSION', desc: 'The best of both worlds! A unique fusion of juicy chicken tikka and soft, savory paneer.', sizes: { Regular: '₹259', Medium: '₹689', Large: '₹739' }, img: '../assets/img/chicken tikka paneer fussion.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'NON VEG LOADED PIZZA', desc: 'Fully loaded with all the favorites! BBQ chicken, chicken tikka, and chicken pepperoni.', sizes: { Regular: '₹309', Medium: '₹619', Large: '₹829' }, img: '../assets/img/non veg loaded.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'GOLDEN CHICKEN CRUNCH PIZZA', desc: 'Experience the perfect crunch with golden fried chicken pieces, sweet corn, and onions.', sizes: { Regular: '₹259', Medium: '₹589', Large: '₹739' }, img: '../assets/img/golden chicken crunchy pizza.jpg', type: 'nonveg' },
+  { category: 'pizzas', title: 'PIZZA FACTORY SLISE SPECIAL PIZZA', desc: 'Our non-veg signature! Juicy chicken, jalapenos, and corn meet our special spicy sauce.', sizes: { Regular: '₹309', Medium: '₹619', Large: '₹829' }, img: '../assets/img/pizza factory slise chicken special pizza.jpg', type: 'nonveg' },
 
   // PIZZA SLICES
-  { category: 'pizzaslices', title: 'OLIVE PARADISE SLISE PIZZA', desc: 'A perfect slice of paradise with tangy olives, crisp green capsicum, corn, and red paprika.', price: '₹158', img: '../assets/img/placeholder.png', type: 'veg' },
-  { category: 'pizzaslices', title: 'BABY CORN FIESTA SLISE PIZZA', desc: 'Enjoy a fiesta of flavor in a slice, with tender baby corn, tomatoes, and mushrooms.', price: '₹155', img: '../assets/img/baby corn fiesta slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'PINEAPPLE PASSION BLAST SLISE PIZZA', desc: 'A single slice of sweet and savory passion, featuring pineapple, corn, and onion.', price: '₹158', img: '../assets/img/pineapple passion blast slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'CAPSICUM CORN SENSATION SLISE PIZZA', desc: 'A sensational slice of sweet corn and crisp capsicum, drizzled with cool mint sauce.', price: '₹145', img: '../assets/img/capsicum corn sensational slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'FIERY FUSION SURPRISE SLISE PIZZA', desc: 'Experience a fusion of fire and flavor in a slice, topped with our signature jalapeno sauce.', price: '₹158', img: '../assets/img/fiery fusion surprise slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'FARM LAND SLISE PIZZA', desc: 'A wholesome slice of the farm, topped with fresh onion, tomato, corn, and green capsicum.', price: '₹158', img: '../assets/img/farm land slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'BBQ VEGGIE BONANZA SLISE PIZZA', desc: 'Get a bonanza of smoky BBQ flavor on a veggie-packed slice with corn, mushrooms, and jalapenos.', price: '₹158', img: '../assets/img/bbq veg bonaza slise pizza.jpg', type: 'veg' },
-  { category: 'pizzaslices', title: 'GOLDEN CHICKEN CRUNCH SLISE PIZZA', desc: 'Get your crunch on with this slice of golden chicken, sweet corn, and fresh onions.', price: '₹198', img: '../assets/img/golden chicken crunchy slise pizza.jpg', type: 'nonveg' },
-  { category: 'pizzaslices', title: 'SPICY CHICKEN SAUSAGE SLISE SURPRISE PIZZA', desc: 'A surprisingly spicy and savory slice topped with hearty chicken sausage and red paprika.', price: '₹185', img: '../assets/img/spicy chicken sausage slise pizza.jpg', type: 'nonveg' },
-  { category: 'pizzaslices', title: 'CHICKEN PEPPERONI SLISE PERFECTION', desc: 'The perfect slice for pepperoni lovers, loaded with premium chicken pepperoni.', price: '₹198', img: '../assets/img/chicken peproni slise pizza.jpg', type: 'nonveg' },
-  { category: 'pizzaslices', title: 'SWEET CHILI CHICKEN SENSATION SLISE PIZZA', desc: 'A sensational slice of sweet and spicy, with tender sweet chili chicken and fresh veggies.', price: '₹198', img: '../assets/img/sweet chilli chicken slise.jpg', type: 'nonveg' },
-  { category: 'pizzaslices', title: 'PERI PERI CHICKEN EXPLOSION SLISE PIZZA', desc: 'A single slice that packs a fiery punch of peri peri chicken and zesty paprika.', price: '₹185', img: '../assets/img/peri peri chicken explosion slise pizza.jpg', type: 'nonveg' },
+  { category: 'pizzaslices', title: 'OLIVE PARADISE SLISE PIZZA', desc: 'A perfect slice of paradise with tangy olives, crisp green capsicum, corn, and red paprika.', price: '₹139', img: '../assets/img/olive paradise slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'BABY CORN FIESTA SLISE PIZZA', desc: 'Enjoy a fiesta of flavor in a slice, with tender baby corn, tomatoes, and mushrooms.', price: '₹141', img: '../assets/img/baby corn fiesta slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'PINEAPPLE PASSION BLAST SLISE PIZZA', desc: 'A single slice of sweet and savory passion, featuring pineapple, corn, and onion.', price: '₹138', img: '../assets/img/pineapple passion blast slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'CAPSICUM CORN SENSATION SLISE PIZZA', desc: 'A sensational slice of sweet corn and crisp capsicum, drizzled with cool mint sauce.', price: '₹135', img: '../assets/img/capsicum corn sensational slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'FIERY FUSION SURPRISE SLISE PIZZA', desc: 'Experience a fusion of fire and flavor in a slice, topped with our signature jalapeno sauce.', price: '₹139', img: '../assets/img/fiery fusion surprise slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'FARM LAND SLISE PIZZA', desc: 'A wholesome slice of the farm, topped with fresh onion, tomato, corn, and green capsicum.', price: '₹139', img: '../assets/img/farm land slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'BBQ VEGGIE BONANZA SLISE PIZZA', desc: 'Get a bonanza of smoky BBQ flavor on a veggie-packed slice with corn, mushrooms, and jalapenos.', price: '₹138', img: '../assets/img/bbq veg bonaza slise pizza.jpg', type: 'veg' },
+  { category: 'pizzaslices', title: 'GOLDEN CHICKEN CRUNCH SLISE PIZZA', desc: 'Get your crunch on with this slice of golden chicken, sweet corn, and fresh onions.', price: '₹168', img: '../assets/img/golden chicken crunchy slise pizza.jpg', type: 'nonveg' },
+  { category: 'pizzaslices', title: 'SPICY CHICKEN SAUSAGE SLISE SURPRISE PIZZA', desc: 'A surprisingly spicy and savory slice topped with hearty chicken sausage and red paprika.', price: '₹155', img: '../assets/img/spicy chicken sausage slise pizza.jpg', type: 'nonveg' },
+  { category: 'pizzaslices', title: 'CHICKEN PEPPERONI SLISE PERFECTION', desc: 'The perfect slice for pepperoni lovers, loaded with premium chicken pepperoni.', price: '₹169', img: '../assets/img/chicken peproni slise pizza.jpg', type: 'nonveg' },
+  { category: 'pizzaslices', title: 'SWEET CHILI CHICKEN SENSATION SLISE PIZZA', desc: 'A sensational slice of sweet and spicy, with tender sweet chili chicken and fresh veggies.', price: '₹169', img: '../assets/img/sweet chilli chicken slise.jpg', type: 'nonveg' },
+  { category: 'pizzaslices', title: 'PERI PERI CHICKEN EXPLOSION SLISE PIZZA', desc: 'A single slice that packs a fiery punch of peri peri chicken and zesty paprika.', price: '₹165', img: '../assets/img/peri peri chicken explosion slise pizza.jpg', type: 'nonveg' },
 
 // Veg Burgers
-{ category: 'burgers', title: 'Veggie Victory Burger', desc: 'A victorious combination of our delicious veg patty, crisp lettuce, and smooth, creamy mayo.', price: '₹119', img: '../assets/img/veggie victory burger.png', type: 'veg' },
-{ category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Be a hero and take on the heat! A delicious veg patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹129', img: '../assets/img/spicy hero veg burger.png', type: 'veg' },
-{ category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'A stroke of genius! Our veg patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹139', img: '../assets/img/nutty professor veg burger.png', type: 'veg' },
-{ category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'A fiery fajita-spiced veg patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹139', img: '../assets/img/fiery fajita veg burger.png', type: 'veg' },
-{ category: 'burgers', title: 'Nacho Vixen Burger', desc: 'A cunningly delicious burger with a veg patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹149', img: '../assets/img/nacho vixen burger.png', type: 'veg' },
+{ category: 'burgers', title: 'Veggie Victory Burger', desc: 'A victorious combination of our delicious veg patty, crisp lettuce, and smooth, creamy mayo.', price: '₹149', img: '../assets/img/veggie victory burger.png', type: 'veg' },
+{ category: 'burgers', title: 'Spicy Hero Veg Burger', desc: 'Be a hero and take on the heat! A delicious veg patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹189', img: '../assets/img/spicy hero veg burger.png', type: 'veg' },
+{ category: 'burgers', title: 'Nutty Professor Veg Burger', desc: 'A stroke of genius! Our veg patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹199', img: '../assets/img/nutty professor veg burger.png', type: 'veg' },
+{ category: 'burgers', title: 'Fiery Fajita Veg Burger', desc: 'A fiery fajita-spiced veg patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹189', img: '../assets/img/fiery fajita veg burger.png', type: 'veg' },
+{ category: 'burgers', title: 'Nacho Vixen Burger', desc: 'A cunningly delicious burger with a veg patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹219', img: '../assets/img/nacho vixen burger.png', type: 'veg' },
  
 // Non-Veg Burgers
-{ category: 'burgers', title: 'Nonveg Victory Burger', desc: 'A victorious combination of our juicy chicken patty, crisp lettuce, and smooth, creamy mayo.', price: '₹129', img: '../assets/img/nonveg victory burger.png', type: 'nonveg' },
-{ category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Be a hero and take on the heat! A juicy chicken patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹139', img: '../assets/img/spicy hero chicken burger.png', type: 'nonveg' },
-{ category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'A stroke of genius! Our chicken patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹149', img: '../assets/img/nutty professor chicken burger.png', type: 'nonveg' },
-{ category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'A fiery fajita-spiced chicken patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹159', img: '../assets/img/fiery fajita chicken burger.png', type: 'nonveg' },
-{ category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: 'A cunningly delicious burger with a chicken patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹179', img: '../assets/img/nacho vixen chicken burger.png', type: 'nonveg' },
+{ category: 'burgers', title: 'Nonveg Victory Burger', desc: 'A victorious combination of our juicy chicken patty, crisp lettuce, and smooth, creamy mayo.', price: '₹169', img: '../assets/img/nonveg victory burger.png', type: 'nonveg' },
+{ category: 'burgers', title: 'Spicy Hero Chicken Burger', desc: 'Be a hero and take on the heat! A juicy chicken patty with crisp lettuce, mayo, and our signature spicy sauce.', price: '₹199', img: '../assets/img/spicy hero chicken burger.png', type: 'nonveg' },
+{ category: 'burgers', title: 'Nutty Professor Chicken Burger', desc: 'A stroke of genius! Our chicken patty topped with fresh lettuce, onions, and tomatoes, all held together by creamy mayo.', price: '₹209', img: '../assets/img/nutty professor chicken burger.png', type: 'nonveg' },
+{ category: 'burgers', title: 'Fiery Fajita Chicken Burger', desc: 'A fiery fajita-spiced chicken patty with crunchy lettuce, onions, and tomatoes for a taste of the Southwest.', price: '₹209', img: '../assets/img/fiery fajita chicken burger.png', type: 'nonveg' },
+{ category: 'burgers', title: 'Nacho Vixen Chicken Burger', desc: 'A cunningly delicious burger with a chicken patty, crunchy lettuce, crispy nachos, and a special flavored mayo.', price: '₹219', img: '../assets/img/nacho vixen chicken burger.png', type: 'nonveg' },
   
 //pasta
   {category:'Pasta',title:'RED SAUCE PASTA',type:'veg',price:'239', img: '../assets/img/red sause pasta.jpg',},
@@ -783,27 +794,27 @@ const menuData = [
   {category:'Pasta',title:'WHITE CHICKEN SAUCE PASTA',type:'non-veg',price:'299', img: '../assets/img/red sause chicken pasta.jpg',},  
 
   // Veg Sides
-{ category: 'sides', title: 'Veg Nuggets', desc: 'Golden-fried, crispy vegetable nuggets perfect for dipping.', price: '₹89', img: '../assets/img/veg nuggets.jpg', type: 'veg' },
-{ category: 'sides', title: 'Veg Nachos', desc: 'A crunchy pile of classic nachos, perfect for sharing or enjoying solo.', price: '₹179', img: '../assets/img/veg nachos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Potato Wedges', desc: 'Thick-cut potato wedges, seasoned and fried to a perfect golden crisp.', price: '₹99', img: '../assets/img/potato wedges.jpg', type: 'veg' },
-{ category: 'sides', title: 'Fried Veg Momos', desc: 'Delicious vegetable-stuffed momos, fried to a perfect golden-brown crisp.', price: '₹80', img: '../assets/img/veg fried momos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Salted French Fries', desc: 'The timeless classic—perfectly crispy, golden french fries, lightly salted.', price: '₹85', img: '../assets/img/salted french fries.jpg', type: 'veg' },
-{ category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'An irresistible classic! Crispy nachos generously topped with warm, melted cheese.', price: '₹199', img: '../assets/img/classic veg cheese nachos.jpg', type: 'veg' },
-{ category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Bite-sized potato pops bursting with a zesty chili and garlic flavor.', price: '₹89', img: '../assets/img/chilli garlic potato pops.jpg', type: 'veg' },
-{ category: 'sides', title: 'Peri Peri French Fries', desc: 'Our classic golden fries tossed in a fiery and tangy peri peri seasoning.', price: '₹99', img: '../assets/img/peri peri french fries.jpg', type: 'veg' },
+{ category: 'sides', title: 'Veg Nuggets', desc: 'Golden-fried, crispy vegetable nuggets perfect for dipping.', price: '₹139', img: '../assets/img/veg nuggets.jpg', type: 'veg' },
+{ category: 'sides', title: 'Veg Nachos', desc: 'A crunchy pile of classic nachos, perfect for sharing or enjoying solo.', price: '₹209', img: '../assets/img/veg nachos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Potato Wedges', desc: 'Thick-cut potato wedges, seasoned and fried to a perfect golden crisp.', price: '₹139', img: '../assets/img/potato wedges.jpg', type: 'veg' },
+{ category: 'sides', title: 'Fried Veg Momos', desc: 'Delicious vegetable-stuffed momos, fried to a perfect golden-brown crisp.', price: '₹139', img: '../assets/img/veg fried momos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Salted French Fries', desc: 'The timeless classic—perfectly crispy, golden french fries, lightly salted.', price: '₹139', img: '../assets/img/salted french fries.jpg', type: 'veg' },
+{ category: 'sides', title: 'Classic Veg Cheese Nachos', desc: 'An irresistible classic! Crispy nachos generously topped with warm, melted cheese.', price: '₹259', img: '../assets/img/classic veg cheese nachos.jpg', type: 'veg' },
+{ category: 'sides', title: 'Chilli Garlic Potato Pops', desc: 'Bite-sized potato pops bursting with a zesty chili and garlic flavor.', price: '₹139', img: '../assets/img/chilli garlic potato pops.jpg', type: 'veg' },
+{ category: 'sides', title: 'Peri Peri French Fries', desc: 'Our classic golden fries tossed in a fiery and tangy peri peri seasoning.', price: '₹159', img: '../assets/img/french fries.jpg', type: 'veg' },
 
 // Non-Veg Sides
-{ category: 'sides', title: 'Chicken Nuggets', desc: 'Tender, juicy, all-white chicken nuggets fried to a perfect golden crisp.', price: '₹119', img: '../assets/img/chicken nuggets.jpg', type: 'nonveg' },
-{ category: 'sides', title: 'Chicken Wings', desc: 'Classic, spicy chicken wings, tossed in a fiery sauce for the perfect kick.', price: '₹99', img: '../assets/img/chicken wings.jpg', type: 'nonveg' },
-{ category: 'sides', title: 'Fried Chicken Momos', desc: 'Savory chicken-stuffed momos, fried to a delicious golden-brown perfection.', price: '₹99', img: '../assets/img/fried chicken momos.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Chicken Nuggets', desc: 'Tender, juicy, all-white chicken nuggets fried to a perfect golden crisp.', price: '₹149', img: '../assets/img/chicken nuggets.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Chicken Wings', desc: 'Classic, spicy chicken wings, tossed in a fiery sauce for the perfect kick.', price: '₹198', img: '../assets/img/chicken wings.jpg', type: 'nonveg' },
+{ category: 'sides', title: 'Fried Chicken Momos', desc: 'Savory chicken-stuffed momos, fried to a delicious golden-brown perfection.', price: '₹169', img: '../assets/img/fried chicken momos.jpg', type: 'nonveg' },
   
-  // BREADS
-  { category: 'breads', title: 'PLAIN GARLIC BREAD (4 pieces)', desc: 'Warm and toasty bread brushed with a rich garlic butter glaze. Comes in 4 pieces.', price: '₹139', img: '../assets/img/plain garlic bread.jpg', type: 'veg' },
+// BREADS
+{ category: 'breads', title: 'PLAIN GARLIC BREAD (4 pieces)', desc: 'Warm and toasty bread brushed with a rich garlic butter glaze. Comes in 4 pieces.', price: '₹139', img: '../assets/img/plain garlic bread.jpg', type: 'veg' },
 { category: 'breads', title: 'CHICKEN CHEESE GARLIC BREAD (4 pieces)', desc: 'Our savory garlic bread loaded with juicy chicken and melted mozzarella. Comes in 4 pieces.', price: '₹209', img: '../assets/img/placeholder.png', type: 'nonveg' },
 { category: 'breads', title: 'CHEESE GARLIC BREAD (4 pieces)', desc: 'The ultimate comfort food—warm garlic bread smothered in melted mozzarella cheese. Comes in 4 pieces.', price: '₹179', img: '../assets/img/cheese garlic bread.jpg', type: 'veg' },
 { category: 'breads', title: 'CORN CHEESE GARLIC BREAD (4 pieces)', desc: 'A delightful twist! Toasty garlic bread topped with sweet corn and melted cheese. Comes in 4 pieces.', price: '₹198', img: '../assets/img/corn cheese garlic bread.jpg', type: 'veg' },
   
-  // DESSERTS
+// DESSERTS
 { category: 'desserts', title: 'CUSTARD FRUIT SALAD', desc: 'A creamy and refreshing delight, featuring a medley of fresh seasonal fruits in a rich custard.', price: '₹198', img: '../assets/img/custered fruit salad.jpg', type: 'veg' },
 { category: 'desserts', title: 'CHOCO LAVA CAKE', desc: 'A decadent chocolate cake with a warm, gooey, molten chocolate center. An eruption of flavor!', price: '₹109', img: '../assets/img/choco lava cake.jpg', type: 'veg' },
 { category: 'desserts', title: 'SIZZLING BROWNIE', desc: 'A decadent chocolate cake with a warm, gooey, molten chocolate center. An eruption of flavor!', price: '₹109', img: '../assets/img/sizzeling brownie.jpg', type: 'veg' },
@@ -824,7 +835,7 @@ const menuData = [
 { category: 'mocktails', title: 'STRAWBERRY SEASON MOCKTAIL', desc: 'Enjoy the sweet taste of the season with this mocktail, brimming with fresh strawberry goodness.', price: '₹179', img: '../assets/img/strawbery shake.jpg', type: 'veg' },
 
   
-  // Beverages
+// Beverages
 { category: 'beverages', title: 'BELGIUM DARK CHOCOLATE THICK SHAKE', desc: 'Indulge in pure decadence with this incredibly rich and creamy shake made from fine Belgium dark chocolate.', price: '₹259', img: '../assets/img/belgium dark chocolate thick milk.jpg', type: 'veg' },
 { category: 'beverages', title: 'BELGIUM DARK CHOCOLATE MILK SHAKE', desc: 'A classic, smooth milkshake blended with the luxurious taste of fine Belgium dark chocolate.', price: '₹229', img: '../assets/img/belgium dark chocolate thick milk.jpg', type: 'veg' },
 { category: 'beverages', title: 'OREO COFFEE THICK SHAKE', desc: 'The perfect pick-me-up! A thick, creamy blend of real Oreo cookies and rich coffee.', price: '₹249', img: '../assets/img/oreo coffee thick milk shake.jpg', type: 'veg' },
@@ -838,7 +849,7 @@ const menuData = [
 { category: 'beverages', title: 'COLD COFFEE', desc: 'The perfect classic—a smooth, creamy, and refreshing cold coffee to brighten your day.', price: '₹219', img: '../assets/img/cold coffee thick milk shake.jpg', type: 'veg' },
 { category: 'beverages', title: 'VANILLA COLD COFFEE', desc: 'A creamy twist on the classic, with a smooth vanilla flavor blended into rich cold coffee.', price: '₹229', img: '../assets/img/cold coffee thick milk shake.jpg', type: 'veg' },
   
-  // NATURAL ICECREAMS
+// NATURAL ICECREAMS
 { category: 'icecreams', title: 'MANGO ICECREAM', desc: 'Experience the sweet, luscious taste of real mangoes in this smooth and creamy natural ice cream.', price: '₹119', img: '../assets/img/natural mango ice cream.jpg', type: 'veg' },
 { category: 'icecreams', title: 'SITAPHAL ICECREAM', desc: 'A creamy, delightful treat made with the unique, sweet flavor of real Sitaphal (Custard Apple).', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
 { category: 'icecreams', title: 'TENDER COCONUT ICECREAM', desc: 'A taste of the tropics! Refreshing and creamy ice cream made with real tender coconut pieces.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
@@ -852,42 +863,117 @@ const menuData = [
 { category: 'icecreams', title: 'KESAR PISTA ICECREAM', desc: 'A royal treat combining the aromatic flavor of Kesar (saffron) with the nutty crunch of pistachios.', price: '₹119', img: '../assets/img/natural kisara pista.jpg', type: 'veg' },
 { category: 'icecreams', title: 'BLACKCURRANT ICECREAM', desc: 'A sweet and tangy burst of flavor, made with real, juicy blackcurrants.', price: '₹119', img: '../assets/img/placeholder.png', type: 'veg' },
 { category: 'icecreams', title: 'CHOCO CHIPS ICECREAM', desc: 'A delightful classic for all ages, creamy vanilla ice cream loaded with crunchy chocolate chips.', price: '₹119', img: '../assets/img/natural choco chips ice cream.jpg', type: 'veg' },
+
+
+// VEG & NON VEG PIZZA BLAST COMBOS (4 IN 1)
+{ category: 'pizza-blast-combos', title: 'ONION, CAPSIUM & ONION, JALAPENO & CORN, PINEAPPLE BLAST', desc: '4-in-1 Veg combo featuring flavorful veggie toppings with pineapple blast.', price: '₹436', img: '../assets/img/pizza-blast-1.jpg', type: 'veg' },
+{ category: 'pizza-blast-combos', title: 'MUSHROOM & REP PAPRIKA, CORN, OLIVE & ONION, FARMLAND', desc: '4-in-1 Veg combo loaded with mushrooms, corn, olives, and onions.', price: '₹446', img: '../assets/img/pizza-blast-2.jpg', type: 'veg' },
+{ category: 'pizza-blast-combos', title: 'GOLDEN CRUNCHY CHICKEN, BBQ CHICKEN, CHICKEN SALAMI, CHICKEN SAUSAGE PIZZA', desc: '4-in-1 Non-Veg combo with golden crunchy chicken, BBQ, salami, and sausage.', price: '₹536', img: '../assets/img/pizza-blast-3.jpg', type: 'non-veg' },
+
+// VEG PIZZA COMBOS
+{ category: 'veg-pizza-combos', title: 'TANDOORI VEGGIE FIESTA + FARMLAND PIZZA', desc: 'Mozzarella cheese, onion, tomato, green capsicum, tandoori paneer & farmland combo.', price: 'Regular ₹428 | Medium ₹917', img: '../assets/img/veg-pizza-1.jpg', type: 'veg' },
+{ category: 'veg-pizza-combos', title: 'CHEESE GOLD CORN PIZZA + OLIVE PARADISE PIZZA', desc: 'Golden corn, olives, red paprika, and green capsicum toppings.', price: 'Regular ₹465 | Medium ₹958', img: '../assets/img/veg-pizza-2.jpg', type: 'veg' },
+{ category: 'veg-pizza-combos', title: 'PANEER MAKHANI PIZZA + MARGHERITA PIZZA', desc: 'Makhani paneer with baby corn and classic cheese Margherita.', price: 'Regular ₹424 | Medium ₹845', img: '../assets/img/veg-pizza-3.jpg', type: 'veg' },
+{ category: 'veg-pizza-combos', title: 'MIXED VEG MADLY PIZZA + BBQ VEG BONANZA PIZZA', desc: 'Loaded with veggies, olives, jalapeno, and BBQ flavor.', price: 'Regular ₹465 | Medium ₹957', img: '../assets/img/veg-pizza-4.jpg', type: 'veg' },
+{ category: 'veg-pizza-combos', title: 'FIERY FUSION SURPRISE PIZZA + PANEER PERFECTION PIZZA', desc: 'Red paprika, green chilli, and jalapeno sauce with cheesy paneer combo.', price: 'Regular ₹458 | Medium ₹957', img: '../assets/img/veg-pizza-5.jpg', type: 'veg' },
+
+// NON VEG PIZZA COMBOS
+{ category: 'nonveg-pizza-combos', title: 'CHICKEN TIKKA MASALA MADNESS + CHICKEN TANDOORI TEMPTATION', desc: 'Chicken tikka, onion, tomato & capsicum loaded duo.', price: 'Regular ₹508 | Medium ₹1098', img: '../assets/img/nonveg-pizza-1.jpg', type: 'non-veg' },
+{ category: 'nonveg-pizza-combos', title: 'SWEET CHILLI CHICKEN + SPICY CHICKEN SAUSAGE PIZZA', desc: 'Sweet chilli chicken with sausage & paprika.', price: 'Regular ₹534 | Medium ₹1098', img: '../assets/img/nonveg-pizza-2.jpg', type: 'non-veg' },
+{ category: 'nonveg-pizza-combos', title: 'GOLDEN CHICKEN CRUNCHY + PERI PERI CHICKEN EXPLOSION', desc: 'Crunchy chicken, peri peri spice, and red paprika topping.', price: 'Regular ₹548 | Medium ₹1128', img: '../assets/img/nonveg-pizza-3.jpg', type: 'non-veg' },
+{ category: 'nonveg-pizza-combos', title: 'NON VEG LOADED + BBQ CHICKEN BLAST PIZZA', desc: 'Chicken tikka, BBQ, pepperoni, and jalapeno.', price: 'Regular ₹558 | Medium ₹1128', img: '../assets/img/nonveg-pizza-4.jpg', type: 'non-veg' },
+{ category: 'nonveg-pizza-combos', title: 'CHICKEN PEPPERONI PERFECTION + CHICKEN TIKKA PANEER FUSION', desc: 'Pepperoni and tikka paneer on cheesy crust.', price: 'Regular ₹548 | Medium ₹1158', img: '../assets/img/nonveg-pizza-5.jpg', type: 'non-veg' },
+
+// MIXED VEG & NON VEG PIZZA COMBOS
+{ category: 'mixed-pizza-combos', title: 'PANEER TIKKA DELIGHT + CHICKEN TANDOORI TEMPTATION', desc: 'Paneer tikka and tandoori chicken combo.', price: 'Regular ₹484 | Medium ₹1038', img: '../assets/img/mixed-pizza-1.jpg', type: 'mixed' },
+{ category: 'mixed-pizza-combos', title: 'CHEESE GOLD CORN + CHICKEN SALAMI SENSATION', desc: 'Cheesy corn and chicken salami jalapeno pizza combo.', price: 'Regular ₹468 | Medium ₹958', img: '../assets/img/mixed-pizza-2.jpg', type: 'mixed' },
+{ category: 'mixed-pizza-combos', title: 'PINEAPPLE PASSION BLAST + BBQ CHICKEN BLAST', desc: 'Pineapple, corn, red paprika with BBQ chicken.', price: 'Regular ₹478 | Medium ₹999', img: '../assets/img/mixed-pizza-3.jpg', type: 'mixed' },
+{ category: 'mixed-pizza-combos', title: 'FARM LAND + NON VEG LOADED', desc: 'Veg farmland and loaded chicken pizza combo.', price: 'Regular ₹508 | Medium ₹1017', img: '../assets/img/mixed-pizza-4.jpg', type: 'mixed' },
+{ category: 'mixed-pizza-combos', title: 'OLIVE PARADISE + CHICKEN PEPPERONI PERFECTION', desc: 'Olives, corn, red paprika, and chicken pepperoni.', price: 'Regular ₹555 | Medium ₹1099', img: '../assets/img/mixed-pizza-5.jpg', type: 'mixed' },
+{ category: 'mixed-pizza-combos', title: 'TANDOORI VEG FIESTA + PERI PERI CHICKEN EXPLOSION', desc: 'Tandoori paneer and spicy peri peri chicken pizza combo.', price: 'Regular ₹518 | Medium ₹1068', img: '../assets/img/mixed-pizza-6.jpg', type: 'mixed' },
+
+// VEG & NON VEG SLICE MIXED COMBOS
+{ category: 'slice-mixed-combos', title: 'FARM LAND SLICE + PERI PERI CHICKEN EXPLOSION SLICE', desc: 'Combo with Thums Up (250ml).', price: '₹289', img: '../assets/img/slice-combo-1.jpg', type: 'mixed' },
+{ category: 'slice-mixed-combos', title: 'FIERY FUSION SURPRISE SLICE + FRENCH FRIES + THUMSUP (250ml)', desc: 'Crispy fries and drink with pizza slice.', price: '₹281', img: '../assets/img/slice-combo-2.jpg', type: 'mixed' },
+{ category: 'slice-mixed-combos', title: 'GOLDEN CHICKEN CRUNCH SLICE + SPICY HERO VEG BURGER + THUMSUP (250ml)', desc: 'Pizza slice, burger, and drink combo.', price: '₹381', img: '../assets/img/slice-combo-3.jpg', type: 'mixed' },
+{ category: 'slice-mixed-combos', title: 'BBQ VEGGIE BONANZA SLICE + CHOCO LAVA CAKE + BLUE ICED MOJITO', desc: 'Dessert and drink combo with pizza slice.', price: '₹379', img: '../assets/img/slice-combo-4.jpg', type: 'mixed' },
+{ category: 'slice-mixed-combos', title: 'CAPSICUM CORN SENSATION SLICE + GARLIC BREAD (4 PCS) + STRAWBERRY MOJITO', desc: 'Garlic bread and refreshing mojito combo.', price: '₹395', img: '../assets/img/slice-combo-5.jpg', type: 'veg' },
+{ category: 'slice-mixed-combos', title: 'SWEET CHILLI CHICKEN SLICE + CHICKEN NUGGETS + THUMSUP (250ml)', desc: 'Chicken slice combo with nuggets and drink.', price: '₹355', img: '../assets/img/slice-combo-6.jpg', type: 'non-veg' },
+{ category: 'slice-mixed-combos', title: 'CHEESE GOLD CORN SLICE + PERI PERI FRIES + THUMSUP (250ml)', desc: 'Cheesy corn slice combo with fries and drink.', price: '₹289', img: '../assets/img/slice-combo-7.jpg', type: 'veg' },
+{ category: 'slice-mixed-combos', title: 'CHICKEN PEPPERONI SLICE + CHILLI GARLIC POTATO POPS (12 PCS) + THUMSUP (250ml)', desc: 'Pepperoni slice combo with potato pops and drink.', price: '₹321', img: '../assets/img/slice-combo-8.jpg', type: 'non-veg' },
+
+
+// BURGER COMBOS
+{ category: 'burger-combos', title: 'FIERY FAJITA VEG BURGER', desc: 'Delicious veg patty and crunchy lettuce and jalapenos with fiery sauce & Watermelon Mocktail.', price: '₹318', img: '../assets/img/fiery fajita veg burger.jpg', type: 'veg' },
+{ category: 'burger-combos', title: 'NUTTY PROFESSOR CHICKEN BURGER', desc: 'Delicious chicken patty and crunchy lettuce, onion, and tomato with mayo & Salted French Fries and ThumsUp (250ml).', price: '₹374', img: '../assets/img/nutty professor chicken burger.jpg', type: 'nonveg' },
+{ category: 'burger-combos', title: 'SPICY HERO CHICKEN BURGER', desc: 'Delicious chicken patty and crunchy lettuce and creamy mayo with spicy sauce & Virgin Mojito.', price: '₹334', img: '../assets/img/spicy hero chicken burger.jpg', type: 'nonveg' },
+{ category: 'burger-combos', title: 'NACHO VIXEN VEG BURGER', desc: 'Delicious veg patty, crunchy lettuce and crispy nachos with flavored mayo & Chicken Nuggets and ThumsUp (250ml).', price: '₹438', img: '../assets/img/nacho vixen veg burger.jpg', type: 'veg' },
+{ category: 'burger-combos', title: 'FIERY FAJITA CHICKEN BURGER', desc: 'Delicious chicken patty and crunchy lettuce and jalapenos with fiery sauce & Green Apple Mojito.', price: '₹358', img: '../assets/img/fiery fajita chicken burger.jpg', type: 'nonveg' },
+
+// SIDES COMBOS
+{ category: 'sides-combos', title: 'SALTED FRENCH FRIES, CHICKEN WINGS (3 pieces) AND VIRGIN MOJITO', desc: 'Crispy salted french fries paired with juicy chicken wings and a refreshing virgin mojito.', price: '₹466', img: '../assets/img/salted french fries chicken wings virgin mojito.jpg', type: 'nonveg' },
+{ category: 'sides-combos', title: 'CHICKEN NUGGETS (6 pieces) AND FRIED VEG MOMO, THUMBSUP (250ml)', desc: 'Crispy chicken nuggets and fried veg momos served with a chilled Thums Up (250ml).', price: '₹318', img: '../assets/img/chicken nuggets fried veg momo.jpg', type: 'nonveg' },
+{ category: 'sides-combos', title: 'PERI PERI FRENCH FRIES AND VEG NUGGETS (7 pieces), BLUE ICED MOCKTAIL', desc: 'Zesty peri peri fries and crunchy veg nuggets served with a cool blue iced mocktail.', price: '₹467', img: '../assets/img/peri peri french fries veg nuggets.jpg', type: 'veg' },
+{ category: 'sides-combos', title: 'POTATO WEDGES AND CHOCO LAVA CAKE AND GREEN APPLE MOJITO', desc: 'Golden potato wedges with rich choco lava cake and a refreshing green apple mojito.', price: '₹377', img: '../assets/img/potato wedges choco lava cake green apple mojito.jpg', type: 'veg' },
+{ category: 'sides-combos', title: 'PERI PERI FRENCH FRIES AND VEG NACHOS, THUMBSUP', desc: 'Spicy peri peri fries with crunchy veg nachos, served with Thums Up.', price: '₹408', img: '../assets/img/peri peri fries veg nachos.jpg', type: 'veg' },
+{ category: 'sides-combos', title: 'CHICKEN NUGGETS (6 pieces), FRIED CHICKEN MOMOS (6 pieces), GREEN APPLE MOJITO', desc: 'Juicy chicken nuggets and fried chicken momos paired with a refreshing green apple mojito.', price: '₹487', img: '../assets/img/chicken nuggets fried chicken momo green apple mojito.jpg', type: 'nonveg' },
+{ category: 'sides-combos', title: 'CLASSIC VEG CHEESE NACHOS & FRIED VEG MOMOS (6 pieces), VIRGIN MOJITO', desc: 'Classic cheesy nachos and fried veg momos paired with a refreshing virgin mojito.', price: '₹537', img: '../assets/img/veg cheese nachos fried veg momo virgin mojito.jpg', type: 'veg' },
+{ category: 'sides-combos', title: 'CHEESE GARLIC BREAD (4 pieces) AND FRIED CHICKEN MOMO (6 pieces) WITH THUMBSUP', desc: 'Cheesy garlic bread and crispy fried chicken momos served with Thums Up.', price: '₹338', img: '../assets/img/cheese garlic bread fried chicken momo.jpg', type: 'nonveg' },
+{ category: 'sides-combos', title: 'PLAIN GARLIC BREAD (4 pieces) AND CHICKEN WINGS (3 pieces) WITH WATERMELON MOJITO', desc: 'Warm garlic bread with crispy chicken wings served alongside a watermelon mojito.', price: '₹456', img: '../assets/img/plain garlic bread chicken wings watermelon mojito.jpg', type: 'nonveg' },
+
+// CUSTOMISED MILK SHAKE COMBOS
+{ category: 'milkshake-combos', title: 'FAMILY FIZZ FIESTA - 5 PACK MILK SHAKE COMBOS', desc: 'Includes: Belgium Dark Chocolate Milk Shake, Oreo Coffee Milk Shake, Strawberry Milk Shake, Oreo Choco Chips Milk Shake, King of Mango Milk Shake, Cold Coffee, and Chocolate Cold Coffee.', price: '₹999', img: '../assets/img/family fizz fiesta milkshake combo.jpg', type: 'veg' },
+{ category: 'milkshake-combos', title: 'TRIPLE TREAT - 3 PACK MILK SHAKE COMBOS', desc: 'Includes: Belgium Dark Chocolate Milk Shake, Oreo Coffee Milk Shake, Strawberry Milk Shake, Oreo Choco Chips Milk Shake, King of Mango Milk Shake, Cold Coffee, and Chocolate Cold Coffee.', price: '₹569', img: '../assets/img/triple treat milkshake combo.jpg', type: 'veg' },
+{ category: 'milkshake-combos', title: 'COUPLE TREAT - 2 PACK MILK SHAKE COMBOS', desc: 'Includes: Belgium Dark Chocolate Milk Shake, Oreo Coffee Milk Shake, Strawberry Milk Shake, Oreo Choco Chips Milk Shake, King of Mango Milk Shake, Cold Coffee, and Chocolate Cold Coffee.', price: '₹409', img: '../assets/img/couple treat milkshake combo.jpg', type: 'veg' },
+
+// CUSTOMISED MOJITO COMBOS
+{ category: 'mojito-combos', title: 'COOL MINT CARNIVAL - MOJITO 5 FAMILY PACK', desc: 'Includes: Blue Iced Mojito, Strawberry Season Mojito, Verity Watermelon Mojito, Green Apple Grace Mojito, Virgin Mojito.', price: '₹749', img: '../assets/img/cool mint carnival mojito combo.jpg', type: 'veg' },
+{ category: 'mojito-combos', title: 'TRIPLE MOJITO TREAT - COOL & REFRESHING FAMILY PACK', desc: 'Includes: Blue Iced Mojito, Strawberry Season Mojito, Verity Watermelon Mojito, Green Apple Grace Mojito, Virgin Mojito.', price: '₹457', img: '../assets/img/triple mojito treat combo.jpg', type: 'veg' },
+
+// CUSTOMISED MOCKTAILS COMBOS
+{ category: 'mocktail-combos', title: 'MOCKTAIL MAGIC - FAMILY FIZZ FIESTA (5 PACK)', desc: 'Includes: Verity Watermelon Mocktail, Green Apple Grace Mojito, Virgin Mocktail, Blue Iced Mocktail, Strawberry Season Mocktail.', price: '₹849', img: '../assets/img/mocktail magic family fizz fiesta.jpg', type: 'veg' },
+{ category: 'mocktail-combos', title: 'MOCKTAIL MOMENTS - FAMILY FIZZ FIESTA (3 PACK)', desc: 'Includes: Verity Watermelon Mocktail, Green Apple Grace Mojito, Virgin Mocktail, Blue Iced Mocktail, Strawberry Season Mocktail.', price: '₹649', img: '../assets/img/mocktail moments family fizz fiesta.jpg', type: 'veg' },
+
+// DESSERTS COMBOS
+{ category: 'desserts-combos', title: 'CUSTARD FRUIT SALAD COMBO - 5 PACK', desc: 'A delightful combo of creamy custard with mixed fruits, perfect for sharing with family and friends.', price: '₹899', img: '../assets/img/custard fruit salad combo 5 pack.jpg', type: 'veg' },
+{ category: 'desserts-combos', title: 'CUSTARD FRUIT SALAD COMBO - 3 PACK', desc: 'A refreshing blend of custard and fruits served in a 3-pack combo for a perfect sweet treat.', price: '₹534', img: '../assets/img/custard fruit salad combo 3 pack.jpg', type: 'veg' },
+
   
   // More Combos
-  { category: 'combos', title: 'Margarita Combo', desc: 'Margarita Pizza + Salted French Fries + Green Apple Mojito', price: '₹319', img: '', type: 'veg' },
-  { category: 'combos', title: 'Pineapple Passion Combo', desc: 'Pineapple Passion Blast Slice Pizza + Potato Wedges + Virgin Mojito', price: '₹327', img: '', type: 'veg' },
-  { category: 'combos', title: 'Paneer Delight Explosion Combo', desc: 'Paneer Delight Explosion Pizza + Veggie Victory Burger + Strawberry Season Mojito', price: '₹373', img: '', type: 'veg' },
-  { category: 'combos', title: 'Chicken Tikka Masala Combo', desc: 'Chicken Tikka Masala Madness Pizza + Peri Peri French Fries + Thums Up', price: '₹298', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'BBQ Chicken Blast Combo', desc: 'BBQ Chicken Blast Pizza + Potato Veg Nuggets + Virgin Mojito', price: '₹347', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Peri Peri Chicken Combo', desc: 'Peri Peri Chicken Explosion + Chicken Wings (3 Pieces) + Watermelon Mojito', price: '₹373', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Sweet Chilli Chicken Combo', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Green Apple Mojito', price: '₹434', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Chicken Salami Sensation Combo', desc: 'Chicken Salami Sensation Pizza + Jalapeno', price: '₹199', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Mixed Slice Combo', desc: 'Farm Land Slice + Peri Peri Chicken Slice Pizza', price: '₹294', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Fiery Fusion Combo', desc: 'Fiery Fusion Surprise Slice Pizza + Salted French Fries + Thums Up', price: '₹230', img: '', type: 'veg' },
-  { category: 'combos', title: 'Golden Crunch & Spicy Hero Combo', desc: 'Golden Chicken Crunch Slice Pizza + Spicy Hero Veg Burger', price: '₹278', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'BBQ Veggie Slice & Dessert Combo', desc: 'BBQ Veggie Bonanza Slice Pizza + Choco Lava Cake + Blue Iced Mojito', price: '₹279', img: '', type: 'veg' },
-  { category: 'combos', title: 'Capsicum Corn Combo', desc: 'Capsicum Corn Sensation Slice Pizza + Garlic Bread + Strawberry Mojito', price: '₹290', img: '', type: 'veg' },
-  { category: 'combos', title: 'Sweet Chilli Chicken Combo 2', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Thums Up', price: '₹289', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Cheese Corn & Peri Fries Combo', desc: 'Cheese Gold Corn Slice + Peri Peri Fries + Thums Up', price: '₹244', img: '', type: 'veg' },
-  { category: 'combos', title: 'Chicken Pepperoni Combo', desc: 'Chicken Pepperoni Slice Perfection + Chilli Garlic Potato Pops + Thums Up', price: '₹313', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Fiery Fajita Veg Combo', desc: 'Fiery Fajita Veg Burger + Watermelon Mocktail', price: '₹208', img: '', type: 'veg' },
-  { category: 'combos', title: 'Nutty Professor Chicken Combo', desc: 'Nutty Professor Chicken Burger + Salted French Fries + Thums Up', price: '₹234', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Spicy Hero Chicken Combo', desc: 'Spicy Hero Chicken Burger + Virgin Mojito', price: '₹189', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Nacho Vixen Combo', desc: 'Nacho Vixen Burger + Chicken Nuggets + Thums Up', price: '₹299', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Fiery Fajita Chicken Combo', desc: 'Fiery Fajita Chicken Burger + Green Apple Mojito', price: '₹224', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Fries & Wings Combo', desc: 'Salted French Fries + Chicken Wings + Virgin Mojito', price: '₹249', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Nuggets & Momos Combo', desc: 'Chicken Nuggets + Fried Veg Momos + Thums Up', price: '₹199', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Peri Fries & Nuggets Combo', desc: 'Peri Peri Fries + Veg Nuggets + Blue Iced Mocktail', price: '₹257', img: '', type: 'veg' },
-  { category: 'combos', title: 'Wedges & Cake Combo', desc: 'Potato Wedges + Choco Lava Cake + Green Apple Mojito', price: '₹239', img: '', type: 'veg' },
-  { category: 'combos', title: 'Peri Fries & Nachos Combo', desc: 'Peri Peri Fries + Veg Nachos + Thums Up', price: '₹278', img: '', type: 'veg' },
-  { category: 'combos', title: 'Shedard Chicken Nachos Combo', desc: 'Shedard Chicken Cheese Nachos + Fried Chicken Momos + Green Apple Mojito', price: '₹409', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Classic Veg Nachos Combo', desc: 'Classic Veg Cheese Nachos + Fried Veg Momos + Virgin Mojito', price: '₹339', img: '', type: 'veg' },
-  { category: 'combos', title: 'Garlic Bread & Chicken Momos Combo', desc: 'Cheese Garlic Bread + Fried Chicken Momos + Thums Up', price: '₹219', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Garlic Bread & Chicken Nachos Combo', desc: 'Plain Garlic Bread + Shedard Chicken Nachos + Watermelon Mojito', price: '₹264', img: '', type: 'nonveg' },
-  { category: 'combos', title: 'Cold Coffee & Shake Combo', desc: 'Cold Coffee + Belgium Chocolate Shake', price: '₹269', img: '', type: 'veg' },
-  { category: 'combos', title: 'Mango & Oreo Combo', desc: 'King of Mango Milkshake + Oreo Choco Chips Shake', price: '₹258', img: '', type: 'veg' },
-  { category: 'combos', title: 'Strawberry & Chocolate Combo', desc: 'Strawberry Milkshake + Chocolate Cold Coffee', price: '₹258', img: '', type: 'veg' },
-  { category: 'combos', title: 'Oreo Coffee Combo', desc: 'Oreo Coffee Shake + Cold Coffee', price: '₹268', img: '', type: 'veg' }
+  // { category: 'combos', title: 'Margarita Combo', desc: 'Margarita Pizza + Salted French Fries + Green Apple Mojito', price: '₹319', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Pineapple Passion Combo', desc: 'Pineapple Passion Blast Slice Pizza + Potato Wedges + Virgin Mojito', price: '₹327', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Paneer Delight Explosion Combo', desc: 'Paneer Delight Explosion Pizza + Veggie Victory Burger + Strawberry Season Mojito', price: '₹373', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Chicken Tikka Masala Combo', desc: 'Chicken Tikka Masala Madness Pizza + Peri Peri French Fries + Thums Up', price: '₹298', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'BBQ Chicken Blast Combo', desc: 'BBQ Chicken Blast Pizza + Potato Veg Nuggets + Virgin Mojito', price: '₹347', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Peri Peri Chicken Combo', desc: 'Peri Peri Chicken Explosion + Chicken Wings (3 Pieces) + Watermelon Mojito', price: '₹373', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Sweet Chilli Chicken Combo', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Green Apple Mojito', price: '₹434', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Chicken Salami Sensation Combo', desc: 'Chicken Salami Sensation Pizza + Jalapeno', price: '₹199', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Mixed Slice Combo', desc: 'Farm Land Slice + Peri Peri Chicken Slice Pizza', price: '₹294', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Fiery Fusion Combo', desc: 'Fiery Fusion Surprise Slice Pizza + Salted French Fries + Thums Up', price: '₹230', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Golden Crunch & Spicy Hero Combo', desc: 'Golden Chicken Crunch Slice Pizza + Spicy Hero Veg Burger', price: '₹278', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'BBQ Veggie Slice & Dessert Combo', desc: 'BBQ Veggie Bonanza Slice Pizza + Choco Lava Cake + Blue Iced Mojito', price: '₹279', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Capsicum Corn Combo', desc: 'Capsicum Corn Sensation Slice Pizza + Garlic Bread + Strawberry Mojito', price: '₹290', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Sweet Chilli Chicken Combo 2', desc: 'Sweet Chilli Chicken Sensation Slice Pizza + Chicken Nuggets + Thums Up', price: '₹289', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Cheese Corn & Peri Fries Combo', desc: 'Cheese Gold Corn Slice + Peri Peri Fries + Thums Up', price: '₹244', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Chicken Pepperoni Combo', desc: 'Chicken Pepperoni Slice Perfection + Chilli Garlic Potato Pops + Thums Up', price: '₹313', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Fiery Fajita Veg Combo', desc: 'Fiery Fajita Veg Burger + Watermelon Mocktail', price: '₹208', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Nutty Professor Chicken Combo', desc: 'Nutty Professor Chicken Burger + Salted French Fries + Thums Up', price: '₹234', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Spicy Hero Chicken Combo', desc: 'Spicy Hero Chicken Burger + Virgin Mojito', price: '₹189', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Nacho Vixen Combo', desc: 'Nacho Vixen Burger + Chicken Nuggets + Thums Up', price: '₹299', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Fiery Fajita Chicken Combo', desc: 'Fiery Fajita Chicken Burger + Green Apple Mojito', price: '₹224', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Fries & Wings Combo', desc: 'Salted French Fries + Chicken Wings + Virgin Mojito', price: '₹249', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Nuggets & Momos Combo', desc: 'Chicken Nuggets + Fried Veg Momos + Thums Up', price: '₹199', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Peri Fries & Nuggets Combo', desc: 'Peri Peri Fries + Veg Nuggets + Blue Iced Mocktail', price: '₹257', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Wedges & Cake Combo', desc: 'Potato Wedges + Choco Lava Cake + Green Apple Mojito', price: '₹239', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Peri Fries & Nachos Combo', desc: 'Peri Peri Fries + Veg Nachos + Thums Up', price: '₹278', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Shedard Chicken Nachos Combo', desc: 'Shedard Chicken Cheese Nachos + Fried Chicken Momos + Green Apple Mojito', price: '₹409', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Classic Veg Nachos Combo', desc: 'Classic Veg Cheese Nachos + Fried Veg Momos + Virgin Mojito', price: '₹339', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Garlic Bread & Chicken Momos Combo', desc: 'Cheese Garlic Bread + Fried Chicken Momos + Thums Up', price: '₹219', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Garlic Bread & Chicken Nachos Combo', desc: 'Plain Garlic Bread + Shedard Chicken Nachos + Watermelon Mojito', price: '₹264', img: '', type: 'nonveg' },
+  // { category: 'combos', title: 'Cold Coffee & Shake Combo', desc: 'Cold Coffee + Belgium Chocolate Shake', price: '₹269', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Mango & Oreo Combo', desc: 'King of Mango Milkshake + Oreo Choco Chips Shake', price: '₹258', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Strawberry & Chocolate Combo', desc: 'Strawberry Milkshake + Chocolate Cold Coffee', price: '₹258', img: '', type: 'veg' },
+  // { category: 'combos', title: 'Oreo Coffee Combo', desc: 'Oreo Coffee Shake + Cold Coffee', price: '₹268', img: '', type: 'veg' }
 ];
 
 /* === GLOBAL STATE === */
