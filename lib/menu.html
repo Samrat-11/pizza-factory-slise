@@ -1727,16 +1727,19 @@ function makePayment() {
     return;
   }
 
-   const totalText = document.getElementById("cartTotal").textContent;
-  const totalAmount = parseFloat(totalText.replace(/[^\d.]/g, '')) || 0;
-  if (totalAmount <= 0) {
-    alert("⚠️ Invalid total amount!");
+    // Extract only Grand Total value from cartTotal text
+  const totalText = document.getElementById("cartTotal").innerText;
+  const grandMatch = totalText.match(/Grand\s*Total:\s*₹?\s*(\d+(\.\d+)?)/i);
+  const grandTotal = grandMatch ? parseFloat(grandMatch[1]) : 0;
+
+  if (grandTotal <= 0) {
+    alert("⚠️ Invalid grand total amount!");
     return;
   }
 
   const options = {
     key: "rzp_live_R9ffQUds74mw4P", // ← Replace with your Razorpay key
-    amount: totalAmount * 100, // Amount in paise (₹)
+    amount: grandTotal * 100, // Amount in paise (₹)
     currency: "INR",
     name: "Pizza Factory",
     description: "Order Payment",
