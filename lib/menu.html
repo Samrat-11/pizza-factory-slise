@@ -1722,17 +1722,17 @@ function makePayment() {
     address: document.getElementById('custAddress').value
   };
 
-  const cartItems = getCartItems();
-
-  if (cartItems.length === 0) {
-    alert('Cart is empty! Add some items first.');
+    if (!name || !phone || !address) {
+    alert("⚠️ Please fill all details before payment.");
     return;
   }
 
-  let totalAmount = 0;
-  cartItems.forEach(item => {
-    totalAmount += item.price * item.qty;
-  });
+   const totalText = document.getElementById("cartTotal").textContent;
+  const totalAmount = parseFloat(totalText.replace(/[^\d.]/g, '')) || 0;
+  if (totalAmount <= 0) {
+    alert("⚠️ Invalid total amount!");
+    return;
+  }
 
   const options = {
     key: "rzp_live_R9ffQUds74mw4P", // ← Replace with your Razorpay key
@@ -1742,15 +1742,25 @@ function makePayment() {
     description: "Order Payment",
     handler: function (response) {
       // Payment successful!
-      // console.log("Payment successful. Razorpay Payment ID:", response.razorpay_payment_id);
+      const paymentId = response.razorpay_payment_id;
+      console.log("Payment successful. Razorpay Payment ID:", paymentId);
 
       // Close other popups
       closeCartModal();
       closeOrderForm();
 
       // Send WhatsApp receipt and notifications
-      autoSendAfterPayment(); // 🚀 auto send WhatsApp
-      openReceiptModal(); // Show receipt
+      // autoSendAfterPayment(); // 🚀 auto send WhatsApp
+      // Show receipt with Payment ID
+      openReceiptModal();
+      const receiptDetails = document.getElementById("receiptDetails");
+      receiptDetails.innerHTML += `<p><b>Payment ID:</b> ${paymentId}</p>`;
+
+      // Send WhatsApp receipt with Payment ID
+      if (typeof autoSendAfterPayment === "function") {
+        localStorage.setItem("lastPaymentId", paymentId);
+        autoSendAfterPayment();
+      }
 
       // Clear cart
       localStorage.removeItem('cart');
@@ -1763,13 +1773,21 @@ function makePayment() {
       name: customer.name,
       contact: customer.phone
     },
-    theme: {
-      color: "#F37254"
+    theme: {color: "#F37254"},
+    modal: {
+      ondismiss: function () {
+        alert("Payment cancelled or closed.");
+      }
     }
   };
 
-  const rzp1 = new Razorpay(options);
-  rzp1.open();
+  const rzp = new Razorpay(options);
+   rzp.on("payment.failed", function (response) {
+    console.error("❌ Payment Failed:", response.error);
+    alert("❌ Payment Failed! Please try again.");
+  });
+
+  rzp.open();
 }
 
 </script>
