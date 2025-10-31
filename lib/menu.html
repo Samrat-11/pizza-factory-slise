@@ -1722,7 +1722,7 @@ function makePayment() {
     address: document.getElementById('custAddress').value
   };
 
-    if (!name || !phone || !address) {
+    if (!customer.name || !customer.phone || !customer.address) {
     alert("⚠️ Please fill all details before payment.");
     return;
   }
