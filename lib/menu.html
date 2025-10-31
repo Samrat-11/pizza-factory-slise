@@ -1757,10 +1757,7 @@ function makePayment() {
       openReceiptModal();
 
       // Send WhatsApp receipt with Payment ID
-      if (typeof autoSendAfterPayment === "function") {
-        localStorage.setItem("lastPaymentId", paymentId);
-        autoSendAfterPayment();
-      }
+      if (typeof autoSendAfterPayment === "function") { autoSendAfterPayment();}
 
       // Clear cart
       localStorage.removeItem('cart');
