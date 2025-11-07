@@ -632,8 +632,8 @@
       <div class="option-group">
         <h4>Change Crust</h4>
         <label><input type="radio" name="pizzaCrust" value="Standard" data-price="0" checked> Standard Crust</label>
-        <label><input type="radio" name="pizzaCrust" value="Cheese Volcano Crust" data-price="309"> Cheese Volcano Crust: ₹309</label>
-        <label><input type="radio" name="pizzaCrust" value="Extra Cheese on Crust" data-price="1"> Extra Cheese on Crust: ₹1</label>
+        <label><input type="radio" name="pizzaCrust" value="Cheese Volcano Crust" data-price="100"> Cheese Volcano Crust: ₹309</label>
+        <label><input type="radio" name="pizzaCrust" value="Extra Cheese on Crust" data-price="120"> Extra Cheese on Crust: ₹1</label>
       </div>
 
       <div class="option-group">
@@ -645,7 +645,7 @@
         <label><input type="checkbox" name="vegTopping" value="Jalapeno" data-price="35"> Jalapeno: ₹35</label>
         <label><input type="checkbox" name="vegTopping" value="Black Olive" data-price="35"> Black Olive: ₹35</label>
         <label><input type="checkbox" name="vegTopping" value="Grilled Mushrooms" data-price="35"> Grilled Mushrooms: ₹35</label>
-        <label><input type="checkbox" name="vegTopping" value="Onion" data-price="1"> Onion: ₹1</label>
+        <label><input type="checkbox" name="vegTopping" value="Onion" data-price="1"> Onion: ₹35</label>
       </div>
 
       <div class="option-group">
@@ -656,7 +656,7 @@
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Sausage" data-price="50"> Chicken Sausage: ₹50</label>
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Tikka" data-price="50"> Chicken Tikka: ₹50</label>
         <label><input type="checkbox" name="nonVegTopping" value="Chicken Pepperoni" data-price="50"> Chicken Pepperoni: ₹50</label>
-        <label><input type="checkbox" name="nonVegTopping" value="Chicken Keema" data-price="1"> Chicken Keema: ₹1</label>
+        <label><input type="checkbox" name="nonVegTopping" value="Chicken Keema" data-price="50"> Chicken Keema: ₹1</label>
       </div>
 
       <p class="total-price-display">Total: <span id="customiseTotalPrice">₹0</span></p>
@@ -1101,7 +1101,7 @@ function openCartCustomise(cartIndex) {
     if (total >= 220 && total <= 230) return 79;
     if (total >= 231 && total <= 249) return 89;
     if (total >= 250) return 100;
-    return 0; // no discount below 220
+    return 0; 
   }
 
 function renderCart() {
@@ -1163,16 +1163,20 @@ function renderCart() {
 
    // === Calculate totals ===
   const discount = calculateDiscount(total);
-  const GrandTotal = total - discount;
+  const taxableAmount = total - discount;
+  const gst = +(taxableAmount * 0.05).toFixed(2);
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  const packagingCharge = count * 10;
+  const GrandTotal = Math.ceil(taxableAmount + gst + packagingCharge);
 
   // === Display totals neatly ===
   totalEl.innerHTML = `
     <div style="text-align:right; font-weight:bold;">
-    ${discount === 0 
-      ? `<div>Grand Total: ₹${GrandTotal}</div>` 
-      : `<div>Total: ₹${total}</div>
-         <div style="color:green;">Discount: ₹${discount}</div>
-         <div>Grand Total: ₹${GrandTotal}</div>`}
+    ${discount > 0 ? `<p><b>Total: ₹${total}<br>
+      Discount: ₹${discount}</b><br></p>` : `<p><b>Total: ₹${total}</b></p>`}
+    <p><b>GST (5%): ₹${gst}</b></p>
+    <p><b>Packaging Charges: ₹${packagingCharge}</b></p>
+    <p><b>Grand Total: ₹${GrandTotal}</b></p>
   </div>
   `;
   updateCartCountBadge();
@@ -1447,22 +1451,16 @@ function changeCardQty(btn, title, delta) {
 }
 
 /* === MODALS & ACTIONS === */
-function openCartModal() {
-  document.getElementById('cartModal').style.display = 'flex';
-}
+function openCartModal() {document.getElementById('cartModal').style.display = 'flex';}
 
-function closeCartModal() {
-  document.getElementById('cartModal').style.display = 'none';
-}
+function closeCartModal() {document.getElementById('cartModal').style.display = 'none';}
 
 function openOrderForm() {
   document.getElementById('cartModal').style.display = 'none';
   document.getElementById('orderFormModal').style.display = 'flex';
 }
 
-function closeOrderForm() {
-  document.getElementById('orderFormModal').style.display = 'none';
-}
+function closeOrderForm() {document.getElementById('orderFormModal').style.display = 'none';}
 
 /* === Customise Modal Functions === */
 function updateCustomiseTotalPrice() {
